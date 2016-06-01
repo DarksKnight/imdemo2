@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gf_main_title_bg">#EAEAEC</color>
+    <color name="gf_main_tab_bg_line">#B2B2B2</color>
+    <color name="gf_message_bg">#F1F1F1</color>
+    <color name="gf_message_nickname">#929292</color>
+    <color name="gf_message_date">#C1C1C1</color>
+    <color name="gf_white">#FFFFFF</color>
+    <color name="gf_black">#000000</color>
+    <color name="gf_message_swipe_top">#CCCCCC</color>
+    <color name="gf_message_swipe_del">#FF3B2F</color>
+    <color name="gf_black_p50">#7f000000</color>
+    <color name="gf_message_swipe_action_down">#E0E0E0</color>
+    <color name="gf_message_chat_edit">#DEDEDE</color>
+    <color name="gf_message_chat_board_line">#CACACA</color>
+    <color name="gf_message_chat_board_line_bottom">#E9E9E9</color>
+    <color name="gf_message_chat_emoji_selected">#CCCCCC</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="gf_message_chat_face_text">#aeaeae</color>
+    <color name="gf_message_chat_face_type">#e0e0e0</color>
+    <color name="gf_message_chat_dropdown_gray">#737373</color>
+    <color name="gf_message_chat_list_msg_item_time_bg">#DBDBDB</color>
+    <color name="gf_message_chat_list_msg_bg">#F1F1F1</color>
+    <color name="gf_message_chat_hold_speak">#13B2FF</color>
+    <color name="gf_message_top_bg">#E7E8E7</color>
+    <color name="gf_message_spilt_line">#CFCFCF</color>
+    <color name="gf_message_toolbar_spilt_line">#CDCDCD</color>
+    <color name="gf_message_toolbar_btn_select">#D9D9D9</color>
+    <color name="gf_message_tool_tip_bg">#242424</color>
+    <color name="gf_message_nurture_title">#FF49DE</color>
+    <color name="gf_message_nurture_content">#FF4DE6</color>
+</resources>

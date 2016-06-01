@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/gf_205dp"
+    android:layout_height="@dimen/gf_40dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/bjmgf_message_chat_tool_tip_arrow_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/bjmgf_message_chat_tool_tip_arrow_up"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_copy"
+            android:layout_width="@dimen/gf_50dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:background="@drawable/bjmgf_message_chat_tool_tip_bg_left"
+            android:gravity="center"
+            android:text="复制"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp" />
+
+        <View
+            android:layout_width="@dimen/gf_1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_white"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_relay"
+            android:layout_width="@dimen/gf_50dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:gravity="center"
+            android:background="@color/gf_message_tool_tip_bg"
+            android:text="转发"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp" />
+
+        <View
+            android:layout_width="@dimen/gf_1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_white"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_del"
+            android:layout_width="@dimen/gf_50dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:gravity="center"
+            android:background="@color/gf_message_tool_tip_bg"
+            android:text="删除"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp" />
+
+        <View
+            android:layout_width="@dimen/gf_1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_white"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_more"
+            android:layout_width="@dimen/gf_50dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:gravity="center"
+            android:background="@drawable/bjmgf_message_chat_tool_tip_bg_right"
+            android:text="更多..."
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bjmgf_message_chat_tool_tip_arrow_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/bjmgf_message_chat_tool_tip_arrow_down" />
+
+</LinearLayout>

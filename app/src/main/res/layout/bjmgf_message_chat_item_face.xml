@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="50dp"
+                android:layout_height="65dp">
+
+    <ImageView
+        android:id="@+id/bjmgf_message_chat_face_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/bjmgf_message_chat_face_tv"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/gf_10sp"
+        android:textColor="@color/gf_message_chat_face_text"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/bjmgf_message_chat_face_iv"
+        android:layout_marginTop="@dimen/gf_13dp"
+        android:gravity="center"
+        android:singleLine="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/gf_10dp"
+    android:background="@color/gf_message_bg">
+
+    <RelativeLayout
+        android:id="@+id/bjmgf_message_head_notify_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/gf_50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/gf_15dp"
+            android:gravity="center_vertical"
+            android:text="通知"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/gf_16sp"
+            android:drawableLeft="@mipmap/bjmgf_message_notify"
+            android:drawableRight="@mipmap/bjmgf_forward"
+            android:drawablePadding="@dimen/gf_10dp"
+            android:layout_marginTop="@dimen/gf_10dp"
+            android:layout_marginBottom="@dimen/gf_10dp"
+            android:layout_marginRight="@dimen/gf_10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

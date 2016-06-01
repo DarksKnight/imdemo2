@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gf.platform.gfplatform.widget.swipelayout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bjmgf_message_item_sl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/bjmgf_message_action_ll"
+        android:layout_width="190dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/bjmgf_message_swipe_top_rl"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_message_swipe_top">
+
+            <TextView
+                android:id="@+id/bjmgf_message_swip_top_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/gf_10dp"
+                android:layout_marginRight="@dimen/gf_10dp"
+                android:text="@string/bjmgf_message_swipe_top"
+                android:textColor="@color/gf_white"
+                android:textSize="@dimen/gf_16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bjmgf_message_swipe_del_rl"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_message_swipe_del">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/gf_10dp"
+                android:layout_marginRight="@dimen/gf_10dp"
+                android:text="@string/bjmgf_message_swipe_del"
+                android:textColor="@color/gf_white"
+                android:textSize="@dimen/gf_16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bjmgf_message_item_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/bjmgf_message_head"
+            android:layout_width="@dimen/gf_50dp"
+            android:layout_height="@dimen/gf_50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/gf_10dp"
+            android:layout_marginLeft="@dimen/gf_10dp"
+            android:layout_marginTop="@dimen/gf_10dp"
+            android:src="@mipmap/bjmgf_message_man_head" />
+
+        <TextView
+            android:id="@+id/bjmgf_message_right_date"
+            android:layout_width="@dimen/gf_60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/bjmgf_message_head"
+            android:layout_marginRight="@dimen/gf_10dp"
+            android:text="星期三"
+            android:textColor="@color/gf_message_date"
+            android:textSize="@dimen/gf_16sp"
+            android:gravity="right"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_top_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gf_3dp"
+            android:layout_marginBottom="@dimen/gf_3dp"
+            android:layout_marginLeft="@dimen/gf_60dp"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/gf_16sp"
+            android:layout_alignLeft="@id/bjmgf_message_head"
+            android:layout_alignTop="@id/bjmgf_message_head"
+            android:layout_alignRight="@id/bjmgf_message_right_date"
+            android:layout_marginRight="@dimen/gf_60dp"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_bottom_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[惬意]"
+            android:textColor="@color/gf_message_nickname"
+            android:textSize="@dimen/gf_16sp"
+            android:layout_below="@id/bjmgf_message_top_nickname"
+            android:layout_alignLeft="@id/bjmgf_message_head"
+            android:layout_marginLeft="@dimen/gf_60dp"
+            android:layout_marginRight="@dimen/gf_60dp"
+            android:layout_alignRight="@id/bjmgf_message_right_date"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/gf_10dp"
+            android:layout_below="@id/bjmgf_message_head"
+            android:layout_toRightOf="@id/bjmgf_message_head"
+            android:background="@android:color/darker_gray" />
+
+    </RelativeLayout>
+
+</com.gf.platform.gfplatform.widget.swipelayout.SwipeLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/gf_37dp"
+    android:layout_height="@dimen/gf_37dp"
+    android:background="@android:color/transparent">
+
+    <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bjmgf_message_chat_emoji_iv"
+        android:layout_width="@dimen/gf_37dp"
+        android:layout_height="@dimen/gf_37dp"
+        android:layout_margin="@dimen/gf_2dp"
+        android:layout_centerInParent="true"
+        android:background="@android:color/white"/>
+
+</RelativeLayout>
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/bjmgf_common_title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gf_50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/gf_main_title_bg">
+
+        <TextView
+            android:id="@+id/bjmgf_common_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/gf_20dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/gf_20sp"
+            android:background="@android:color/transparent"/>
+
+        <RelativeLayout
+            android:id="@+id/bjmgf_common_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/gf_10dp"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/bjmgf_common_back_iv"
+                android:layout_width="@dimen/gf_15dp"
+                android:layout_height="@dimen/gf_25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/gf_15dp"
+                android:src="@mipmap/bjmgf_back" />
+
+            <TextView
+                android:id="@+id/bjmgf_common_back_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息(100)"
+                android:textSize="@dimen/gf_16sp"
+                android:layout_alignLeft="@id/bjmgf_common_back_iv"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/gf_20dp"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/bjmgf_common_profile"
+            android:layout_width="@dimen/gf_25dp"
+            android:layout_height="@dimen/gf_25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/gf_15dp"
+            android:src="@mipmap/bjmgf_profile" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bjmgf_common_content_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/bjmgf_common_title_rl"
+        android:background="@android:color/transparent"/>
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("BJMPublish.keystore")
+            keyAlias rootProject.ext.android.keyAlias
+            keyPassword rootProject.ext.android.keyPassword
+            storePassword rootProject.ext.android.storePassword
+        }
+        debug {}
+    }
+
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
+    buildTypes {
+
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            buildConfigField "boolean", "GF_DEBUG", "false"
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all {
+                variant ->
+                    variant.outputs.each {
+                        output ->
+                            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'release'.equals(variant.buildType.name)) {
+                                def apkFile = new File(output.outputFile.getParent(), "gfplatform_release_v${variant.versionName}_${rootProject.ext.date}.apk")
+                                output.outputFile = apkFile
+                            }
+                    }
+            }
+        }
+        debug {
+            zipAlignEnabled true
+            minifyEnabled false
+            buildConfigField "boolean", "GF_DEBUG", "true"
+
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDirs = ['src']
+    }
+    test {
+        java.srcDirs = ['tests']
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile rootProject.ext.dependencies["junit"]
+    compile rootProject.ext.dependencies["support-v7"]
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["fresco"]
+    compile rootProject.ext.dependencies["gif"]
+    compile rootProject.ext.dependencies["eventBus"]
+    compile 'im.fir:fir-sdk:latest.integration@aar'
+}

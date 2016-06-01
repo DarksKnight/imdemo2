@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent">
+
+    <com.gf.platform.gfplatform.widget.circleimageview.CircleImageView
+        android:id="@+id/bjmgf_main_menu_face_iv"
+        android:layout_width="@dimen/gf_120dp"
+        android:layout_height="@dimen/gf_120dp"
+        android:src="@mipmap/demo_face"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_100dp"
+        app:border_width="@dimen/gf_5dp"/>
+
+    <TextView
+        android:id="@+id/bjmgf_main_menu_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="帅的一般"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/gf_14sp"
+        android:layout_below="@id/bjmgf_main_menu_face_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_10dp"/>
+
+    <com.gf.platform.gfplatform.widget.customtextview.CustomTextView
+        android:id="@+id/bjmgf_main_menu_assets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bjmgf_menu_assets"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/bjmgf_main_menu_nickname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_20dp"
+        android:textSize="@dimen/gf_16sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/gf_5dp"
+        android:drawableLeft="@mipmap/bjmgf_main_menu_assets"
+        app:left_width="@dimen/gf_20dp"
+        app:left_height="@dimen/gf_15dp"/>
+
+    <com.gf.platform.gfplatform.widget.customtextview.CustomTextView
+        android:id="@+id/bjmgf_main_menu_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bjmgf_menu_service"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/bjmgf_main_menu_assets"
+        android:layout_centerHorizontal="true"
+        android:layout_alignLeft="@id/bjmgf_main_menu_assets"
+        android:layout_marginTop="@dimen/gf_10dp"
+        android:textSize="@dimen/gf_16sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/gf_5dp"
+        android:drawableLeft="@mipmap/bjmgf_main_menu_service"
+        app:left_width="@dimen/gf_20dp"
+        app:left_height="@dimen/gf_15dp"/>
+
+    <com.gf.platform.gfplatform.widget.customtextview.CustomTextView
+        android:id="@+id/bjmgf_main_menu_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bjmgf_menu_set"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/bjmgf_main_menu_service"
+        android:layout_alignLeft="@id/bjmgf_main_menu_assets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_10dp"
+        android:textSize="@dimen/gf_16sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/gf_5dp"
+        android:drawableLeft="@mipmap/bjmgf_main_menu_setting"
+        app:left_width="@dimen/gf_20dp"
+        app:left_height="@dimen/gf_15dp"/>
+
+    <com.gf.platform.gfplatform.widget.customtextview.CustomTextView
+        android:id="@+id/bjmgf_main_menu_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bjmgf_menu_about"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/bjmgf_main_menu_setting"
+        android:layout_alignLeft="@id/bjmgf_main_menu_assets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_10dp"
+        android:textSize="@dimen/gf_16sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/gf_5dp"
+        android:drawableLeft="@mipmap/bjmgf_main_menu_about"
+        app:left_width="@dimen/gf_20dp"
+        app:left_height="@dimen/gf_15dp"/>
+
+    <com.gf.platform.gfplatform.widget.customtextview.CustomTextView
+        android:id="@+id/bjmgf_main_menu_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bjmgf_menu_share"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/bjmgf_main_menu_about"
+        android:layout_alignLeft="@id/bjmgf_main_menu_assets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/gf_10dp"
+        android:textSize="@dimen/gf_16sp"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/gf_5dp"
+        android:drawableLeft="@mipmap/bjmgf_main_menu_share"
+        app:left_width="@dimen/gf_20dp"
+        app:left_height="@dimen/gf_15dp"/>
+
+</RelativeLayout>

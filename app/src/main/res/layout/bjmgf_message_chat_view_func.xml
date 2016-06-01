@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gf_white"
+    android:orientation="vertical">
+
+    <include layout="@layout/bjmgf_message_spitview_horizontal" />
+
+    <com.gf.platform.gfplatform.widget.chatkeyboard.base.widget.EmoticonsViewPager
+        android:id="@+id/bjmgf_message_chat_view_epv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gf_150dp"
+        android:orientation="vertical"
+        android:overScrollMode="never"/>
+
+    <com.gf.platform.gfplatform.widget.chatkeyboard.base.widget.EmoticonsIndicatorView
+        android:id="@+id/bjmgf_message_view_eiv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bjmgf_message_chat_view_spit"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/gf_5dp"
+        android:layout_marginBottom="@dimen/gf_5dp"/>
+
+    <include
+        android:id="@+id/bjmgf_message_chat_view_spit"
+        layout="@layout/bjmgf_message_spitview_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gf_1dp" />
+
+    <com.gf.platform.gfplatform.widget.chatkeyboard.base.widget.EmoticonsToolBarView
+        android:id="@+id/bjmgf_message_chat_view_etv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gf_50dp"
+        android:orientation="vertical" />
+
+</LinearLayout>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gf_message_chat_board_line" />
+
+    <LinearLayout
+        android:id="@+id/bjmgf_message_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/gf_5dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/gf_5dp"
+            android:layout_weight="1"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bjmgf_message_chat_btn_face"
+                android:layout_width="@dimen/gf_30dp"
+                android:layout_height="@dimen/gf_30dp"
+                android:background="@mipmap/bjmgf_message_chat_expression"
+                android:button="@null" />
+
+            <ImageView
+                android:id="@+id/bjmgf_message_chat_btn_more"
+                android:layout_width="@dimen/gf_30dp"
+                android:layout_height="@dimen/gf_30dp"
+                android:layout_marginLeft="@dimen/gf_10dp"
+                android:background="@mipmap/bjmgf_message_chat_chatadd"
+                android:button="@null" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+
+            <EditText
+                android:id="@+id/bjmgf_message_chat_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/gf_10dp"
+                android:layout_marginRight="@dimen/gf_10dp"
+                android:background="@drawable/bjmgf_edittext_bg"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="textMultiLine"
+                android:maxHeight="@dimen/gf_100dp"
+                android:padding="@dimen/gf_6dp"
+                android:text=""
+                android:textColor="@color/gf_black"
+                android:textSize="@dimen/gf_16sp" />
+
+            <TextView
+                android:id="@+id/bjmgf_message_chat_hold_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/gf_10dp"
+                android:layout_marginRight="@dimen/gf_10dp"
+                android:gravity="center"
+                android:paddingBottom="@dimen/gf_5dp"
+                android:paddingTop="@dimen/gf_5dp"
+                android:text="按住说话"
+                android:textColor="@color/gf_message_chat_hold_speak"
+                android:textSize="@dimen/gf_16sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="bottom|center_horizontal">
+
+            <ImageView
+                android:id="@+id/bjmgf_message_chat_sound_btn"
+                android:layout_width="@dimen/gf_50dp"
+                android:layout_height="@dimen/gf_30dp"
+                android:background="@mipmap/bjmgf_message_chat_sound_btn" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bjmgf_message_keyboard_del"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/gf_5dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/gf_30dp"
+            android:layout_height="@dimen/gf_40dp"
+            android:background="@mipmap/bjmgf_message_chat_list_del"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gf_message_chat_board_line_bottom" />
+
+    <com.gf.platform.gfplatform.widget.chatkeyboard.base.widget.FuncLayout
+        android:id="@+id/bjmgf_message_chat_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <include layout="@layout/bjmgf_message_chat_view_more" />
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GFPlatform</string>
+    <string name="bjmgf_message_swipe_top">消息置顶</string>
+    <string name="bjmgf_message_swipe_del">删除</string>
+    <string name="bjmgf_menu_assets">我的资产</string>
+    <string name="bjmgf_menu_service">帮助&amp;客服</string>
+    <string name="bjmgf_menu_set">设置</string>
+    <string name="bjmgf_menu_about">关于</string>
+    <string name="bjmgf_menu_share">分享</string>
+    <string name="bjmgf_message_list_top">消息置顶</string>
+    <string name="bjmgf_message_list_no_top">取消置顶</string>
+    <string name="bjmgf_message_chat_copy_success">已复制</string>
+</resources>

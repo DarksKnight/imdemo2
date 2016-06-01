@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/gf_white" />
+    <corners android:radius="@dimen/gf_3dp"/>
+    <stroke
+        android:width="@dimen/gf_1dp"
+        android:color="@color/gf_message_chat_edit" />
+</shape>

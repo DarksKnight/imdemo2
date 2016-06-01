@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bjmgf_message_chat_function_iv"
+        android:layout_width="@dimen/gf_50dp"
+        android:layout_height="@dimen/gf_50dp"
+        android:src="@mipmap/bjmgf_message_chat_function_picture"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/bjmgf_message_chat_function_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gf_black"
+        android:textSize="@dimen/gf_12sp"
+        android:text="照片"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/gf_3dp"/>
+
+</LinearLayout>

@@ -1,0 +1,74 @@
+import java.text.SimpleDateFormat
+
+ext {
+    //Version
+    supportVersion = "23.1.1"
+    robolectricVersion = "3.0"
+    jUnitVersion = "4.12"
+    leakcanaryVersion = "1.4-beta2"
+    frescoVersion = "0.9.0+"
+    gifVersion = "1.1.+"
+    eventBusVersion = "3.0.0"
+
+    //Packages
+    supportPackage = "com.android.support"
+    robolectricPackage = "org.robolectric"
+    jUnitPackage = "junit"
+    leakcanaryPackage = "com.squareup.leakcanary"
+    frescoPackage = "com.facebook.fresco"
+    gifPackage = "pl.droidsonroids.gif"
+    eventBusPackage = "org.greenrobot"
+
+    android = [
+            compileSdkVersion: 23,
+            buildToolsVersion: "23.0.2",
+            applicationId    : "com.gf.platform.gfplatform",
+            minSdkVersion    : 14,
+            targetSdkVersion : 23,
+            versionCode      : ("1" + getSubVersionCode()).toInteger(),
+            versionName      : "1.0." + getSubVersionCode(),
+            keyAlias         : "BJMPublish",
+            keyPassword      : "BJMEngine",
+            storePassword    : "BJMEngine"
+    ]
+
+    date = getBuildTime()
+
+    dependencies = [
+            "support-v7"              : buildDependency(supportPackage, "appcompat-v7", supportVersion),
+            "design"                  : buildDependency(supportPackage, "design", supportVersion),
+            "junit"                   : buildDependency(jUnitPackage, jUnitPackage, jUnitVersion),
+            "robolectric"             : buildDependency(robolectricPackage, "robolectric", robolectricVersion),
+            "robolectric-show"        : buildDependency(robolectricPackage, "shadows-support-v4", robolectricVersion),
+            "robolectric-annotations" : buildDependency(robolectricPackage, "robolectric-annotations", robolectricVersion),
+            "leakcanary-debug"        : buildDependency(leakcanaryPackage, "leakcanary-android", leakcanaryVersion),
+            "leakcanary"              : buildDependency(leakcanaryPackage, "leakcanary-android-no-op", leakcanaryVersion),
+            "fresco"                  : buildDependency(frescoPackage, "fresco", frescoVersion),
+            "gif"                     : buildDependency(gifPackage, "android-gif-drawable", gifVersion),
+            "eventBus"                : buildDependency(eventBusPackage, "eventbus", eventBusVersion),
+    ]
+
+    svnCode = getSubVersionCode()
+}
+
+//获取当前svn版本提交号码
+def getSubVersionCode () {
+    String text = "svn info".execute().text.trim()
+    def ary = text.split(':')
+    String code
+    for(int i = 0; i < ary.size(); i++) {
+        if (ary[i].contains("Last Changed Rev")) {
+            code = ary[i + 1]
+            break;
+        }
+    }
+    return code.minus("Last Changed Date").trim();
+}
+
+def getBuildTime () {
+    return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+}
+
+def buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}

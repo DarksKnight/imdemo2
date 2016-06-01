@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bjmgf_message_chat_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:paddingBottom="@dimen/gf_5dp"
+    android:paddingTop="@dimen/gf_5dp">
+    <TextView
+        android:id="@+id/bjmgf_message_chat_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/gf_5dp"
+        android:background="@drawable/bjmgf_message_chat_list_msg_item_time_bg"
+        android:paddingLeft="@dimen/gf_15dp"
+        android:paddingRight="@dimen/gf_15dp"
+        android:text="11:18"
+        android:textColor="@color/gf_white"
+        android:textSize="@dimen/gf_14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bjmgf_message_chat_time_tv">
+
+        <com.gf.platform.gfplatform.widget.circleimageview.CircleImageView
+            android:id="@+id/bjmgf_message_chat_msg_item_face_iv"
+            android:layout_width="@dimen/gf_35dp"
+            android:layout_height="@dimen/gf_35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/gf_10dp"
+            android:layout_marginRight="@dimen/gf_10dp"
+            android:src="@mipmap/demo_face" />
+
+        <ImageView
+            android:id="@+id/bjmgf_message_chat_list_select"
+            android:layout_width="@dimen/gf_30dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:background="@mipmap/bjmgf_message_chat_list_del_normal"
+            android:layout_marginLeft="@dimen/gf_10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
+
+        <com.gf.platform.gfplatform.widget.emojitextview.EmojiTextView
+            android:id="@+id/bjmgf_message_chat_msg_item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginLeft="@dimen/gf_70dp"
+            android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_face_iv"
+            android:background="@mipmap/bjmgf_message_chat_list_msg_me_info"
+            android:gravity="center|left"
+            android:paddingBottom="@dimen/gf_8dp"
+            android:paddingLeft="@dimen/gf_8dp"
+            android:paddingRight="@dimen/gf_10dp"
+            android:paddingTop="@dimen/gf_8dp"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp" />
+
+        <ImageView
+            android:id="@+id/bjmgf_message_chat_msg_item_expression"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_face_iv"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

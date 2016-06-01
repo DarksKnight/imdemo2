@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/bjmgf_message_btn_toolbtn_bg"
+    android:orientation="horizontal">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_icon"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:paddingBottom="@dimen/gf_5dp"
+        android:paddingLeft="@dimen/gf_10dp"
+        android:paddingRight="@dimen/gf_10dp"
+        android:paddingTop="@dimen/gf_5dp" />
+
+    <View
+        android:id="@+id/bjmgf_message_chat_toolbtn_line_right"
+        android:layout_width="@dimen/gf_1dp"
+        android:layout_height="match_parent"
+        android:background="@color/gf_message_toolbar_spilt_line" />
+</LinearLayout>
