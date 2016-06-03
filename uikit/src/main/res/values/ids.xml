@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="slide_frame" type="id" />
+    <item name="slide_content" type="id" />
+    <item type="id" name="id_autolayout" />
+    <item type="id" name="id_toolbar_left" />
+    <item type="id" name="id_toolbar_right" />
+    <item type="id" name="id_tag_pageset" />
+</resources>

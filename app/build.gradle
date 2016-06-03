@@ -80,4 +80,5 @@ dependencies {
     compile rootProject.ext.dependencies["gif"]
     compile rootProject.ext.dependencies["eventBus"]
     compile 'im.fir:fir-sdk:latest.integration@aar'
+    compile project(':uikit')
 }

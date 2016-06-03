@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bjmgf_message_chat_time_tv">
 
-        <com.gf.platform.gfplatform.widget.circleimageview.CircleImageView
+        <com.gf.platform.uikit.widget.circleimageview.CircleImageView
             android:id="@+id/bjmgf_message_chat_msg_item_face_iv"
             android:layout_width="@dimen/gf_35dp"
             android:layout_height="@dimen/gf_35dp"

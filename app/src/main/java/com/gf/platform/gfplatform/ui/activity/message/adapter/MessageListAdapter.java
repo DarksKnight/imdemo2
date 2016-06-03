@@ -11,10 +11,10 @@ import android.widget.TextView;
 import com.gf.platform.gfplatform.R;
 import com.gf.platform.gfplatform.entity.Message;
 import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
-import com.gf.platform.gfplatform.widget.circleimageview.CircleImageView;
-import com.gf.platform.gfplatform.widget.emojitextview.EmojiTextView;
-import com.gf.platform.gfplatform.widget.tooltip.ToolTipView;
-import com.gf.platform.gfplatform.widget.tooltip.ToolView;
+import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
+import com.gf.platform.uikit.widget.emojitextview.EmojiTextView;
+import com.gf.platform.uikit.widget.tooltip.ToolTipView;
+import com.gf.platform.uikit.widget.tooltip.ToolView;
 
 import java.util.List;
 
@@ -91,7 +91,7 @@ public class MessageListAdapter extends BaseAdapter {
         }
 
         if (msg.getCategory() == Message.Category.NORMAL_ME || msg.getCategory() == Message.Category.NORMAL_YOU) {
-            normalChat(msg, convertView, holder);
+            normalChat(position, msg, convertView, holder);
         } else if (msg.getCategory() == Message.Category.NURTURE) {
             nurtureChat(convertView);
         }
@@ -101,6 +101,7 @@ public class MessageListAdapter extends BaseAdapter {
 
     /**
      * 求包养对话框
+     *
      * @param convertView
      */
     private void nurtureChat(View convertView) {
@@ -109,11 +110,12 @@ public class MessageListAdapter extends BaseAdapter {
 
     /**
      * 普通对话框
+     *
      * @param msg
      * @param convertView
      * @param holder
      */
-    private void normalChat(Message msg, View convertView, ViewHolder holder) {
+    private void normalChat(int position, Message msg, View convertView, ViewHolder holder) {
         if (msg.isShowSelected()) {
             holder.ivSelect.setVisibility(View.VISIBLE);
         } else {
@@ -141,7 +143,7 @@ public class MessageListAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View v) {
                 if (((MessageActivity) mContext).currentStatus == MessageActivity.Status.NORMAL) {
-                    ToolTipView.getInstance().show(v, msg, listener);
+                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), listener);
                 }
                 return true;
             }
@@ -151,7 +153,7 @@ public class MessageListAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View v) {
                 if (((MessageActivity) mContext).currentStatus == MessageActivity.Status.NORMAL) {
-                    ToolTipView.getInstance().show(v, msg, listener);
+                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), listener);
                 }
                 return true;
             }

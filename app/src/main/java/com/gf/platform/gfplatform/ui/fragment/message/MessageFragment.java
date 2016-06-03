@@ -17,7 +17,7 @@ import com.gf.platform.gfplatform.model.message.impl.MessageFragmentModelImpl;
 import com.gf.platform.gfplatform.ui.fragment.message.adapter.MessageAdapter;
 import com.gf.platform.gfplatform.util.HeaderAndFooterRecyclerViewAdapter;
 import com.gf.platform.gfplatform.util.Util;
-import com.gf.platform.gfplatform.widget.swipelayout.util.Attributes;
+import com.gf.platform.uikit.widget.swipelayout.util.Attributes;
 
 import java.util.List;
 

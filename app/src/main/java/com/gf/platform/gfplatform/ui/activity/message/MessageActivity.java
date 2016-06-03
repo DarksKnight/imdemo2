@@ -10,24 +10,26 @@ import com.gf.platform.gfplatform.base.BaseFragmentActivity;
 import com.gf.platform.gfplatform.base.Global;
 import com.gf.platform.gfplatform.entity.Message;
 import com.gf.platform.gfplatform.ui.activity.message.adapter.MessageListAdapter;
-import com.gf.platform.gfplatform.util.EmojiUtil;
 import com.gf.platform.gfplatform.util.Util;
-import com.gf.platform.gfplatform.widget.chatkeyboard.ChatKeyBoard;
-import com.gf.platform.gfplatform.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.gfplatform.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
-import com.gf.platform.gfplatform.widget.chatkeyboard.base.entity.PageSetEntity;
-import com.gf.platform.gfplatform.widget.chatkeyboard.base.ports.KeyBoardListener;
-import com.gf.platform.gfplatform.widget.chatkeyboard.util.KeyBoardUtil;
-import com.gf.platform.gfplatform.widget.chatkeyboard.util.ParseDataUtil;
-import com.gf.platform.gfplatform.widget.dropdownlistview.DropDownListView;
-import com.gf.platform.gfplatform.widget.tooltip.ToolTipView;
-import com.gf.platform.gfplatform.widget.tooltip.ToolView;
+import com.gf.platform.uikit.EmojiGlobal;
+import com.gf.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
+import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
+import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.gf.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
+import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.gf.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
+import com.gf.platform.uikit.widget.chatkeyboard.util.ParseDataUtil;
+import com.gf.platform.uikit.widget.dropdownlistview.DropDownListView;
+import com.gf.platform.uikit.widget.tooltip.ToolTipView;
+import com.gf.platform.uikit.widget.tooltip.ToolView;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * im界面
@@ -74,8 +76,7 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
 
     private void initKeyBoard() {
 
-        Global.EMOJIS = EmojiUtil.parseEmoji(this);
-        Global.EMOJISCODE = EmojiUtil.parseEmojiCode(this);
+        EmojiGlobal.getInstance().init(this);
 
         initEmoticons();
         mKeyBoard.setListener(this);
@@ -215,19 +216,19 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
     }
 
     @Override
-    public void del(Message message) {
-        list.remove(message);
+    public void del(int index) {
+        list.remove(list.get(index));
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void more(Message message) {
+    public void more(int index) {
         currentStatus = Status.EDIT;
         mListView.enableMove(false);
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setShowSelected(true);
         }
-        message.setChecked(true);
+        list.get(index).setChecked(true);
         mKeyBoard.switchBoard(ChatKeyBoard.Type.DEL);
         adapter.notifyDataSetChanged();
     }

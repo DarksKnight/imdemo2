@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.gf.platform.uikit.Constant;
+
 /**
  * 消息
  * Created by sunhaoyang on 2016/2/22.
@@ -22,6 +24,7 @@ public class Message implements Parcelable {
     private String draft = "";
     private boolean checked = false;
     private boolean showSelected = false;
+    private int type = Constant.MSG_TYPE_TEXT;
 
     protected Message(Parcel in) {
         nickName = in.readString();
@@ -169,7 +172,21 @@ public class Message implements Parcelable {
         isTop = top;
     }
 
-    public Message(){}
+    public int getType() {
+        if (null == expression) {
+            type = Constant.MSG_TYPE_TEXT;
+        } else if (null != expression) {
+            type = Constant.MSG_TYPE_EXPRESSION;
+        }
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Message() {
+    }
 
     public Message(String nickName, String info, String date, String head, Category category, boolean isTop) {
         this.nickName = nickName;

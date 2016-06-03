@@ -14,11 +14,11 @@ import android.widget.TextView;
 import com.gf.platform.gfplatform.R;
 import com.gf.platform.gfplatform.base.Global;
 import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
-import com.gf.platform.gfplatform.util.EmojiUtil;
-import com.gf.platform.gfplatform.widget.swipeback.SwipeBackActivityHelper;
-import com.gf.platform.gfplatform.widget.swipelayout.SwipeLayout;
-import com.gf.platform.gfplatform.widget.swipelayout.adapters.RecyclerSwipeAdapter;
-import com.gf.platform.gfplatform.widget.swipelayout.implments.SwipeItemMangerImpl;
+import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.gf.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
+import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.gf.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
+import com.gf.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
 
 /**
  * Created by sunhaoyang on 2016/2/22.

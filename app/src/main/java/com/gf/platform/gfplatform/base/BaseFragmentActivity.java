@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gf.platform.gfplatform.R;
-import com.gf.platform.gfplatform.widget.swipeback.SwipeBackActivityHelper;
+import com.gf.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
 
 /**
  * 基类fragmentactivity

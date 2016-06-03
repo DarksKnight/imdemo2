@@ -35,7 +35,7 @@
             android:background="@mipmap/bjmgf_message_chat_list_del_normal"
             android:visibility="gone"/>
 
-        <com.gf.platform.gfplatform.widget.circleimageview.CircleImageView
+        <com.gf.platform.uikit.widget.circleimageview.CircleImageView
             android:id="@+id/bjmgf_message_chat_msg_item_face_iv"
             android:layout_width="@dimen/gf_35dp"
             android:layout_height="@dimen/gf_35dp"
@@ -44,7 +44,7 @@
             android:layout_toRightOf="@id/bjmgf_message_chat_list_select"
             android:src="@mipmap/demo_face" />
 
-        <com.gf.platform.gfplatform.widget.emojitextview.EmojiTextView
+        <com.gf.platform.uikit.widget.emojitextview.EmojiTextView
             android:id="@+id/bjmgf_message_chat_msg_item_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

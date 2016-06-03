@@ -9,18 +9,17 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.gf.platform.gfplatform.base.BaseFragmentActivity;
-import com.gf.platform.gfplatform.base.Global;
 import com.gf.platform.gfplatform.ui.fragment.ContactFragment;
 import com.gf.platform.gfplatform.ui.fragment.ExploreFragment;
 import com.gf.platform.gfplatform.ui.fragment.GameFragment;
 import com.gf.platform.gfplatform.ui.fragment.message.MessageFragment;
-import com.gf.platform.gfplatform.util.EmojiUtil;
 import com.gf.platform.gfplatform.util.Util;
-import com.gf.platform.gfplatform.widget.badgerview.BadgeView;
-import com.gf.platform.gfplatform.widget.circleimageview.CircleImageView;
-import com.gf.platform.gfplatform.widget.customviewpager.CustomViewPager;
-import com.gf.platform.gfplatform.widget.slidecontent.SlideContent;
-import com.gf.platform.gfplatform.widget.slidemenu.SlidingMenu;
+import com.gf.platform.uikit.EmojiGlobal;
+import com.gf.platform.uikit.widget.badgerview.BadgeView;
+import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
+import com.gf.platform.uikit.widget.customviewpager.CustomViewPager;
+import com.gf.platform.uikit.widget.slidecontent.SlideContent;
+import com.gf.platform.uikit.widget.slidemenu.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +69,7 @@ public class MainTabActivity extends BaseFragmentActivity {
         vpMain.setAdapter(adapter);
         tbMain.setupWithViewPager(vpMain);
         resetTab();
-        Global.EMOJIS = EmojiUtil.parseEmoji(this);
-        Global.EMOJISCODE = EmojiUtil.parseEmojiCode(this);
+        EmojiGlobal.getInstance().init(this);
 
         faceIv.setOnClickListener(new View.OnClickListener() {
             @Override
