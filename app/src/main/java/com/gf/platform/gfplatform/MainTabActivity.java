@@ -1,5 +1,19 @@
 package com.gf.platform.gfplatform;
 
+import com.gf.platform.gfplatform.base.BaseFragmentActivity;
+import com.gf.platform.gfplatform.ui.fragment.ContactFragment;
+import com.gf.platform.gfplatform.ui.fragment.ExploreFragment;
+import com.gf.platform.gfplatform.ui.fragment.GameFragment;
+import com.gf.platform.gfplatform.ui.fragment.message.MessageFragment;
+import com.gf.platform.uikit.EmojiGlobal;
+import com.gf.platform.uikit.util.Util;
+import com.gf.platform.uikit.widget.badgerview.BadgeView;
+import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
+import com.gf.platform.uikit.widget.customviewpager.CustomViewPager;
+import com.gf.platform.uikit.widget.slidecontent.SlideContent;
+import com.gf.platform.uikit.widget.slidemenu.SlidingMenu;
+
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.TabLayout;
@@ -7,19 +21,6 @@ import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.gf.platform.gfplatform.base.BaseFragmentActivity;
-import com.gf.platform.gfplatform.ui.fragment.ContactFragment;
-import com.gf.platform.gfplatform.ui.fragment.ExploreFragment;
-import com.gf.platform.gfplatform.ui.fragment.GameFragment;
-import com.gf.platform.gfplatform.ui.fragment.message.MessageFragment;
-import com.gf.platform.gfplatform.util.Util;
-import com.gf.platform.uikit.EmojiGlobal;
-import com.gf.platform.uikit.widget.badgerview.BadgeView;
-import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
-import com.gf.platform.uikit.widget.customviewpager.CustomViewPager;
-import com.gf.platform.uikit.widget.slidecontent.SlideContent;
-import com.gf.platform.uikit.widget.slidemenu.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,8 @@ public class MainTabActivity extends BaseFragmentActivity {
 
     @Override
     protected void initData() {
-        sm.setBackgroundDrawable(new BitmapDrawable(Util.doBlur(BitmapFactory.decodeResource(getResources(), R.mipmap.demo_face), 15, false)));
+        sm.setBackgroundDrawable(new BitmapDrawable(
+                Util.doBlur(BitmapFactory.decodeResource(getResources(), R.mipmap.demo_face), 15, false)));
         tbMain.setTabMode(TabLayout.MODE_FIXED);
         Fragment fMessage = new MessageFragment();
         Fragment fGame = new GameFragment();
@@ -155,16 +157,16 @@ public class MainTabActivity extends BaseFragmentActivity {
             TabLayout.Tab t = tbMain.getTabAt(i);
             switch (i) {
                 case 0:
-                    t.setCustomView(Util.getTabView(this, R.mipmap.bjmgf_main_tab_game));
+                    t.setCustomView(getTabView(this, R.mipmap.bjmgf_main_tab_game));
                     break;
                 case 1:
-                    t.setCustomView(Util.getTabView(this, R.mipmap.bjmgf_main_tab_message));
+                    t.setCustomView(getTabView(this, R.mipmap.bjmgf_main_tab_message));
                     break;
                 case 2:
-                    t.setCustomView(Util.getTabView(this, R.mipmap.bjmgf_main_tab_contact));
+                    t.setCustomView(getTabView(this, R.mipmap.bjmgf_main_tab_contact));
                     break;
                 case 3:
-                    t.setCustomView(Util.getTabView(this, R.mipmap.bjmgf_main_tab_explore));
+                    t.setCustomView(getTabView(this, R.mipmap.bjmgf_main_tab_explore));
                     break;
                 default:
                     break;
@@ -191,5 +193,19 @@ public class MainTabActivity extends BaseFragmentActivity {
     @Override
     public boolean isHideTitle() {
         return true;
+    }
+
+    /**
+     * 设置tab中item的内容
+     *
+     * @param context
+     * @param id
+     * @return
+     */
+    private View getTabView(Context context, int id) {
+        View v = View.inflate(context, R.layout.bjmgf_main_tab, null);
+        ImageView iv = (ImageView) v.findViewById(R.id.bjmgf_main_tab_iv);
+        iv.setImageResource(id);
+        return v;
     }
 }

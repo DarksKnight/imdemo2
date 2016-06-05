@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 表情功能键盘
  * Created by sunhaoyang on 2016/4/19.
  */
 public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout

@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.util;
+package com.gf.platform.uikit.util;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;

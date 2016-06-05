@@ -1,14 +1,14 @@
 package com.gf.platform.uikit.widget.tooltip;
 
+import com.gf.platform.uikit.Constant;
+import com.gf.platform.uikit.R;
+import com.gf.platform.uikit.util.Util;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
-import com.gf.platform.uikit.Constant;
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.Util;
 
 
 /**

@@ -1,5 +1,10 @@
 package com.gf.platform.uikit.widget.slidemenu;
 
+import com.gf.platform.uikit.R;
+import com.gf.platform.uikit.util.Util;
+import com.gf.platform.uikit.widget.slidecontent.SlideContent;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -8,11 +13,6 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.Util;
-import com.gf.platform.uikit.widget.slidecontent.SlideContent;
-import com.nineoldandroids.view.ViewHelper;
 
 public class SlidingMenu extends HorizontalScrollView {
     /**

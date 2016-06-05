@@ -1,18 +1,12 @@
 package com.gf.platform.gfplatform.ui.activity.message;
 
-import android.os.Environment;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
-
 import com.gf.platform.gfplatform.R;
 import com.gf.platform.gfplatform.base.BaseFragmentActivity;
 import com.gf.platform.gfplatform.base.Global;
 import com.gf.platform.gfplatform.entity.Message;
 import com.gf.platform.gfplatform.ui.activity.message.adapter.MessageListAdapter;
-import com.gf.platform.gfplatform.util.LogProxy;
-import com.gf.platform.gfplatform.util.Util;
 import com.gf.platform.uikit.EmojiGlobal;
+import com.gf.platform.uikit.util.Util;
 import com.gf.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
 import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
 import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
@@ -24,6 +18,11 @@ import com.gf.platform.uikit.widget.chatkeyboard.util.ParseDataUtil;
 import com.gf.platform.uikit.widget.dropdownlistview.DropDownListView;
 import com.gf.platform.uikit.widget.tooltip.ToolTipView;
 import com.gf.platform.uikit.widget.tooltip.ToolView;
+
+import android.os.Environment;
+import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileInputStream;

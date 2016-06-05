@@ -68,6 +68,24 @@
                     android:layout_marginTop="@dimen/gf_8dp"
                     android:layout_marginLeft="@dimen/gf_10dp"/>
 
+            <com.gf.platform.uikit.widget.circleimageview.CircleImageView
+                    android:id="@+id/bjmgf_message_chat_nurture_bottom_face"
+                    android:layout_width="@dimen/gf_50dp"
+                    android:layout_height="@dimen/gf_50dp"
+                    android:layout_below="@id/bjmgf_message_chat_nurture_title_tv"
+                    android:src="@mipmap/demo_face"
+                    android:layout_marginLeft="@dimen/gf_10dp"
+                    android:layout_marginTop="@dimen/gf_20dp"/>
+
+            <TextView android:layout_width="@dimen/gf_140dp" android:layout_height="wrap_content"
+                      android:text="求包养,会捆绑,身形矫健气质郎!"
+                      android:textSize="@dimen/gf_14sp"
+                      android:textColor="@color/gf_message_nurture_title"
+                      android:layout_below="@id/bjmgf_message_chat_nurture_title_tv"
+                      android:layout_toRightOf="@id/bjmgf_message_chat_nurture_bottom_face"
+                      android:layout_marginLeft="@dimen/gf_10dp"
+                      android:layout_marginTop="@dimen/gf_25dp"/>
+
         </com.gf.platform.uikit.widget.customimage.CustomRlImage>
 
     </RelativeLayout>
