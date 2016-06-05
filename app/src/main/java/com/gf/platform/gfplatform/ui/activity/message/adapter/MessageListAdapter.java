@@ -1,20 +1,23 @@
 package com.gf.platform.gfplatform.ui.activity.message.adapter;
 
+import com.gf.platform.gfplatform.R;
+import com.gf.platform.gfplatform.entity.Message;
+import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
+import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
+import com.gf.platform.uikit.widget.customimage.CustomRlImage;
+import com.gf.platform.uikit.widget.emojitextview.EmojiTextView;
+import com.gf.platform.uikit.widget.tooltip.ToolTipView;
+import com.gf.platform.uikit.widget.tooltip.ToolView;
+
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.gf.platform.gfplatform.R;
-import com.gf.platform.gfplatform.entity.Message;
-import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
-import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
-import com.gf.platform.uikit.widget.emojitextview.EmojiTextView;
-import com.gf.platform.uikit.widget.tooltip.ToolTipView;
-import com.gf.platform.uikit.widget.tooltip.ToolView;
 
 import java.util.List;
 
@@ -50,7 +53,9 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (mList.get(position).getCategory() == Message.Category.NORMAL_ME) {
+        if (mList.get(position).getCategory() == Message.Category.NURTURE){
+            return 2;
+        } else if (mList.get(position).getCategory() == Message.Category.NORMAL_ME) {
             return 1;
         } else if (mList.get(position).getCategory() == Message.Category.NORMAL_YOU) {
             return 0;
@@ -61,7 +66,7 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -83,7 +88,8 @@ public class MessageListAdapter extends BaseAdapter {
                 holder.rl = (RelativeLayout) convertView.findViewById(R.id.bjmgf_message_chat_root);
                 holder.ivSelect = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_list_select);
             } else if (msg.getCategory() == Message.Category.NURTURE) {
-
+                convertView = View.inflate(mContext, R.layout.bjmgf_message_chat_list_msg_info_nurture_item, null);
+                holder.rlImage = (CustomRlImage) convertView.findViewById(R.id.bjmgf_message_chat_nurture_bg);
             }
             convertView.setTag(holder);
         } else {
@@ -93,7 +99,7 @@ public class MessageListAdapter extends BaseAdapter {
         if (msg.getCategory() == Message.Category.NORMAL_ME || msg.getCategory() == Message.Category.NORMAL_YOU) {
             normalChat(position, msg, convertView, holder);
         } else if (msg.getCategory() == Message.Category.NURTURE) {
-            nurtureChat(convertView);
+            nurtureChat(holder);
         }
 
         return convertView;
@@ -102,10 +108,15 @@ public class MessageListAdapter extends BaseAdapter {
     /**
      * 求包养对话框
      *
-     * @param convertView
+     * @param holder
      */
-    private void nurtureChat(View convertView) {
-
+    private void nurtureChat(ViewHolder holder) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        int size = (int)mContext.getResources().getDimension(R.dimen.gf_20dp);
+        options.outWidth = size;
+        options.outHeight = size;
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.bjmgf_message_chat_nurture_title_pic, options);
+        holder.rlImage.setBitmap(bitmap);
     }
 
     /**
@@ -185,6 +196,7 @@ public class MessageListAdapter extends BaseAdapter {
         RelativeLayout rl;
         ImageView ivSelect;
 
-
+        //求包养
+        CustomRlImage rlImage;
     }
 }

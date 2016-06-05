@@ -13,4 +13,6 @@ public interface KeyBoardListener {
     void sendEmoticon(EmoticonEntity entity);
 
     void delMessage();
+
+    void functionSelected(int position);
 }

@@ -1,23 +1,7 @@
 package com.gf.platform.uikit.widget.chatkeyboard;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import com.gf.platform.uikit.R;
 import com.gf.platform.uikit.EmojiGlobal;
+import com.gf.platform.uikit.R;
 import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
 import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
 import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.FunctionAdapter;
@@ -38,6 +22,22 @@ import com.gf.platform.uikit.widget.chatkeyboard.base.widget.SoftKeyboardSizeWat
 import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 import com.gf.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
 
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,35 +45,67 @@ import java.util.List;
 /**
  * Created by sunhaoyang on 2016/4/19.
  */
-public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.OnClickListener, EmoticonsToolBarView.OnToolBarItemClickListener, FuncLayout.OnFuncChangeListener, EmoticonsViewPager.OnEmoticonsPageViewListener, SoftKeyboardSizeWatchLayout.OnResizeListener {
+public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
+        implements View.OnClickListener, EmoticonsToolBarView.OnToolBarItemClickListener,
+        FuncLayout.OnFuncChangeListener, EmoticonsViewPager.OnEmoticonsPageViewListener,
+        SoftKeyboardSizeWatchLayout.OnResizeListener {
 
     public static final int FUNC_TYPE_EMOTION = -1;
+
     public static final int FUNC_TYPE_MORE = -2;
+
     protected LayoutInflater mInflater = null;
+
     protected ImageView ivFace = null;
+
     protected ImageView ivMore = null;
+
     protected LinearLayout llKeyBoard = null;
+
     protected LinearLayout llKeyBoardDel = null;
+
     protected FuncLayout funcLayout = null;
+
     protected EditText etMain = null;
+
     protected ImageView mBtnSend = null;
+
     protected EmoticonsViewPager emoticonsViewPager = null;
+
     protected EmoticonsToolBarView emoticonsToolBarView = null;
+
     protected EmoticonsIndicatorView emoticonsIndicatorView = null;
+
     protected ViewPager vpFunction = null;
+
     protected LinearLayout llDot = null;
+
     private List<View> views = new ArrayList<>();
-    private String[] functionArray = new String[]{"照片", "拍照", "位置", "送花", "幸运骰子", "赛猪场", "名字大作战", "求包养", "分享游戏", "名片", "更换聊天背景"};
+
+    private String[] functionArray = new String[]{"照片", "拍照", "位置", "送花", "幸运骰子", "赛猪场", "名字大作战",
+            "求包养", "分享游戏", "名片", "更换聊天背景"};
+
     protected int keyBoardHeight = (int) getResources().getDimension(R.dimen.gf_220dp);
+
     protected PageSetAdapter pageSetAdapter = new PageSetAdapter();
+
     private static final int ID_CHILD = R.id.id_autolayout;
+
     protected int mSoftKeyboardHeight = 0;
+
     protected int mMaxParentHeight = 0;
+
     private boolean isClickFunction = false;
+
     private int index = 0;
+
     private boolean isSend = false;
+
     private KeyBoardListener listener = null;
+
     private View moreView = null;
+
+    private FunctionAdapter functionAdapter = null;
 
     public enum Type {
         NOMRAL, DEL;
@@ -82,7 +114,9 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
     private EmojiListener emojiListener = new EmojiListener() {
         @Override
         public void selectedEmoji(EmoticonEntity entity) {
-            EmojiUtil.insert(etMain, EmojiUtil.getFace(getContext(), "face/emojis/EmojiS_" + entity.getName() + ".png", etMain));
+            EmojiUtil.insert(etMain, EmojiUtil
+                    .getFace(getContext(), "face/emojis/EmojiS_" + entity.getName() + ".png",
+                            etMain));
         }
 
         @Override
@@ -90,7 +124,9 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
             String content = etMain.getText().toString();
             if (content.length() > 0) {
                 if (EmojiUtil.isDeletePng(content)) {
-                    ((Editable) etMain.getText()).delete(content.length() - EmojiUtil.emojiFormat.length(), content.length());
+                    ((Editable) etMain.getText())
+                            .delete(content.length() - EmojiUtil.emojiFormat.length(),
+                                    content.length());
                 } else {
                     ((Editable) etMain.getText()).delete(content.length() - 1, content.length());
                 }
@@ -153,7 +189,8 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
         for (int i = 0; i < 11; i++) {
             Function f = null;
             try {
-                f = new Function(functionArray[i], BitmapFactory.decodeStream(getContext().getAssets().open("function/function_" + i + ".png")));
+                f = new Function(functionArray[i], BitmapFactory.decodeStream(
+                        getContext().getAssets().open("function/function_" + i + ".png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -170,17 +207,14 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
         vpFunction.addOnPageChangeListener(new PageChange());
     }
 
-    /**
+    /**KeyBoardListener
      * 获取viewpager item
-     *
-     * @param position
-     * @param list
-     * @return
      */
-    private View viewPagerItem(int position, List<Function> list) {
+    private View viewPagerItem(int position, final List<Function> list) {
         int columns = 4;
         int rows = 2;
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.bjmgf_message_chat_function_gridview, null);
         GridView gv = (GridView) view.findViewById(R.id.bjmgf_message_chat_function_gv);
         List<Function> subList = new ArrayList<>();
@@ -190,7 +224,13 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
                                 .size() ? list.size() : (columns
                                 * rows)
                                 * (position + 1)));
-        FunctionAdapter functionAdapter = new FunctionAdapter(getContext(), subList);
+        functionAdapter = new FunctionAdapter(getContext(), subList,
+                new FunctionAdapter.Listener() {
+                    @Override
+                    public void functionSelected(int position) {
+                        listener.functionSelected(position);
+                    }
+                });
         gv.setAdapter(functionAdapter);
         gv.setNumColumns(columns);
         return gv;
@@ -198,12 +238,10 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
 
     /**
      * 圆点item
-     *
-     * @param position
-     * @return
      */
     private ImageView dotsItem(int position) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(getContext().LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.bjmgf_message_chat_function_dots, null);
         ImageView iv = (ImageView) layout.findViewById(R.id.bjmgf_message_chat_function_dot);
         iv.setId(position);
@@ -241,7 +279,9 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
                         String emojiId = EmojiGlobal.getInstance().getEmojisCode().get(sign);
                         if (emojiId != null) {
                             ((Editable) etMain.getText()).delete(start, length);
-                            EmojiUtil.insert(etMain, EmojiUtil.getFace(getContext(), "face/emojis/EmojiS_" + emojiId + ".png", etMain));
+                            EmojiUtil.insert(etMain, EmojiUtil
+                                    .getFace(getContext(), "face/emojis/EmojiS_" + emojiId + ".png",
+                                            etMain));
                         }
                     }
                 } else if (s.length() == 0) {
@@ -406,11 +446,13 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
             if (child.getId() < 0) {
                 child.setId(ID_CHILD);
             }
-            RelativeLayout.LayoutParams paramsChild = (RelativeLayout.LayoutParams) child.getLayoutParams();
+            RelativeLayout.LayoutParams paramsChild = (RelativeLayout.LayoutParams) child
+                    .getLayoutParams();
             paramsChild.addRule(ALIGN_PARENT_BOTTOM);
             child.setLayoutParams(paramsChild);
         } else if (childSum == 1) {
-            RelativeLayout.LayoutParams paramsChild = (RelativeLayout.LayoutParams) child.getLayoutParams();
+            RelativeLayout.LayoutParams paramsChild = (RelativeLayout.LayoutParams) child
+                    .getLayoutParams();
             paramsChild.addRule(ABOVE, ID_CHILD);
             child.setLayoutParams(paramsChild);
         }
@@ -425,7 +467,8 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
                     pageView.setNumColumns(pageEntity.getRow());
                     pageEntity.setRootView(pageView);
                     try {
-                        EmoticonsAdapter adapter = new EmoticonsAdapter(container.getContext(), pageEntity.getEmoticonList(), listener, emojiListener);
+                        EmoticonsAdapter adapter = new EmoticonsAdapter(container.getContext(),
+                                pageEntity.getEmoticonList(), listener, emojiListener);
                         pageView.getEmoticonsGridView().setAdapter(adapter);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -437,6 +480,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout implements View.On
     }
 
     private class PageChange implements ViewPager.OnPageChangeListener {
+
         @Override
         public void onPageScrollStateChanged(int arg0) {
         }

@@ -10,6 +10,7 @@ import com.gf.platform.gfplatform.base.BaseFragmentActivity;
 import com.gf.platform.gfplatform.base.Global;
 import com.gf.platform.gfplatform.entity.Message;
 import com.gf.platform.gfplatform.ui.activity.message.adapter.MessageListAdapter;
+import com.gf.platform.gfplatform.util.LogProxy;
 import com.gf.platform.gfplatform.util.Util;
 import com.gf.platform.uikit.EmojiGlobal;
 import com.gf.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
@@ -35,14 +36,23 @@ import java.util.List;
  * im界面
  * Created by sunhaoyang on 2016/2/23.
  */
-public class MessageActivity extends BaseFragmentActivity implements DropDownListView.OnRefreshListenerHeader, ToolView.ControlListener, KeyBoardListener {
+public class MessageActivity extends BaseFragmentActivity
+        implements DropDownListView.OnRefreshListenerHeader, ToolView.ControlListener,
+        KeyBoardListener {
+
     private ChatKeyBoard mKeyBoard = null;
+
     private DropDownListView mListView = null;
+
     private MessageListAdapter adapter = null;
+
     //消息集合
     public List<Message> list = new ArrayList<>();
+
     private Handler mHandler = null;
+
     private List<PageSetEntity> listEmoticons = new ArrayList<>();
+
     //修改BUG：如果不在handler中操作，会导致无法正确置底
     private Handler handler = new Handler() {
         @Override
@@ -51,8 +61,11 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
             mListView.smoothScrollToPosition(list.size());
         }
     };
+
     private ToolView view = null;
+
     public Status currentStatus = Status.NORMAL;
+
     //状态（正常状态，编辑状态）
     public enum Status {
         NORMAL, EDIT
@@ -69,7 +82,8 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
         mListView = getView(R.id.bjmgf_message_chat_listview);
 
         view = new ToolView(this);
-        ToolTipView.getInstance().make(this, new ToolTipView.Builder(this).setToolTipView(view).setListView(mListView).build());
+        ToolTipView.getInstance().make(this,
+                new ToolTipView.Builder(this).setToolTipView(view).setListView(mListView).build());
 
         initKeyBoard();
     }
@@ -80,31 +94,39 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
 
         initEmoticons();
         mKeyBoard.setListener(this);
-        mKeyBoard.getEmoticonsToolBarView().addFixedToolItemView(false, R.mipmap.icon_add, null, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    File file = new File(Environment.getExternalStorageDirectory() + File.separator + "ftchat" + File.separator + "Meng.zip");
-                    InputStream is = new FileInputStream(file);
-                    Util.unzip(is, Environment.getExternalStorageDirectory() + File.separator + KeyBoardUtil.FOLDERNAME);
-                    initEmoticons();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        mKeyBoard.getEmoticonsToolBarView().addFixedToolItemView(true, R.mipmap.icon_setting, null, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    File file = new File(Environment.getExternalStorageDirectory() + File.separator + KeyBoardUtil.FOLDERNAME + File.separator + "Meng");
-                    Util.deleteDir(file);
-                    initEmoticons();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        mKeyBoard.getEmoticonsToolBarView()
+                .addFixedToolItemView(false, R.mipmap.icon_add, null, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            File file = new File(
+                                    Environment.getExternalStorageDirectory() + File.separator
+                                            + "ftchat" + File.separator + "Meng.zip");
+                            InputStream is = new FileInputStream(file);
+                            Util.unzip(is,
+                                    Environment.getExternalStorageDirectory() + File.separator
+                                            + KeyBoardUtil.FOLDERNAME);
+                            initEmoticons();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        mKeyBoard.getEmoticonsToolBarView().addFixedToolItemView(true, R.mipmap.icon_setting, null,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            File file = new File(
+                                    Environment.getExternalStorageDirectory() + File.separator
+                                            + KeyBoardUtil.FOLDERNAME + File.separator + "Meng");
+                            Util.deleteDir(file);
+                            initEmoticons();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void initEmoticons() {
@@ -119,18 +141,25 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
                 .isEmoji(true)
                 .build();
         listEmoticons.add(pageSetEmoji);
-        File faceList = new File(Environment.getExternalStorageDirectory() + File.separator + KeyBoardUtil.FOLDERNAME + File.separator);
+        File faceList = new File(
+                Environment.getExternalStorageDirectory() + File.separator + KeyBoardUtil.FOLDERNAME
+                        + File.separator);
         if (faceList.isDirectory()) {
             File[] faceFolderArray = faceList.listFiles();
             for (File folder : faceFolderArray) {
                 if (!folder.isHidden()) {
                     String folderPath = folder.getAbsolutePath();
-                    String name = folderPath.subSequence(folderPath.lastIndexOf("/") + 1, folderPath.length()) + "";
+                    String name = folderPath
+                            .subSequence(folderPath.lastIndexOf("/") + 1, folderPath.length()) + "";
                     EmoticonPageSetEntity pageSet
                             = new EmoticonPageSetEntity.Builder()
                             .setEmoticonList(ParseDataUtil.getPageSetEntity(name).getEmoticonList())
-                            .setIPageViewInstantiateItem(mKeyBoard.getEmoticonPageViewInstantiateItem())
-                            .setIconUri(Environment.getExternalStorageDirectory() + File.separator + KeyBoardUtil.FOLDERNAME + File.separator + name + File.separator + "chat_" + name.toLowerCase() + "_icon" + ".png")
+                            .setIPageViewInstantiateItem(
+                                    mKeyBoard.getEmoticonPageViewInstantiateItem())
+                            .setIconUri(Environment.getExternalStorageDirectory() + File.separator
+                                    + KeyBoardUtil.FOLDERNAME + File.separator + name
+                                    + File.separator + "chat_" + name.toLowerCase() + "_icon"
+                                    + ".png")
                             .build();
                     listEmoticons.add(pageSet);
                 }
@@ -147,7 +176,8 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
         setTitleText(Global.MESSAGES.get(index).getNickName());
 
         for (int i = 0; i < 10; i++) {
-            Message m = new Message("火星海盗" + i, "撒打" + i, "11:10", "", Message.Category.NORMAL_ME, false);
+            Message m = new Message("火星海盗" + i, "撒打" + i, "11:10", "", Message.Category.NORMAL_ME,
+                    false);
             list.add(m);
         }
         adapter = new MessageListAdapter(this, list, this);
@@ -162,7 +192,8 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
 
         //如果草稿不为空，则显示草稿
         if (Global.MESSAGES.get(index).getDraft().trim().length() > 0) {
-            mKeyBoard.getEditText().setText(EmojiUtil.convert(this, Global.MESSAGES.get(index).getDraft(), mKeyBoard.getEditText()));
+            mKeyBoard.getEditText().setText(EmojiUtil
+                    .convert(this, Global.MESSAGES.get(index).getDraft(), mKeyBoard.getEditText()));
         }
     }
 
@@ -197,18 +228,22 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
                 super.handleMessage(msg);
                 adapter.notifyDataSetChanged();
                 if (!mListView.isMove()) {
-                    mListView.setSelectionFromTop(oldMsg.size() + 1, (int) getResources().getDimension(R.dimen.gf_40dp));
+                    mListView.setSelectionFromTop(oldMsg.size() + 1,
+                            (int) getResources().getDimension(R.dimen.gf_40dp));
                 }
                 mListView.onRefreshCompleteHeader();
             }
         };
         for (int i = 0; i < 3; i++) {
             if (i == 2) {
-                Message m = new Message("帅的一般", "帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般" + i, "10:22", "", Message.Category.NORMAL_ME, false);
+                Message m = new Message("帅的一般",
+                        "帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般帅的一般般" + i, "10:22", "",
+                        Message.Category.NORMAL_ME, false);
                 oldMsg.add(m);
                 continue;
             }
-            Message m = new Message("帅的一般", "帅的一般般" + i, "10:22", "", Message.Category.NORMAL_ME, false);
+            Message m = new Message("帅的一般", "帅的一般般" + i, "10:22", "", Message.Category.NORMAL_ME,
+                    false);
             oldMsg.add(m);
         }
         list.addAll(0, oldMsg);
@@ -245,9 +280,11 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
 
     @Override
     public void sendEmoticon(EmoticonEntity entity) {
-        Message msg = new Message("帅的一般", "", "15:15", "", Message.Category.NORMAL_ME, Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
+        Message msg = new Message("帅的一般", "", "15:15", "", Message.Category.NORMAL_ME,
+                Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
         list.add(msg);
-        msg = new Message("一般的帅", "", "15:20", "", Message.Category.NORMAL_YOU, Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
+        msg = new Message("一般的帅", "", "15:20", "", Message.Category.NORMAL_YOU,
+                Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
         list.add(msg);
         adapter.notifyDataSetChanged();
         mListView.requestFocus();
@@ -260,8 +297,8 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
         mListView.enableMove(true);
 
         //2016-5-10
-        for(int i = 0; i < list.size();i++){
-            if(list.get(i).isChecked()){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isChecked()) {
                 list.remove(list.get(i));
                 --i;
             }
@@ -271,5 +308,16 @@ public class MessageActivity extends BaseFragmentActivity implements DropDownLis
 
         adapter.notifyDataSetChanged();
         mKeyBoard.switchBoard(ChatKeyBoard.Type.NOMRAL);
+    }
+
+    @Override
+    public void functionSelected(int position) {
+        // 7为求包养按钮
+        if (position == 7) {
+            Message msg = new Message("帅的一般", "", "22:22", "", Message.Category.NURTURE, false);
+            list.add(msg);
+            adapter.notifyDataSetChanged();
+            handler.sendEmptyMessage(0);
+        }
     }
 }
