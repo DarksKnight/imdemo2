@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.tooltip;
+package com.GF.platform.uikit.widget.tooltip;
 
 import android.content.Context;
 import android.view.View;

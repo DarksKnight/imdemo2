@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.base.manager.anim;
+package com.GF.platform.uikit.base.manager.anim;
 
 /**
  * 动画结束 监听

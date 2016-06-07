@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 
 /**

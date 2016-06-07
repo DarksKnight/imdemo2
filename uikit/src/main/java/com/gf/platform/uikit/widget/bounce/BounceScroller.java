@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.bounce;
+package com.GF.platform.uikit.widget.bounce;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -17,8 +17,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
-import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.gf.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
 
 
 public class BounceScroller extends RelativeLayout {

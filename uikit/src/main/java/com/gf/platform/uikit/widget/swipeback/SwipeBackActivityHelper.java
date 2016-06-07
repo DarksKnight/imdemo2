@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipeback;
+package com.GF.platform.uikit.widget.swipeback;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

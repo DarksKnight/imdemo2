@@ -1,13 +1,4 @@
-package com.gf.platform.gfplatform.ui.activity.message.adapter;
-
-import com.gf.platform.gfplatform.R;
-import com.gf.platform.gfplatform.entity.Message;
-import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
-import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
-import com.gf.platform.uikit.widget.customimage.CustomRlImage;
-import com.gf.platform.uikit.widget.emojitextview.EmojiTextView;
-import com.gf.platform.uikit.widget.tooltip.ToolTipView;
-import com.gf.platform.uikit.widget.tooltip.ToolView;
+package com.GF.platform.gfplatform.ui.activity.message.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,6 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.GF.platform.gfplatform.R;
+import com.GF.platform.gfplatform.entity.Message;
+import com.GF.platform.gfplatform.ui.activity.message.MessageActivity;
+import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
+import com.GF.platform.uikit.widget.customimage.CustomRlImage;
+import com.GF.platform.uikit.widget.emojitextview.EmojiTextView;
+import com.GF.platform.uikit.widget.tooltip.ToolTipView;
+import com.GF.platform.uikit.widget.tooltip.ToolView;
 
 import java.util.List;
 

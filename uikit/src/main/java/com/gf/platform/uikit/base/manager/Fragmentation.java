@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.base.manager;
+package com.GF.platform.uikit.base.manager;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.gf.platform.uikit.base.manager.anim.OnEnterAnimEndListener;
-import com.gf.platform.uikit.base.manager.debug.DebugFragmentRecord;
+import com.GF.platform.uikit.base.manager.anim.OnEnterAnimEndListener;
+import com.GF.platform.uikit.base.manager.debug.DebugFragmentRecord;
 
 import java.util.ArrayList;
 import java.util.List;

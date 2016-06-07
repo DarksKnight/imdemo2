@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.ui.fragment.message.adapter;
+package com.GF.platform.gfplatform.ui.fragment.message.adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gf.platform.gfplatform.R;
-import com.gf.platform.gfplatform.base.Global;
-import com.gf.platform.gfplatform.ui.activity.message.MessageActivity;
-import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
-import com.gf.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
-import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.gf.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
-import com.gf.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
+import com.GF.platform.gfplatform.R;
+import com.GF.platform.gfplatform.base.Global;
+import com.GF.platform.gfplatform.ui.activity.message.MessageActivity;
+import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
+import com.GF.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
 
 /**
  * Created by sunhaoyang on 2016/2/22.

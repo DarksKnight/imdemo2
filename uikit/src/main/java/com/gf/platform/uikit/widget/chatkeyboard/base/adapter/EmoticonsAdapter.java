@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.adapter;
+package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,10 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
 
 import java.util.List;
 

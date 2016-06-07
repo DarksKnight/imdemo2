@@ -1,9 +1,9 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.ports;
+package com.GF.platform.uikit.widget.chatkeyboard.base.ports;
 
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
 
 
 /**

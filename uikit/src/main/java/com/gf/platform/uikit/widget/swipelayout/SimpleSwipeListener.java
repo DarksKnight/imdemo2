@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipelayout;
+package com.GF.platform.uikit.widget.swipelayout;
 
 public class SimpleSwipeListener implements SwipeLayout.SwipeListener {
 

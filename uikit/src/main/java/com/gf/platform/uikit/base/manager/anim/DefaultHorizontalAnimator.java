@@ -1,7 +1,7 @@
-package com.gf.platform.uikit.base.manager.anim;
+package com.GF.platform.uikit.base.manager.anim;
 
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 /**
  * Created by YoKeyword on 16/2/5.

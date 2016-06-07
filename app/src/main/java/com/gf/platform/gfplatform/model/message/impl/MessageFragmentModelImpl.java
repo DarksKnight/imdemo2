@@ -1,8 +1,8 @@
-package com.gf.platform.gfplatform.model.message.impl;
+package com.GF.platform.gfplatform.model.message.impl;
 
-import com.gf.platform.gfplatform.base.Global;
-import com.gf.platform.gfplatform.entity.Message;
-import com.gf.platform.gfplatform.model.message.MessageFragementModel;
+import com.GF.platform.gfplatform.base.Global;
+import com.GF.platform.gfplatform.entity.Message;
+import com.GF.platform.gfplatform.model.message.MessageFragementModel;
 
 /**
  * Created by sunhaoyang on 2016/3/30.

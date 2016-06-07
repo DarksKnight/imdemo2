@@ -1,6 +1,6 @@
-package com.gf.platform.gfplatform.base;
+package com.GF.platform.gfplatform.base;
 
-import com.gf.platform.gfplatform.entity.Message;
+import com.GF.platform.gfplatform.entity.Message;
 
 import java.util.ArrayList;
 import java.util.List;

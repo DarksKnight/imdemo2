@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform;
+package com.GF.platform.gfplatform;
 
 import org.junit.Test;
 

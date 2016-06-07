@@ -1,12 +1,12 @@
-package com.gf.platform.uikit.widget.swipelayout.implments;
+package com.GF.platform.uikit.widget.swipelayout.implments;
 
 import android.view.View;
 
-import com.gf.platform.uikit.widget.swipelayout.SimpleSwipeListener;
-import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.gf.platform.uikit.widget.swipelayout.interfaces.SwipeAdapterInterface;
-import com.gf.platform.uikit.widget.swipelayout.interfaces.SwipeItemMangerInterface;
-import com.gf.platform.uikit.widget.swipelayout.util.Attributes;
+import com.GF.platform.uikit.widget.swipelayout.SimpleSwipeListener;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.interfaces.SwipeAdapterInterface;
+import com.GF.platform.uikit.widget.swipelayout.interfaces.SwipeItemMangerInterface;
+import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
 
 import java.util.ArrayList;
 import java.util.Collections;

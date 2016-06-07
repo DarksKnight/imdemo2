@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.app.Activity;
 import android.content.Context;

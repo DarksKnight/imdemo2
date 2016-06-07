@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.adapter;
+package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;

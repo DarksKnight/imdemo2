@@ -1,10 +1,10 @@
-package com.gf.platform.uikit.widget.emojitextview;
+package com.GF.platform.uikit.widget.emojitextview;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 
 
 public class EmojiTextView extends TextView{

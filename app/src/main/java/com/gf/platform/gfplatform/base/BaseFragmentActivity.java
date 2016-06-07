@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.base;
+package com.GF.platform.gfplatform.base;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gf.platform.gfplatform.R;
-import com.gf.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
+import com.GF.platform.gfplatform.R;
+import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
 
 /**
  * 基类fragmentactivity

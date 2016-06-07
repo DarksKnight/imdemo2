@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.ui.fragment;
+package com.GF.platform.gfplatform.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gf.platform.gfplatform.R;
+import com.GF.platform.gfplatform.R;
 
 /**
  * Created by sunhaoyang on 2016/2/19.

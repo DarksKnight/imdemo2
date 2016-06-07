@@ -118,7 +118,7 @@
         android:layout_height="1px"
         android:background="@color/gf_message_chat_board_line_bottom" />
 
-    <com.gf.platform.uikit.widget.chatkeyboard.base.widget.FuncLayout
+    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.FuncLayout
         android:id="@+id/bjmgf_message_chat_fl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

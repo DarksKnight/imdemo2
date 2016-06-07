@@ -1,6 +1,6 @@
-package com.gf.platform.gfplatform.model.message;
+package com.GF.platform.gfplatform.model.message;
 
-import com.gf.platform.gfplatform.base.CommonModel;
+import com.GF.platform.gfplatform.base.CommonModel;
 
 /**
  * Created by sunhaoyang on 2016/3/30.

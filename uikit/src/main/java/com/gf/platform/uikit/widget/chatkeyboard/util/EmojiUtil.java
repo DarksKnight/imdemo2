@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.util;
+package com.GF.platform.uikit.widget.chatkeyboard.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,10 +14,10 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmojiSpan;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmojiSpan;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

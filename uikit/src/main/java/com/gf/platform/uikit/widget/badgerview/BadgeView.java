@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.badgerview;
+package com.GF.platform.uikit.widget.badgerview;
 
 import android.content.Context;
 import android.content.res.Resources;

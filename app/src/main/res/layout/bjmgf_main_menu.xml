@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent">
 
-    <com.gf.platform.uikit.widget.circleimageview.CircleImageView
+    <com.GF.platform.uikit.widget.circleimageview.CircleImageView
         android:id="@+id/bjmgf_main_menu_face_iv"
         android:layout_width="@dimen/gf_120dp"
         android:layout_height="@dimen/gf_120dp"
@@ -25,7 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/gf_10dp"/>
 
-    <com.gf.platform.uikit.widget.customtextview.CustomTextView
+    <com.GF.platform.uikit.widget.customtextview.CustomTextView
         android:id="@+id/bjmgf_main_menu_assets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         app:left_width="@dimen/gf_20dp"
         app:left_height="@dimen/gf_15dp"/>
 
-    <com.gf.platform.uikit.widget.customtextview.CustomTextView
+    <com.GF.platform.uikit.widget.customtextview.CustomTextView
         android:id="@+id/bjmgf_main_menu_service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         app:left_width="@dimen/gf_20dp"
         app:left_height="@dimen/gf_15dp"/>
 
-    <com.gf.platform.uikit.widget.customtextview.CustomTextView
+    <com.GF.platform.uikit.widget.customtextview.CustomTextView
         android:id="@+id/bjmgf_main_menu_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         app:left_width="@dimen/gf_20dp"
         app:left_height="@dimen/gf_15dp"/>
 
-    <com.gf.platform.uikit.widget.customtextview.CustomTextView
+    <com.GF.platform.uikit.widget.customtextview.CustomTextView
         android:id="@+id/bjmgf_main_menu_about"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         app:left_width="@dimen/gf_20dp"
         app:left_height="@dimen/gf_15dp"/>
 
-    <com.gf.platform.uikit.widget.customtextview.CustomTextView
+    <com.GF.platform.uikit.widget.customtextview.CustomTextView
         android:id="@+id/bjmgf_main_menu_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,11 +1,11 @@
-package com.gf.platform.uikit.widget.swipeback;
+package com.GF.platform.uikit.widget.swipeback;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 
 class ShadowView extends View {

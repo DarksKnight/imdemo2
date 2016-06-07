@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.circleimageview;
+package com.GF.platform.uikit.widget.circleimageview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,7 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 
 public class CircleImageView extends ImageView {

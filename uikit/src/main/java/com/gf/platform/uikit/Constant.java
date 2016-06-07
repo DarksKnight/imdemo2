@@ -1,4 +1,4 @@
-package com.gf.platform.uikit;
+package com.GF.platform.uikit;
 
 /**
  * Created by sunhaoyang on 2016/6/3.

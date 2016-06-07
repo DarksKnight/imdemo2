@@ -1,9 +1,9 @@
-package com.gf.platform.uikit;
+package com.GF.platform.uikit;
 
 import android.content.Context;
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 
 import java.util.List;
 import java.util.Map;

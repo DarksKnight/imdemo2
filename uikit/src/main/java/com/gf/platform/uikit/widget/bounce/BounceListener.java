@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.bounce;
+package com.GF.platform.uikit.widget.bounce;
 
 public interface BounceListener {
 

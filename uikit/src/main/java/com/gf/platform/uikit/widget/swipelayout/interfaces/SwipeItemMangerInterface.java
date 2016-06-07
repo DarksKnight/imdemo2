@@ -1,8 +1,8 @@
-package com.gf.platform.uikit.widget.swipelayout.interfaces;
+package com.GF.platform.uikit.widget.swipelayout.interfaces;
 
 
-import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.gf.platform.uikit.widget.swipelayout.util.Attributes;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
 
 import java.util.List;
 

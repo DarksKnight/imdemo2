@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.util;
+package com.GF.platform.uikit.util;
 
 
 import android.app.Activity;

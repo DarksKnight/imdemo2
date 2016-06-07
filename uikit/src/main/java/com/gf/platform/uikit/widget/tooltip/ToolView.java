@@ -1,7 +1,7 @@
-package com.gf.platform.uikit.widget.tooltip;
+package com.GF.platform.uikit.widget.tooltip;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.util.Util;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.util.Util;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

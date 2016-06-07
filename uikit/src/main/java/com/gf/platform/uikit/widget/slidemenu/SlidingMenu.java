@@ -1,8 +1,8 @@
-package com.gf.platform.uikit.widget.slidemenu;
+package com.GF.platform.uikit.widget.slidemenu;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.util.Util;
-import com.gf.platform.uikit.widget.slidecontent.SlideContent;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.util.Util;
+import com.GF.platform.uikit.widget.slidecontent.SlideContent;
 import com.nineoldandroids.view.ViewHelper;
 
 import android.content.Context;

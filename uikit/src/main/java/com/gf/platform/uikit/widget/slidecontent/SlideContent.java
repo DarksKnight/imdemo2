@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.slidecontent;
+package com.GF.platform.uikit.widget.slidecontent;
 
 import android.content.Context;
 import android.util.AttributeSet;

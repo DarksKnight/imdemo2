@@ -1,6 +1,6 @@
-package com.gf.platform.uikit.widget.customimage;
+package com.GF.platform.uikit.widget.customimage;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;

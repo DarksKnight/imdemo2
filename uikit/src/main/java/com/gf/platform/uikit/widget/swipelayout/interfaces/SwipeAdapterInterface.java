@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipelayout.interfaces;
+package com.GF.platform.uikit.widget.swipelayout.interfaces;
 
 public interface SwipeAdapterInterface {
 

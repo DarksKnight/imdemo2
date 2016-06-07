@@ -1,8 +1,8 @@
-package com.gf.platform.gfplatform.util;
+package com.GF.platform.gfplatform.util;
 
 import android.util.Log;
 
-import com.gf.platform.gfplatform.BuildConfig;
+import com.GF.platform.gfplatform.BuildConfig;
 
 
 /**

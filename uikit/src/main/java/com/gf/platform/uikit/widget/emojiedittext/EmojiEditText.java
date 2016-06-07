@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.emojiedittext;
+package com.GF.platform.uikit.widget.emojiedittext;
 
 import android.content.Context;
 import android.util.AttributeSet;

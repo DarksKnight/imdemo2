@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
 
 import java.util.ArrayList;
 

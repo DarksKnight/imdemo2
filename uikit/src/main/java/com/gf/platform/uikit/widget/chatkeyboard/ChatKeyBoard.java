@@ -1,26 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard;
-
-import com.gf.platform.uikit.EmojiGlobal;
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
-import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
-import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.FunctionAdapter;
-import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.PageSetAdapter;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.Function;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.EmoticonPageView;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsIndicatorView;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsToolBarView;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsViewPager;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.FuncLayout;
-import com.gf.platform.uikit.widget.chatkeyboard.base.widget.SoftKeyboardSizeWatchLayout;
-import com.gf.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
-import com.gf.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
+package com.GF.platform.uikit.widget.chatkeyboard;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -37,6 +15,28 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.GF.platform.uikit.EmojiGlobal;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
+import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
+import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.FunctionAdapter;
+import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.PageSetAdapter;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.Function;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonPageView;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsIndicatorView;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsToolBarView;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsViewPager;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.FuncLayout;
+import com.GF.platform.uikit.widget.chatkeyboard.base.widget.SoftKeyboardSizeWatchLayout;
+import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -186,6 +186,10 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
         funcLayout.addFuncView(FUNC_TYPE_MORE, moreView);
         vpFunction = getView(R.id.bjmgf_message_chat_function_vp);
         llDot = getView(R.id.bjmgf_message_chat_function_dots);
+        initMoreView();
+    }
+
+    private void initMoreView() {
         List<Function> listFunction = new ArrayList<>();
         for (int i = 0; i < 11; i++) {
             Function f = null;

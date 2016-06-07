@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
 
 import java.util.ArrayList;
 

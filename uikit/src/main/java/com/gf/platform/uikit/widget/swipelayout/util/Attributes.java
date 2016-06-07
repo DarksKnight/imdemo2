@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipelayout.util;
+package com.GF.platform.uikit.widget.swipelayout.util;
 
 
 public class Attributes {

@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.entity;
+package com.GF.platform.uikit.widget.chatkeyboard.base.entity;
 
 import android.graphics.Bitmap;
 

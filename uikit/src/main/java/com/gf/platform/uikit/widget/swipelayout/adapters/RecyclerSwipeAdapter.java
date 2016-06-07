@@ -1,13 +1,13 @@
-package com.gf.platform.uikit.widget.swipelayout.adapters;
+package com.GF.platform.uikit.widget.swipelayout.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.gf.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.gf.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
-import com.gf.platform.uikit.widget.swipelayout.interfaces.SwipeAdapterInterface;
-import com.gf.platform.uikit.widget.swipelayout.interfaces.SwipeItemMangerInterface;
-import com.gf.platform.uikit.widget.swipelayout.util.Attributes;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
+import com.GF.platform.uikit.widget.swipelayout.interfaces.SwipeAdapterInterface;
+import com.GF.platform.uikit.widget.swipelayout.interfaces.SwipeItemMangerInterface;
+import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
 
 import java.util.List;
 

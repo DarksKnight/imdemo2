@@ -1,7 +1,7 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.adapter;
+package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.Function;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.Function;
 
 import android.content.Context;
 import android.view.LayoutInflater;

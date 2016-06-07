@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.base;
+package com.GF.platform.gfplatform.base;
 
 /**
  * Created by apple on 1/24/15.

@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.base.manager;
+package com.GF.platform.uikit.base.manager;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 
-import com.gf.platform.uikit.base.manager.anim.DefaultVerticalAnimator;
-import com.gf.platform.uikit.base.manager.anim.FragmentAnimator;
-import com.gf.platform.uikit.base.manager.debug.DebugFragmentRecord;
-import com.gf.platform.uikit.base.manager.debug.DebugHierarchyViewContainer;
+import com.GF.platform.uikit.base.manager.anim.DefaultVerticalAnimator;
+import com.GF.platform.uikit.base.manager.anim.FragmentAnimator;
+import com.GF.platform.uikit.base.manager.debug.DebugFragmentRecord;
+import com.GF.platform.uikit.base.manager.debug.DebugHierarchyViewContainer;
 
 import java.util.List;
 

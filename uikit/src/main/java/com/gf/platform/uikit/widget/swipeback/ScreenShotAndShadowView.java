@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipeback;
+package com.GF.platform.uikit.widget.swipeback;
 
 import android.content.Context;
 import android.graphics.Color;

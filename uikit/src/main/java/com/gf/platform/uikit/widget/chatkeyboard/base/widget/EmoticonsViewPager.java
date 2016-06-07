@@ -1,11 +1,11 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.adapter.PageSetAdapter;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.PageSetAdapter;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
 
 
 /**

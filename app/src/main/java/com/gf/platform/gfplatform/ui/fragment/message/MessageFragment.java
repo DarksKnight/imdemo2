@@ -1,16 +1,4 @@
-package com.gf.platform.gfplatform.ui.fragment.message;
-
-import com.gf.platform.gfplatform.R;
-import com.gf.platform.gfplatform.base.BaseFragment;
-import com.gf.platform.gfplatform.base.Global;
-import com.gf.platform.gfplatform.base.ListCallBack;
-import com.gf.platform.gfplatform.entity.Message;
-import com.gf.platform.gfplatform.model.message.MessageFragementModel;
-import com.gf.platform.gfplatform.model.message.impl.MessageFragmentModelImpl;
-import com.gf.platform.gfplatform.ui.fragment.message.adapter.MessageAdapter;
-import com.gf.platform.uikit.util.HeaderAndFooterRecyclerViewAdapter;
-import com.gf.platform.uikit.util.Util;
-import com.gf.platform.uikit.widget.swipelayout.util.Attributes;
+package com.GF.platform.gfplatform.ui.fragment.message;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +6,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.GF.platform.gfplatform.R;
+import com.GF.platform.gfplatform.base.BaseFragment;
+import com.GF.platform.gfplatform.base.Global;
+import com.GF.platform.gfplatform.base.ListCallBack;
+import com.GF.platform.gfplatform.entity.Message;
+import com.GF.platform.gfplatform.model.message.MessageFragementModel;
+import com.GF.platform.gfplatform.model.message.impl.MessageFragmentModelImpl;
+import com.GF.platform.gfplatform.ui.fragment.message.adapter.MessageAdapter;
+import com.GF.platform.uikit.util.HeaderAndFooterRecyclerViewAdapter;
+import com.GF.platform.uikit.util.Util;
+import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
 
 import java.util.List;
 

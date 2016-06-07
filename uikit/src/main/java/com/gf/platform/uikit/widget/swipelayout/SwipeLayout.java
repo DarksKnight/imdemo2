@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.swipelayout;
+package com.GF.platform.uikit.widget.swipelayout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -20,7 +20,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

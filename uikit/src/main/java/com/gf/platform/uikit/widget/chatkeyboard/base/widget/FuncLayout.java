@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.widget;
+package com.GF.platform.uikit.widget.chatkeyboard.base.widget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.gf.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.GF.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
 
 /**
  * Created by sunhaoyang on 2016/4/19.
@@ -23,7 +20,6 @@ public class FuncLayout extends LinearLayout {
     private final SparseArray<View> mFuncViewArrayMap = new SparseArray<>();
     private int mCurrentFuncKey = DEF_KEY;
     protected int mHeight = 0;
-    private List<OnFuncKeyBoardListener> mListenerList = null;
     private OnFuncChangeListener onFuncChangeListener = null;
 
     public FuncLayout(Context context, AttributeSet attrs) {
@@ -105,19 +101,9 @@ public class FuncLayout extends LinearLayout {
         if (b) {
             setVisibility(VISIBLE);
             params.height = mHeight;
-            if (mListenerList != null) {
-                for (OnFuncKeyBoardListener l : mListenerList) {
-                    l.OnFuncPop(mHeight);
-                }
-            }
         } else {
             setVisibility(GONE);
             params.height = 0;
-            if (mListenerList != null) {
-                for (OnFuncKeyBoardListener l : mListenerList) {
-                    l.OnFuncClose();
-                }
-            }
         }
         setLayoutParams(params);
     }
@@ -130,30 +116,7 @@ public class FuncLayout extends LinearLayout {
         this.onFuncChangeListener = listener;
     }
 
-    public boolean isOnlyShowSoftKeyboard() {
-        return mCurrentFuncKey == DEF_KEY;
-    }
-
-    public void addOnKeyBoardListener(OnFuncKeyBoardListener l) {
-        if (mListenerList == null) {
-            mListenerList = new ArrayList<>();
-        }
-        mListenerList.add(l);
-    }
-
     public interface OnFuncChangeListener {
         void onFuncChange(int key);
-    }
-
-    public interface OnFuncKeyBoardListener {
-        /**
-         * 功能布局弹起
-         */
-        void OnFuncPop(int height);
-
-        /**
-         * 功能布局关闭
-         */
-        void OnFuncClose();
     }
 }

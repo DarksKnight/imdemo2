@@ -1,12 +1,12 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.adapter;
+package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
 
 import java.util.ArrayList;
 

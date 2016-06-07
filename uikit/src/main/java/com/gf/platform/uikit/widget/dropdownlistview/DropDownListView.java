@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.dropdownlistview;
+package com.GF.platform.uikit.widget.dropdownlistview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 
 public class DropDownListView extends ListView implements OnScrollListener {

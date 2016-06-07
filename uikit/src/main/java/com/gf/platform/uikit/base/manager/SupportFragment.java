@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.base.manager;
+package com.GF.platform.uikit.base.manager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 
-import com.gf.platform.uikit.R;
-import com.gf.platform.uikit.base.manager.anim.FragmentAnimator;
-import com.gf.platform.uikit.base.manager.anim.OnEnterAnimEndListener;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.base.manager.anim.FragmentAnimator;
+import com.GF.platform.uikit.base.manager.anim.OnEnterAnimEndListener;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

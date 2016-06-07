@@ -1,9 +1,9 @@
-package com.gf.platform.uikit.widget.chatkeyboard.util;
+package com.GF.platform.uikit.widget.chatkeyboard.util;
 
 import android.os.Environment;
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

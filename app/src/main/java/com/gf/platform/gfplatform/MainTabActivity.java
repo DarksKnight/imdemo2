@@ -1,17 +1,4 @@
-package com.gf.platform.gfplatform;
-
-import com.gf.platform.gfplatform.base.BaseFragmentActivity;
-import com.gf.platform.gfplatform.ui.fragment.ContactFragment;
-import com.gf.platform.gfplatform.ui.fragment.ExploreFragment;
-import com.gf.platform.gfplatform.ui.fragment.GameFragment;
-import com.gf.platform.gfplatform.ui.fragment.message.MessageFragment;
-import com.gf.platform.uikit.EmojiGlobal;
-import com.gf.platform.uikit.util.Util;
-import com.gf.platform.uikit.widget.badgerview.BadgeView;
-import com.gf.platform.uikit.widget.circleimageview.CircleImageView;
-import com.gf.platform.uikit.widget.customviewpager.CustomViewPager;
-import com.gf.platform.uikit.widget.slidecontent.SlideContent;
-import com.gf.platform.uikit.widget.slidemenu.SlidingMenu;
+package com.GF.platform.gfplatform;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -21,6 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.GF.platform.gfplatform.base.BaseFragmentActivity;
+import com.GF.platform.gfplatform.ui.fragment.ContactFragment;
+import com.GF.platform.gfplatform.ui.fragment.ExploreFragment;
+import com.GF.platform.gfplatform.ui.fragment.GameFragment;
+import com.GF.platform.gfplatform.ui.fragment.message.MessageFragment;
+import com.GF.platform.uikit.EmojiGlobal;
+import com.GF.platform.uikit.util.Util;
+import com.GF.platform.uikit.widget.badgerview.BadgeView;
+import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
+import com.GF.platform.uikit.widget.customviewpager.CustomViewPager;
+import com.GF.platform.uikit.widget.slidecontent.SlideContent;
+import com.GF.platform.uikit.widget.slidemenu.SlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;

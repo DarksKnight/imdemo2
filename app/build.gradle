@@ -82,4 +82,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0+'
     compile 'im.fir:fir-sdk:latest.integration@aar'
     compile project(':uikit')
+    compile project(':uiview')
 }

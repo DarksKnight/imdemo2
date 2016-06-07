@@ -1,7 +1,7 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.entity;
+package com.GF.platform.uikit.widget.chatkeyboard.base.entity;
 
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.gf.platform.gfplatform.base;
+package com.GF.platform.gfplatform.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

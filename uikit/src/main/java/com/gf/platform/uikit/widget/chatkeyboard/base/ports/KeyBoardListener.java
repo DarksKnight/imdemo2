@@ -1,7 +1,7 @@
-package com.gf.platform.uikit.widget.chatkeyboard.base.ports;
+package com.GF.platform.uikit.widget.chatkeyboard.base.ports;
 
 
-import com.gf.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
 
 /**
  * Created by sunhaoyang on 2016/4/25.

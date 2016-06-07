@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.widget.customviewpager;
+package com.GF.platform.uikit.widget.customviewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

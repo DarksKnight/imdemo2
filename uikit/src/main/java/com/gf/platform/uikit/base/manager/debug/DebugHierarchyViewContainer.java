@@ -1,4 +1,4 @@
-package com.gf.platform.uikit.base.manager.debug;
+package com.GF.platform.uikit.base.manager.debug;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.gf.platform.uikit.R;
+import com.GF.platform.uikit.R;
 
 import java.util.List;
 
