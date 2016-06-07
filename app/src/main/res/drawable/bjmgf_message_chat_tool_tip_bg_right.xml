@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/gf_message_tool_tip_bg"/>
+    <corners android:bottomRightRadius="@dimen/gf_5dp"
+        android:topRightRadius="@dimen/gf_5dp"/>
+</shape>

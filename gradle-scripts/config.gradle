@@ -62,7 +62,7 @@ def getSubVersionCode () {
             break;
         }
     }
-    return "";
+    return code.minus("Last Changed Date").trim();
 }
 
 def getBuildTime () {
