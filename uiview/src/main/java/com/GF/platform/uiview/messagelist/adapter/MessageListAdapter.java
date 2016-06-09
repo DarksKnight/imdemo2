@@ -1,6 +1,9 @@
 package com.GF.platform.uiview.messagelist.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -9,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.GF.platform.uikit.Global;
 import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
 import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
 import com.GF.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
-import com.GF.platform.uikit.widget.swipelayout.implments.SwipeItemMangerImpl;
-import com.GF.platform.uiview.Global;
 import com.GF.platform.uiview.R;
 
 /**
@@ -23,6 +26,7 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
 
     private Context mContext = null;
     private MsgAdapterListener mListener = null;
+    private String targetPackageName = "com.GF.platform.gfplatform.ui.activity.message.MessageActivity";
 
     public MessageListAdapter(Context context, MsgAdapterListener listener) {
         mContext = context;
@@ -32,7 +36,7 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.bjmgf_message_fragment_list_item, parent, false);
+                .inflate(R.layout.bjmgf_message_list_view_item, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -53,12 +57,17 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
                 if (flag) {
                     return;
                 }
-//                Intent intent = new Intent(mFragment.getActivity(), MessageActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("index", position);
-//                intent.putExtras(bundle);
-//                SwipeBackActivityHelper.activityBuilder(mFragment.getActivity())
-//                        .intent(intent).needParallax(true).needBackgroundShadow(false).startActivity();
+                Intent intent = null;
+                try {
+                    intent = new Intent(mContext, Class.forName(targetPackageName));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("index", position);
+                intent.putExtras(bundle);
+                SwipeBackActivityHelper.activityBuilder((Activity)mContext)
+                        .intent(intent).needParallax(true).needBackgroundShadow(false).startActivity();
             }
         });
 
@@ -153,7 +162,4 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
         void OnMessageDel(int position);
     }
 
-    public SwipeItemMangerImpl getItemManager() {
-        return mItemManger;
-    }
 }

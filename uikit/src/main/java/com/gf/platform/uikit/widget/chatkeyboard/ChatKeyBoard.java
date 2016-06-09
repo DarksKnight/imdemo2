@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.GF.platform.uikit.EmojiGlobal;
+import com.GF.platform.uikit.Global;
 import com.GF.platform.uikit.R;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
@@ -274,7 +275,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //每次文本变化，都放入草稿中
-//                Global.MESSAGES.get(index).setDraft(s.toString());
+                Global.MESSAGES.get(index).setDraft(s.toString());
                 if (count > 0) {
                     isSend = true;
                     mBtnSend.setImageResource(R.mipmap.bjmgf_message_chat_send_btn);

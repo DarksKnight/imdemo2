@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bjmgf_message_chat_keyboard"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bjmgf_message_chat_content_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/bjmgf_message_chat_rl_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gf_message_chat_list_msg_bg">
-
-        <com.GF.platform.uikit.widget.dropdownlistview.DropDownListView
-            android:id="@+id/bjmgf_message_chat_listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@null"
-            android:listSelector="@android:color/transparent"
-            android:transcriptMode="normal"
-            android:overScrollMode="never"/>
-
-    </RelativeLayout>
-
-</com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard>
+    android:orientation="vertical"/>
