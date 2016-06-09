@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardPorts;
 import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
 import com.GF.platform.uikit.widget.customimage.CustomRlImage;
 import com.GF.platform.uikit.widget.emojitextview.EmojiTextView;
@@ -29,14 +30,16 @@ public class MessageAdapter extends BaseAdapter {
 
     private Context mContext = null;
     private List<Message> mList = null;
-    private ToolView.ControlListener listener = null;
+    private ToolView.ControlListener mListener = null;
     private MessageView mView = null;
+    private KeyBoardPorts mPorts = null;
 
-    public MessageAdapter(Context context, List<Message> list, ToolView.ControlListener listener, MessageView view) {
+    public MessageAdapter(Context context, List<Message> list, ToolView.ControlListener listener, MessageView view, KeyBoardPorts ports) {
         mContext = context;
         mList = list;
-        this.listener = listener;
+        mListener = listener;
         mView = view;
+        mPorts = ports;
     }
 
     @Override
@@ -157,7 +160,7 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View v) {
                 if (mView.currentStatus == MessageView.Status.NORMAL) {
-                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), listener);
+                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), mListener);
                 }
                 return true;
             }
@@ -167,7 +170,7 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View v) {
                 if (mView.currentStatus == MessageView.Status.NORMAL) {
-                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), listener);
+                    ToolTipView.getInstance().show(v, position, msg.getInfo(), msg.getType(), mListener);
                 }
                 return true;
             }
@@ -177,6 +180,7 @@ public class MessageAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 ToolTipView.getInstance().remove();
+                mPorts.reset();
                 if (mView.currentStatus == MessageView.Status.EDIT) {
                     if (msg.isChecked()) {
                         msg.setChecked(false);

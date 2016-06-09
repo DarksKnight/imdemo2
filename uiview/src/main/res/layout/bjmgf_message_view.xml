@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/bjmgf_message_chat_rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +22,6 @@
             android:transcriptMode="normal"
             android:overScrollMode="never"/>
 
-    </RelativeLayout>
+    </FrameLayout>
 
 </com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard>

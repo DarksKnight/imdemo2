@@ -3,11 +3,14 @@ package com.GF.platform.uiview.message;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.GF.platform.uikit.EmojiGlobal;
 import com.GF.platform.uikit.Global;
@@ -205,7 +208,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
                     false);
             list.add(m);
         }
-        adapter = new MessageAdapter(getContext(), list, this, this);
+        adapter = new MessageAdapter(getContext(), list, this, this, mKeyBoard);
         mListView.setAdapter(adapter);
         mListView.setOnRefreshListenerHead(this);
         //将消息置底

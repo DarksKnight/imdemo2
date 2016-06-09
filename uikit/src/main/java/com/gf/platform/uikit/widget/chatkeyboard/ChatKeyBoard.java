@@ -29,6 +29,7 @@ import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardPorts;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
 import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonPageView;
 import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsIndicatorView;
@@ -50,7 +51,7 @@ import java.util.List;
 public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
         implements View.OnClickListener, EmoticonsToolBarView.OnToolBarItemClickListener,
         FuncLayout.OnFuncChangeListener, EmoticonsViewPager.OnEmoticonsPageViewListener,
-        SoftKeyboardSizeWatchLayout.OnResizeListener {
+        SoftKeyboardSizeWatchLayout.OnResizeListener, KeyBoardPorts {
 
     public static final int FUNC_TYPE_EMOTION = -1;
 
@@ -403,6 +404,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
         }
     }
 
+    @Override
     public void reset() {
         KeyBoardUtil.closeSoftKeyboard(this);
         funcLayout.hideAllFuncView();
@@ -413,6 +415,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
         moreView.setVisibility(View.GONE);
     }
 
+    @Override
     public void switchBoard(Type type) {
         if (type == Type.DEL) {
             llKeyBoard.setVisibility(View.GONE);
