@@ -1,5 +1,14 @@
 package com.GF.platform.uiview.messagelist;
 
+import com.GF.platform.uikit.base.manager.message.MessageManager;
+import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.util.HeaderAndFooterRecyclerViewAdapter;
+import com.GF.platform.uikit.util.Util;
+import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
+import com.GF.platform.uiview.R;
+import com.GF.platform.uiview.base.ViewPorts;
+import com.GF.platform.uiview.messagelist.adapter.MessageListAdapter;
+
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.GF.platform.uikit.Global;
-import com.GF.platform.uikit.entity.Message;
-import com.GF.platform.uikit.util.HeaderAndFooterRecyclerViewAdapter;
-import com.GF.platform.uikit.util.Util;
-import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
-import com.GF.platform.uiview.R;
-import com.GF.platform.uiview.base.ViewPorts;
-import com.GF.platform.uiview.messagelist.adapter.MessageListAdapter;
 
 /**
  * 消息列表
@@ -65,14 +65,14 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
         vFooter.setBackgroundResource(R.color.gf_message_bg);
         Util.setFooterView(rvMessage, vFooter);
         Util.setHeaderView(rvMessage, vHeader);
-        Global.MESSAGES.clear();
+        MessageManager.getInstance().clear();
         for (int i = 0; i < 20; i++) {
             Message m = new Message();
             m.setDate("星期三");
             m.setInfo("[惬意]");
             m.setNickName("火星来客" + i);
             m.setOldPosition(i);
-            Global.MESSAGES.add(m);
+            MessageManager.getInstance().addMessage(m);
         }
         adapter.notifyDatasetChanged();
     }
@@ -101,22 +101,22 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
 
     @Override
     public void OnMessageTop(int position) {
-        Message msg = Global.MESSAGES.get(position);
+        Message msg = MessageManager.getInstance().getMessage(position);
         if (!msg.isTop()) {
             msg.setTop(true);
-            Global.MESSAGES.remove(position);
-            Global.MESSAGES.add(0, msg);
+            MessageManager.getInstance().remove(position);
+            MessageManager.getInstance().addMessage(0, msg);
         } else {
             msg.setTop(false);
-            Global.MESSAGES.remove(msg);
-            Global.MESSAGES.add(msg.getOldPosition(), msg);
+            MessageManager.getInstance().remove(msg);
+            MessageManager.getInstance().addMessage(msg.getOldPosition(), msg);
         }
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void OnMessageDel(int position) {
-        Global.MESSAGES.remove(position);
+        MessageManager.getInstance().remove(position);
         adapter.notifyDataSetChanged();
     }
 

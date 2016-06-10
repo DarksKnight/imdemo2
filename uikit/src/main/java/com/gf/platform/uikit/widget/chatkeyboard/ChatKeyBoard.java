@@ -1,24 +1,8 @@
 package com.GF.platform.uikit.widget.chatkeyboard;
 
-import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
 import com.GF.platform.uikit.EmojiGlobal;
-import com.GF.platform.uikit.Global;
 import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.base.manager.message.MessageManager;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.FunctionAdapter;
@@ -39,6 +23,22 @@ import com.GF.platform.uikit.widget.chatkeyboard.base.widget.FuncLayout;
 import com.GF.platform.uikit.widget.chatkeyboard.base.widget.SoftKeyboardSizeWatchLayout;
 import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
+
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -276,7 +276,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //每次文本变化，都放入草稿中
-                Global.MESSAGES.get(index).setDraft(s.toString());
+                MessageManager.getInstance().getMessages().get(index).setDraft(s.toString());
                 if (count > 0) {
                     isSend = true;
                     mBtnSend.setImageResource(R.mipmap.bjmgf_message_chat_send_btn);

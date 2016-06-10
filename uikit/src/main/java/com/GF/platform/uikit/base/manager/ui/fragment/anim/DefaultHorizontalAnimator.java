@@ -1,4 +1,4 @@
-package com.GF.platform.uikit.base.manager.anim;
+package com.GF.platform.uikit.base.manager.ui.fragment.anim;
 
 
 import com.GF.platform.uikit.R;

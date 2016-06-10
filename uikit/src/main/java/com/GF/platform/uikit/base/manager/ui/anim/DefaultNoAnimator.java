@@ -1,4 +1,4 @@
-package com.GF.platform.uikit.base.manager.fragment.anim;
+package com.GF.platform.uikit.base.manager.ui.anim;
 
 
 /**

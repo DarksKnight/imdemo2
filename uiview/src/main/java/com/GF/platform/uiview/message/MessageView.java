@@ -3,17 +3,14 @@ package com.GF.platform.uiview.message;
 import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.GF.platform.uikit.EmojiGlobal;
-import com.GF.platform.uikit.Global;
+import com.GF.platform.uikit.base.manager.message.MessageManager;
 import com.GF.platform.uikit.entity.Message;
 import com.GF.platform.uikit.util.Util;
 import com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
@@ -218,10 +215,11 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         //设置光标处于最后
         mKeyBoard.getEditText().setSelection(mKeyBoard.getEditText().getText().length());
 
+        Message message = MessageManager.getInstance().getMessage(index);
         //如果草稿不为空，则显示草稿
-        if (Global.MESSAGES.get(index).getDraft().trim().length() > 0) {
+        if (message.getDraft().trim().length() > 0) {
             mKeyBoard.getEditText().setText(EmojiUtil
-                    .convert(getContext(), Global.MESSAGES.get(index).getDraft(), mKeyBoard.getEditText()));
+                    .convert(getContext(), message.getDraft(), mKeyBoard.getEditText()));
         }
     }
 
@@ -344,7 +342,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     }
 
     public String getTitle() {
-        return Global.MESSAGES.get(index).getNickName();
+        return MessageManager.getInstance().getMessages().get(index).getNickName();
     }
 
     public final <E extends View> E getView(int id) {

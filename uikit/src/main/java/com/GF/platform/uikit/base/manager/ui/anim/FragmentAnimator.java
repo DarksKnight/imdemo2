@@ -1,4 +1,4 @@
-package com.GF.platform.uikit.base.manager.anim;
+package com.GF.platform.uikit.base.manager.ui.anim;
 
 import android.os.Parcel;
 import android.os.Parcelable;

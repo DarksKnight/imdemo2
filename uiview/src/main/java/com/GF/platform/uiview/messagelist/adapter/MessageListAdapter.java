@@ -1,5 +1,12 @@
 package com.GF.platform.uiview.messagelist.adapter;
 
+import com.GF.platform.uikit.base.manager.message.MessageManager;
+import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
+import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
+import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
+import com.GF.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
+import com.GF.platform.uiview.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.GF.platform.uikit.Global;
-import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
-import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
-import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
-import com.GF.platform.uikit.widget.swipelayout.adapters.RecyclerSwipeAdapter;
-import com.GF.platform.uiview.R;
 
 /**
  * Created by sunhaoyang on 2016/2/22.
@@ -71,8 +71,8 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        view.tvNickName.setText(Global.MESSAGES.get(position).getNickName());
-        view.tvDate.setText(Global.MESSAGES.get(position).getDate());
+        view.tvNickName.setText(MessageManager.getInstance().getMessage(position).getNickName());
+        view.tvDate.setText(MessageManager.getInstance().getMessage(position).getDate());
         view.sl.setClickToClose(true);
 
         view.rlContent.setOnTouchListener(new View.OnTouchListener() {
@@ -87,13 +87,13 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        if (Global.MESSAGES.get(position).getDraft().trim().length() > 0) {
-            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + Global.MESSAGES.get(position).getDraft(), view.tvInfo));
+        if (MessageManager.getInstance().getMessage(position).getDraft().trim().length() > 0) {
+            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + MessageManager.getInstance().getMessage(position).getDraft(), view.tvInfo));
         } else {
-            view.tvInfo.setText(Global.MESSAGES.get(position).getInfo());
+            view.tvInfo.setText(MessageManager.getInstance().getMessage(position).getInfo());
         }
 
-        if (!Global.MESSAGES.get(position).isTop()) {
+        if (!MessageManager.getInstance().getMessage(position).isTop()) {
             view.tvTop.setText("消息置顶");
             view.rlContent.setBackgroundColor(mContext.getResources().getColor(R.color.gf_white));
         } else {
@@ -124,7 +124,7 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
 
     @Override
     public int getItemCount() {
-        return Global.MESSAGES.size();
+        return MessageManager.getInstance().getMessageSize();
     }
 
     @Override

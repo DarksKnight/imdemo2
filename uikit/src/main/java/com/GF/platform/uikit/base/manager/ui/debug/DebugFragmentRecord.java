@@ -1,4 +1,4 @@
-package com.GF.platform.uikit.base.manager.debug;
+package com.GF.platform.uikit.base.manager.ui.debug;
 
 import java.util.List;
 
