@@ -71,8 +71,8 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        view.tvNickName.setText(MessageListControl.getInstance().getMessage(position).getNickName());
-        view.tvDate.setText(MessageListControl.getInstance().getMessage(position).getDate());
+        view.tvNickName.setText(MessageListControl.getDefault().getMessage(position).getNickName());
+        view.tvDate.setText(MessageListControl.getDefault().getMessage(position).getDate());
         view.sl.setClickToClose(true);
 
         view.rlContent.setOnTouchListener(new View.OnTouchListener() {
@@ -87,13 +87,13 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        if (MessageListControl.getInstance().getMessage(position).getDraft().trim().length() > 0) {
-            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + MessageListControl.getInstance().getMessage(position).getDraft(), view.tvInfo));
+        if (MessageListControl.getDefault().getMessage(position).getDraft().trim().length() > 0) {
+            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + MessageListControl.getDefault().getMessage(position).getDraft(), view.tvInfo));
         } else {
-            view.tvInfo.setText(MessageListControl.getInstance().getMessage(position).getInfo());
+            view.tvInfo.setText(MessageListControl.getDefault().getMessage(position).getInfo());
         }
 
-        if (!MessageListControl.getInstance().getMessage(position).isTop()) {
+        if (!MessageListControl.getDefault().getMessage(position).isTop()) {
             view.tvTop.setText("消息置顶");
             view.rlContent.setBackgroundColor(mContext.getResources().getColor(R.color.gf_white));
         } else {
@@ -124,7 +124,7 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
 
     @Override
     public int getItemCount() {
-        return MessageListControl.getInstance().getMessageSize();
+        return MessageListControl.getDefault().getMessageSize();
     }
 
     @Override

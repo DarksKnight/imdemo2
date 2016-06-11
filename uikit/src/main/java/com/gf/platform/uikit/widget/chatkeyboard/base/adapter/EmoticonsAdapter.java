@@ -1,5 +1,16 @@
 package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.event.SendMessageEvent;
+import com.GF.platform.uikit.util.Util;
+import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
+
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -8,12 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.GF.platform.uikit.R;
-import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
-import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
-import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
 
 import java.util.List;
 
@@ -106,7 +111,9 @@ public class EmoticonsAdapter extends CommonAdapter<EmoticonEntity> {
                                         emojiListener.selectedEmoji(entity);
                                     }
                                 } else {
-                                    listener.sendEmoticon(entity);
+                                    Message message = new Message("帅的一般", "", Util.getDate(), "", Message.Category.NORMAL_ME,
+                                            Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
+                                    EventBus.getDefault().post(new SendMessageEvent(message));
                                 }
                             }
                         }

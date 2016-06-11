@@ -73,14 +73,14 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
         vFooter.setBackgroundResource(R.color.gf_message_bg);
         Util.setFooterView(rvMessage, vFooter);
         Util.setHeaderView(rvMessage, vHeader);
-        MessageListControl.getInstance().clear();
+        MessageListControl.getDefault().clear();
         for (int i = 0; i < 20; i++) {
             Message m = new Message();
             m.setDate("星期三");
             m.setInfo("[惬意]");
             m.setNickName("火星来客" + i);
             m.setOldPosition(i);
-            MessageListControl.getInstance().addMessage(m);
+            MessageListControl.getDefault().addMessage(m);
         }
         adapter.notifyDatasetChanged();
     }
@@ -109,22 +109,22 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
 
     @Override
     public void OnMessageTop(int position) {
-        Message msg = MessageListControl.getInstance().getMessage(position);
+        Message msg = MessageListControl.getDefault().getMessage(position);
         if (!msg.isTop()) {
             msg.setTop(true);
-            MessageListControl.getInstance().remove(position);
-            MessageListControl.getInstance().addMessage(0, msg);
+            MessageListControl.getDefault().remove(position);
+            MessageListControl.getDefault().addMessage(0, msg);
         } else {
             msg.setTop(false);
-            MessageListControl.getInstance().remove(msg);
-            MessageListControl.getInstance().addMessage(msg.getOldPosition(), msg);
+            MessageListControl.getDefault().remove(msg);
+            MessageListControl.getDefault().addMessage(msg.getOldPosition(), msg);
         }
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void OnMessageDel(int position) {
-        MessageListControl.getInstance().remove(position);
+        MessageListControl.getDefault().remove(position);
         adapter.notifyDataSetChanged();
     }
 

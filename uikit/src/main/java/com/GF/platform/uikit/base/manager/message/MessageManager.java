@@ -11,7 +11,7 @@ public class MessageManager {
     private static MessageManager singleton = null;
     private Map<String, MessageControl> infos = new HashMap<>();
 
-    public static MessageManager getInstance() {
+    public static MessageManager getDefault() {
         if (singleton == null) {
             synchronized (MessageManager.class) {
                 if (singleton == null) {

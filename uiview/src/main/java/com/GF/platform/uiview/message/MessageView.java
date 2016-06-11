@@ -1,19 +1,12 @@
 package com.GF.platform.uiview.message;
 
-import android.content.Context;
-import android.os.Environment;
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
 import com.GF.platform.uikit.EmojiGlobal;
-import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.base.manager.message.MessageControl;
+import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.base.manager.message.MessageManager;
 import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.event.SendMessageEvent;
+import com.GF.platform.uikit.event.UIEvent;
 import com.GF.platform.uikit.util.Util;
 import com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
@@ -29,6 +22,19 @@ import com.GF.platform.uikit.widget.tooltip.ToolView;
 import com.GF.platform.uiview.R;
 import com.GF.platform.uiview.base.ViewPorts;
 import com.GF.platform.uiview.message.adapter.MessageAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import android.content.Context;
+import android.os.Environment;
+import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,10 +71,12 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
 
     private List<PageSetEntity> listEmoticons = null;
 
+    private List<Message> totalOldMsg = new ArrayList<>();
+
     private MessageControl mMessageControl = new MessageControl();
 
     //修改BUG：如果不在handler中操作，会导致无法正确置底
-    private Handler handler = new Handler() {
+    private Handler handler = new Handler(getContext().getMainLooper()) {
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
@@ -95,6 +103,8 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     @Override
     public void finish() {
         mKeyBoard.reset();
+        mMessageControl.remove(totalOldMsg);
+        EventBus.getDefault().unregister(this);
     }
 
     //状态（正常状态，编辑状态）
@@ -104,6 +114,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
 
     public MessageView(Context context) {
         super(context);
+        EventBus.getDefault().register(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.bjmgf_message_view, this, false);
         LayoutParams defaultLayoutParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -207,15 +218,15 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         //获取当前消息的索引
         mKeyBoard.setMessageIndex(index);
 
-        if (MessageManager.getInstance().getMessageControl(index + "") == null) {
+        if (MessageManager.getDefault().getMessageControl(index + "") == null) {
             for (int i = 0; i < 10; i++) {
                 Message m = new Message("火星海盗" + i, "撒打" + i, "11:10", "", Message.Category.NORMAL_ME,
                         false);
                 mMessageControl.addMessage(m);
             }
-            MessageManager.getInstance().put(index + "", mMessageControl);
+            MessageManager.getDefault().put(index + "", mMessageControl);
         }
-        mMessageControl = MessageManager.getInstance().getMessageControl(index + "");
+        mMessageControl = MessageManager.getDefault().getMessageControl(index + "");
 
         adapter = new MessageAdapter(getContext(), mMessageControl, this, this, mKeyBoard);
         mListView.setAdapter(adapter);
@@ -227,7 +238,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         //设置光标处于最后
         mKeyBoard.getEditText().setSelection(mKeyBoard.getEditText().getText().length());
 
-        Message message = MessageListControl.getInstance().getMessage(index);
+        Message message = MessageListControl.getDefault().getMessage(index);
         //如果草稿不为空，则显示草稿
         if (message.getDraft().trim().length() > 0) {
             mKeyBoard.getEditText().setText(EmojiUtil
@@ -279,6 +290,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
             oldMsg.add(m);
         }
         mMessageControl.addAll(0, oldMsg);
+        totalOldMsg.addAll(oldMsg);
         mHandler.sendEmptyMessageDelayed(0, 1000);
     }
 
@@ -302,25 +314,12 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
 
     @Override
     public void sendMessage(String text) {
-        Message msg = new Message("帅的一般", text, Util.getDate(), "", Message.Category.NORMAL_ME, false);
-        mMessageControl.addMessage(msg);
-        msg = new Message("一般的帅", text, Util.getDate(), "", Message.Category.NORMAL_YOU, false);
-        mMessageControl.addMessage(msg);
-        adapter.notifyDataSetChanged();
-        handler.sendEmptyMessage(0);
+
     }
 
     @Override
     public void sendEmoticon(EmoticonEntity entity) {
-        Message msg = new Message("帅的一般", "", Util.getDate(), "", Message.Category.NORMAL_ME,
-                Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
-        mMessageControl.addMessage(msg);
-        msg = new Message("一般的帅", "", Util.getDate(), "", Message.Category.NORMAL_YOU,
-                Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
-        mMessageControl.addMessage(msg);
-        adapter.notifyDataSetChanged();
-        mListView.requestFocus();
-        handler.sendEmptyMessage(0);
+
     }
 
     @Override
@@ -354,7 +353,7 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     }
 
     public String getTitle() {
-        return MessageListControl.getInstance().getMessages().get(index).getNickName();
+        return MessageListControl.getDefault().getMessages().get(index).getNickName();
     }
 
     public final <E extends View> E getView(int id) {
@@ -373,5 +372,19 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         //  react-native do not use android's layout system,
         //  do measure and layout here.
         post(measureAndLayout);
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onSendMessageEvent(SendMessageEvent event) {
+        mMessageControl.addMessage(event.message);
+        Message msg = new Message("一般的帅", event.message.getInfo(), Util.getDate(), "", Message.Category.NORMAL_YOU, event.message.getExpression(), false);
+        mMessageControl.addMessage(msg);
+        EventBus.getDefault().post(new UIEvent());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUIEvent(UIEvent event) {
+        adapter.notifyDataSetChanged();
+        handler.sendEmptyMessage(0);
     }
 }

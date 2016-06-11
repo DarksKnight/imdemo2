@@ -38,6 +38,10 @@ public class MessageControl {
         messages.remove(message);
     }
 
+    public void remove(List<Message> msgs) {
+        messages.removeAll(msgs);
+    }
+
     public Message getMessage(int position) {
         return messages.get(position);
     }

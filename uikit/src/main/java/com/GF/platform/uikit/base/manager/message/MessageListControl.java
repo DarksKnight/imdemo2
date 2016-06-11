@@ -16,7 +16,7 @@ public class MessageListControl {
 
     public List<Message> messages = new ArrayList<>();
 
-    public static MessageListControl getInstance() {
+    public static MessageListControl getDefault() {
         if (singleton == null) {
             synchronized (MessageListControl.class) {
                 if (singleton == null) {
