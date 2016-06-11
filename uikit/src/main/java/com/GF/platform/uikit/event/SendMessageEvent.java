@@ -3,7 +3,8 @@ package com.GF.platform.uikit.event;
 import com.GF.platform.uikit.entity.Message;
 
 /**
- * Created by apple on 16/6/11.
+ * 发送消息
+ * Created by sunhaoyang on 16/6/11.
  */
 
 public class SendMessageEvent {

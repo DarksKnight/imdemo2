@@ -16,11 +16,14 @@
         android:paddingTop="@dimen/gf_10dp"
         android:paddingBottom="@dimen/gf_10dp">
 
-        <ProgressBar
+        <ProgressBar style="@android:style/Widget.ProgressBar.Horizontal"
             android:id="@+id/loading"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:minHeight="40dp"
+            android:maxHeight="40dp"
             android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
             android:indeterminateDrawable="@drawable/bjmgf_message_chat_dropdown_loading" />
     </LinearLayout>
 

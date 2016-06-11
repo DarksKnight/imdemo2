@@ -14,7 +14,6 @@ import com.GF.platform.uikit.widget.chatkeyboard.ChatKeyBoard;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.EmoticonPageSetEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
-import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
 import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.KeyBoardUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.ParseDataUtil;
@@ -51,7 +50,7 @@ import static android.os.Looper.getMainLooper;
  * Created by sunhaoyang on 2016/6/8.
  */
 
-public class MessageView extends LinearLayout implements DropDownListView.OnRefreshListenerHeader, ToolView.ControlListener, KeyBoardListener, ViewPorts {
+public class MessageView extends LinearLayout implements DropDownListView.OnRefreshListenerHeader, ToolView.ControlListener, ViewPorts {
 
     protected Runnable measureAndLayout = new Runnable() {
         @Override
@@ -313,26 +312,6 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void sendMessage(String text) {
-
-    }
-
-    @Override
-    public void sendEmoticon(EmoticonEntity entity) {
-
-    }
-
-    @Override
-    public void delMessage() {
-
-    }
-
-    @Override
-    public void functionSelected(int position) {
-
-    }
-
     public String getTitle() {
         return MessageListControl.getDefault().getMessages().get(index).getNickName();
     }
@@ -355,6 +334,10 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         post(measureAndLayout);
     }
 
+    /**
+     * 收到发送消息事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onSendMessageEvent(SendMessageEvent event) {
         mMessageControl.addMessage(event.message);
@@ -363,6 +346,10 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         EventBus.getDefault().post(new UIEvent());
     }
 
+    /**
+     * 收到删除消息事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDeleteMessageEvent(DeleteMessageEvent event) {
         currentStatus = Status.NORMAL;
@@ -382,6 +369,10 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         mKeyBoard.switchBoard(ChatKeyBoard.Type.NOMRAL);
     }
 
+    /**
+     * 收到功能选择事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onFunctionSelectedEvent(FunctionSelectedEvent event) {
         // 7为求包养按钮
@@ -392,6 +383,10 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         }
     }
 
+    /**
+     * 收到ui刷新事件
+     * @param event
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUIEvent(UIEvent event) {
         adapter.notifyDataSetChanged();
