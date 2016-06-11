@@ -1,6 +1,6 @@
 package com.GF.platform.uiview.messagelist.adapter;
 
-import com.GF.platform.uikit.base.manager.message.MessageManager;
+import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.widget.chatkeyboard.util.EmojiUtil;
 import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
 import com.GF.platform.uikit.widget.swipelayout.SwipeLayout;
@@ -71,8 +71,8 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        view.tvNickName.setText(MessageManager.getInstance().getMessage(position).getNickName());
-        view.tvDate.setText(MessageManager.getInstance().getMessage(position).getDate());
+        view.tvNickName.setText(MessageListControl.getInstance().getMessage(position).getNickName());
+        view.tvDate.setText(MessageListControl.getInstance().getMessage(position).getDate());
         view.sl.setClickToClose(true);
 
         view.rlContent.setOnTouchListener(new View.OnTouchListener() {
@@ -87,13 +87,13 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
             }
         });
 
-        if (MessageManager.getInstance().getMessage(position).getDraft().trim().length() > 0) {
-            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + MessageManager.getInstance().getMessage(position).getDraft(), view.tvInfo));
+        if (MessageListControl.getInstance().getMessage(position).getDraft().trim().length() > 0) {
+            view.tvInfo.setText(EmojiUtil.convertDraft(mContext, "[草稿]" + MessageListControl.getInstance().getMessage(position).getDraft(), view.tvInfo));
         } else {
-            view.tvInfo.setText(MessageManager.getInstance().getMessage(position).getInfo());
+            view.tvInfo.setText(MessageListControl.getInstance().getMessage(position).getInfo());
         }
 
-        if (!MessageManager.getInstance().getMessage(position).isTop()) {
+        if (!MessageListControl.getInstance().getMessage(position).isTop()) {
             view.tvTop.setText("消息置顶");
             view.rlContent.setBackgroundColor(mContext.getResources().getColor(R.color.gf_white));
         } else {
@@ -124,7 +124,7 @@ public class MessageListAdapter extends RecyclerSwipeAdapter<MessageListAdapter.
 
     @Override
     public int getItemCount() {
-        return MessageManager.getInstance().getMessageSize();
+        return MessageListControl.getInstance().getMessageSize();
     }
 
     @Override

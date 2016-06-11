@@ -9,4 +9,6 @@ public interface ViewPorts {
     void onResume();
 
     void onPause();
+
+    void finish();
 }

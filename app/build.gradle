@@ -33,8 +33,6 @@ android {
         release {
             zipAlignEnabled true
             minifyEnabled true
-            buildConfigField "boolean", "GF_DEBUG", "false"
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
@@ -52,7 +50,6 @@ android {
         debug {
             zipAlignEnabled true
             minifyEnabled false
-            buildConfigField "boolean", "GF_DEBUG", "true"
 
         }
     }

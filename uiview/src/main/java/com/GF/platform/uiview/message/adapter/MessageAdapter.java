@@ -1,5 +1,16 @@
 package com.GF.platform.uiview.message.adapter;
 
+import com.GF.platform.uikit.base.manager.message.MessageControl;
+import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardPorts;
+import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
+import com.GF.platform.uikit.widget.customimage.CustomRlImage;
+import com.GF.platform.uikit.widget.emojitextview.EmojiTextView;
+import com.GF.platform.uikit.widget.tooltip.ToolTipView;
+import com.GF.platform.uikit.widget.tooltip.ToolView;
+import com.GF.platform.uiview.R;
+import com.GF.platform.uiview.message.MessageView;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,16 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardPorts;
-import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
-import com.GF.platform.uikit.widget.customimage.CustomRlImage;
-import com.GF.platform.uikit.widget.emojitextview.EmojiTextView;
-import com.GF.platform.uikit.widget.tooltip.ToolTipView;
-import com.GF.platform.uikit.widget.tooltip.ToolView;
-import com.GF.platform.uiview.R;
-import com.GF.platform.uikit.entity.Message;
-import com.GF.platform.uiview.message.MessageView;
 
 import java.util.List;
 
@@ -34,9 +35,9 @@ public class MessageAdapter extends BaseAdapter {
     private MessageView mView = null;
     private KeyBoardPorts mPorts = null;
 
-    public MessageAdapter(Context context, List<Message> list, ToolView.ControlListener listener, MessageView view, KeyBoardPorts ports) {
+    public MessageAdapter(Context context, MessageControl messageControl, ToolView.ControlListener listener, MessageView view, KeyBoardPorts ports) {
         mContext = context;
-        mList = list;
+        mList = messageControl.getMessages();
         mListener = listener;
         mView = view;
         mPorts = ports;

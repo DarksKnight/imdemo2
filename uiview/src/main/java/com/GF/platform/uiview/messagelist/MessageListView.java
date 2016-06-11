@@ -1,6 +1,6 @@
 package com.GF.platform.uiview.messagelist;
 
-import com.GF.platform.uikit.base.manager.message.MessageManager;
+import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.entity.Message;
 import com.GF.platform.uikit.util.HeaderAndFooterRecyclerViewAdapter;
 import com.GF.platform.uikit.util.Util;
@@ -8,8 +8,10 @@ import com.GF.platform.uikit.widget.swipelayout.util.Attributes;
 import com.GF.platform.uiview.R;
 import com.GF.platform.uiview.base.ViewPorts;
 import com.GF.platform.uiview.messagelist.adapter.MessageListAdapter;
+import com.GF.platform.uiview.service.MessageService;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,6 +45,12 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
         initView();
         initData();
         initListener();
+        openMessageService();
+    }
+
+    private void openMessageService() {
+        Intent messageService = new Intent(getContext(), MessageService.class);
+        getContext().startService(messageService);
     }
 
     protected void initView() {
@@ -65,14 +73,14 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
         vFooter.setBackgroundResource(R.color.gf_message_bg);
         Util.setFooterView(rvMessage, vFooter);
         Util.setHeaderView(rvMessage, vHeader);
-        MessageManager.getInstance().clear();
+        MessageListControl.getInstance().clear();
         for (int i = 0; i < 20; i++) {
             Message m = new Message();
             m.setDate("星期三");
             m.setInfo("[惬意]");
             m.setNickName("火星来客" + i);
             m.setOldPosition(i);
-            MessageManager.getInstance().addMessage(m);
+            MessageListControl.getInstance().addMessage(m);
         }
         adapter.notifyDatasetChanged();
     }
@@ -101,22 +109,22 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
 
     @Override
     public void OnMessageTop(int position) {
-        Message msg = MessageManager.getInstance().getMessage(position);
+        Message msg = MessageListControl.getInstance().getMessage(position);
         if (!msg.isTop()) {
             msg.setTop(true);
-            MessageManager.getInstance().remove(position);
-            MessageManager.getInstance().addMessage(0, msg);
+            MessageListControl.getInstance().remove(position);
+            MessageListControl.getInstance().addMessage(0, msg);
         } else {
             msg.setTop(false);
-            MessageManager.getInstance().remove(msg);
-            MessageManager.getInstance().addMessage(msg.getOldPosition(), msg);
+            MessageListControl.getInstance().remove(msg);
+            MessageListControl.getInstance().addMessage(msg.getOldPosition(), msg);
         }
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void OnMessageDel(int position) {
-        MessageManager.getInstance().remove(position);
+        MessageListControl.getInstance().remove(position);
         adapter.notifyDataSetChanged();
     }
 
@@ -135,6 +143,11 @@ public class MessageListView extends LinearLayout implements MessageListAdapter.
 
     @Override
     public void onPause() {
+
+    }
+
+    @Override
+    public void finish() {
 
     }
 }

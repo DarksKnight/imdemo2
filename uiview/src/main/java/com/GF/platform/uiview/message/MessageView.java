@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.GF.platform.uikit.EmojiGlobal;
+import com.GF.platform.uikit.base.manager.message.MessageListControl;
+import com.GF.platform.uikit.base.manager.message.MessageControl;
 import com.GF.platform.uikit.base.manager.message.MessageManager;
 import com.GF.platform.uikit.entity.Message;
 import com.GF.platform.uikit.util.Util;
@@ -37,6 +39,7 @@ import java.util.List;
 import static android.os.Looper.getMainLooper;
 
 /**
+ * 消息详情
  * Created by sunhaoyang on 2016/6/8.
  */
 
@@ -58,19 +61,18 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
 
     private MessageAdapter adapter = null;
 
-    //消息集合
-    private List<Message> list = null;
-
     private Handler mHandler = null;
 
     private List<PageSetEntity> listEmoticons = null;
+
+    private MessageControl mMessageControl = new MessageControl();
 
     //修改BUG：如果不在handler中操作，会导致无法正确置底
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
-            mListView.smoothScrollToPosition(list.size());
+            mListView.smoothScrollToPosition(mMessageControl.getMessageSize());
         }
     };
 
@@ -88,6 +90,11 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     @Override
     public void onPause() {
 
+    }
+
+    @Override
+    public void finish() {
+        mKeyBoard.reset();
     }
 
     //状态（正常状态，编辑状态）
@@ -199,23 +206,28 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     protected void initData() {
         //获取当前消息的索引
         mKeyBoard.setMessageIndex(index);
-        list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Message m = new Message("火星海盗" + i, "撒打" + i, "11:10", "", Message.Category.NORMAL_ME,
-                    false);
-            list.add(m);
+
+        if (MessageManager.getInstance().getMessageControl(index + "") == null) {
+            for (int i = 0; i < 10; i++) {
+                Message m = new Message("火星海盗" + i, "撒打" + i, "11:10", "", Message.Category.NORMAL_ME,
+                        false);
+                mMessageControl.addMessage(m);
+            }
+            MessageManager.getInstance().put(index + "", mMessageControl);
         }
-        adapter = new MessageAdapter(getContext(), list, this, this, mKeyBoard);
+        mMessageControl = MessageManager.getInstance().getMessageControl(index + "");
+
+        adapter = new MessageAdapter(getContext(), mMessageControl, this, this, mKeyBoard);
         mListView.setAdapter(adapter);
         mListView.setOnRefreshListenerHead(this);
         //将消息置底
-        mListView.setSelection(list.size() - 1);
+        mListView.setSelection(mMessageControl.getMessageSize() - 1);
         //设置触摸监听
         mListView.setOnTouchListener(getOnTouchListener());
         //设置光标处于最后
         mKeyBoard.getEditText().setSelection(mKeyBoard.getEditText().getText().length());
 
-        Message message = MessageManager.getInstance().getMessage(index);
+        Message message = MessageListControl.getInstance().getMessage(index);
         //如果草稿不为空，则显示草稿
         if (message.getDraft().trim().length() > 0) {
             mKeyBoard.getEditText().setText(EmojiUtil
@@ -266,13 +278,13 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
                     false);
             oldMsg.add(m);
         }
-        list.addAll(0, oldMsg);
+        mMessageControl.addAll(0, oldMsg);
         mHandler.sendEmptyMessageDelayed(0, 1000);
     }
 
     @Override
     public void del(int index) {
-        list.remove(list.get(index));
+        mMessageControl.remove(mMessageControl.getMessage(index));
         adapter.notifyDataSetChanged();
     }
 
@@ -280,32 +292,32 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
     public void more(int index) {
         currentStatus = Status.EDIT;
         mListView.enableMove(false);
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).setShowSelected(true);
+        for (int i = 0; i < mMessageControl.getMessageSize(); i++) {
+            mMessageControl.getMessage(i).setShowSelected(true);
         }
-        list.get(index).setChecked(true);
+        mMessageControl.getMessage(index).setChecked(true);
         mKeyBoard.switchBoard(ChatKeyBoard.Type.DEL);
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void sendMessage(String text) {
-        Message msg = new Message("帅的一般", text, "22:22", "", Message.Category.NORMAL_ME, false);
-        list.add(msg);
-        msg = new Message("一般的帅", text, "22:23", "", Message.Category.NORMAL_YOU, false);
-        list.add(msg);
+        Message msg = new Message("帅的一般", text, Util.getDate(), "", Message.Category.NORMAL_ME, false);
+        mMessageControl.addMessage(msg);
+        msg = new Message("一般的帅", text, Util.getDate(), "", Message.Category.NORMAL_YOU, false);
+        mMessageControl.addMessage(msg);
         adapter.notifyDataSetChanged();
         handler.sendEmptyMessage(0);
     }
 
     @Override
     public void sendEmoticon(EmoticonEntity entity) {
-        Message msg = new Message("帅的一般", "", "15:15", "", Message.Category.NORMAL_ME,
+        Message msg = new Message("帅的一般", "", Util.getDate(), "", Message.Category.NORMAL_ME,
                 Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
-        list.add(msg);
-        msg = new Message("一般的帅", "", "15:20", "", Message.Category.NORMAL_YOU,
+        mMessageControl.addMessage(msg);
+        msg = new Message("一般的帅", "", Util.getDate(), "", Message.Category.NORMAL_YOU,
                 Util.getImageThumbnail(entity.getIconUri(), 200, 200), false);
-        list.add(msg);
+        mMessageControl.addMessage(msg);
         adapter.notifyDataSetChanged();
         mListView.requestFocus();
         handler.sendEmptyMessage(0);
@@ -317,13 +329,13 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         mListView.enableMove(true);
 
         //2016-5-10
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).isChecked()) {
-                list.remove(list.get(i));
+        for (int i = 0; i < mMessageControl.getMessageSize(); i++) {
+            if (mMessageControl.getMessage(i).isChecked()) {
+                mMessageControl.remove(mMessageControl.getMessage(i));
                 --i;
             }
-            list.get(i).setShowSelected(false);
-            list.get(i).setChecked(false);
+            mMessageControl.getMessage(i).setShowSelected(false);
+            mMessageControl.getMessage(i).setChecked(false);
         }
 
         adapter.notifyDataSetChanged();
@@ -335,14 +347,14 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         // 7为求包养按钮
         if (position == 7) {
             Message msg = new Message("帅的一般", "", "22:22", "", Message.Category.NURTURE, false);
-            list.add(msg);
+            mMessageControl.addMessage(msg);
             adapter.notifyDataSetChanged();
             handler.sendEmptyMessage(0);
         }
     }
 
     public String getTitle() {
-        return MessageManager.getInstance().getMessages().get(index).getNickName();
+        return MessageListControl.getInstance().getMessages().get(index).getNickName();
     }
 
     public final <E extends View> E getView(int id) {

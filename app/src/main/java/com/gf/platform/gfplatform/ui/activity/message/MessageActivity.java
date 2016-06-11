@@ -1,10 +1,10 @@
 package com.GF.platform.gfplatform.ui.activity.message;
 
-import android.widget.LinearLayout;
-
 import com.GF.platform.gfplatform.R;
 import com.GF.platform.gfplatform.base.BaseFragmentActivity;
 import com.GF.platform.uiview.message.MessageView;
+
+import android.widget.LinearLayout;
 
 
 /**
@@ -38,5 +38,11 @@ public class MessageActivity extends BaseFragmentActivity {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        v.finish();
     }
 }

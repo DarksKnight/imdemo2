@@ -2,7 +2,7 @@ package com.GF.platform.uikit.widget.chatkeyboard;
 
 import com.GF.platform.uikit.EmojiGlobal;
 import com.GF.platform.uikit.R;
-import com.GF.platform.uikit.base.manager.message.MessageManager;
+import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.EmoticonsAdapter;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.FunctionAdapter;
@@ -276,7 +276,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //每次文本变化，都放入草稿中
-                MessageManager.getInstance().getMessages().get(index).setDraft(s.toString());
+                MessageListControl.getInstance().getMessages().get(index).setDraft(s.toString());
                 if (count > 0) {
                     isSend = true;
                     mBtnSend.setImageResource(R.mipmap.bjmgf_message_chat_send_btn);

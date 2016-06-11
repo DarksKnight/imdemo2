@@ -31,6 +31,8 @@
         <activity
             android:name=".ui.activity.message.MessageActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <service android:name="com.GF.platform.uiview.service.MessageService"
+                android:exported="false"/>
         <meta-data android:value="d4ae7f675ecfc3388b64633b7d3fa9aa" android:name="BUG_HD_SDK_GENERAL_KEY" />
     </application>
 
