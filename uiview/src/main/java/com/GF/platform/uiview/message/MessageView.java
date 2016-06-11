@@ -5,6 +5,8 @@ import com.GF.platform.uikit.base.manager.message.MessageControl;
 import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.base.manager.message.MessageManager;
 import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.event.DeleteMessageEvent;
+import com.GF.platform.uikit.event.FunctionSelectedEvent;
 import com.GF.platform.uikit.event.SendMessageEvent;
 import com.GF.platform.uikit.event.UIEvent;
 import com.GF.platform.uikit.util.Util;
@@ -139,7 +141,6 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         EmojiGlobal.getInstance().init(getContext());
 
         initEmoticons();
-        mKeyBoard.setListener(this);
         mKeyBoard.getEmoticonsToolBarView()
                 .addFixedToolItemView(false, R.mipmap.icon_add, null, new View.OnClickListener() {
                     @Override
@@ -324,32 +325,12 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
 
     @Override
     public void delMessage() {
-        currentStatus = Status.NORMAL;
-        mListView.enableMove(true);
 
-        //2016-5-10
-        for (int i = 0; i < mMessageControl.getMessageSize(); i++) {
-            if (mMessageControl.getMessage(i).isChecked()) {
-                mMessageControl.remove(mMessageControl.getMessage(i));
-                --i;
-            }
-            mMessageControl.getMessage(i).setShowSelected(false);
-            mMessageControl.getMessage(i).setChecked(false);
-        }
-
-        adapter.notifyDataSetChanged();
-        mKeyBoard.switchBoard(ChatKeyBoard.Type.NOMRAL);
     }
 
     @Override
     public void functionSelected(int position) {
-        // 7为求包养按钮
-        if (position == 7) {
-            Message msg = new Message("帅的一般", "", "22:22", "", Message.Category.NURTURE, false);
-            mMessageControl.addMessage(msg);
-            adapter.notifyDataSetChanged();
-            handler.sendEmptyMessage(0);
-        }
+
     }
 
     public String getTitle() {
@@ -380,6 +361,35 @@ public class MessageView extends LinearLayout implements DropDownListView.OnRefr
         Message msg = new Message("一般的帅", event.message.getInfo(), Util.getDate(), "", Message.Category.NORMAL_YOU, event.message.getExpression(), false);
         mMessageControl.addMessage(msg);
         EventBus.getDefault().post(new UIEvent());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDeleteMessageEvent(DeleteMessageEvent event) {
+        currentStatus = Status.NORMAL;
+        mListView.enableMove(true);
+
+        //2016-5-10
+        for (int i = 0; i < mMessageControl.getMessageSize(); i++) {
+            if (mMessageControl.getMessage(i).isChecked()) {
+                mMessageControl.remove(mMessageControl.getMessage(i));
+                --i;
+            }
+            mMessageControl.getMessage(i).setShowSelected(false);
+            mMessageControl.getMessage(i).setChecked(false);
+        }
+
+        adapter.notifyDataSetChanged();
+        mKeyBoard.switchBoard(ChatKeyBoard.Type.NOMRAL);
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onFunctionSelectedEvent(FunctionSelectedEvent event) {
+        // 7为求包养按钮
+        if (event.position == 7) {
+            Message msg = new Message("帅的一般", "", "22:22", "", Message.Category.NURTURE, false);
+            mMessageControl.addMessage(msg);
+            EventBus.getDefault().post(new UIEvent());
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -4,6 +4,8 @@ import com.GF.platform.uikit.EmojiGlobal;
 import com.GF.platform.uikit.R;
 import com.GF.platform.uikit.base.manager.message.MessageListControl;
 import com.GF.platform.uikit.entity.Message;
+import com.GF.platform.uikit.event.DeleteMessageEvent;
+import com.GF.platform.uikit.event.FunctionSelectedEvent;
 import com.GF.platform.uikit.event.SendMessageEvent;
 import com.GF.platform.uikit.util.Util;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.ChatFunctionAdapter;
@@ -15,7 +17,6 @@ import com.GF.platform.uikit.widget.chatkeyboard.base.entity.Function;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.PageSetEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.EmojiListener;
-import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardListener;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.KeyBoardPorts;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.PageViewInstantiateListener;
 import com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonPageView;
@@ -108,8 +109,6 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
     private int index = 0;
 
     private boolean isSend = false;
-
-    private KeyBoardListener listener = null;
 
     private View moreView = null;
 
@@ -240,7 +239,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
                 new FunctionAdapter.Listener() {
                     @Override
                     public void functionSelected(int position) {
-                        listener.functionSelected(position);
+                        EventBus.getDefault().post(new FunctionSelectedEvent(position));
                     }
                 });
         gv.setAdapter(functionAdapter);
@@ -342,12 +341,10 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
             toggleFuncView(FUNC_TYPE_MORE);
         } else if (id == R.id.bjmgf_message_chat_sound_btn) {
             if (isSend) {
-                if (null != listener) {
-                    //test
-                    Message message = new Message("帅的一般", etMain.getText().toString(), Util.getDate(), "", Message.Category.NORMAL_ME, false);
-                    EventBus.getDefault().post(new SendMessageEvent(message));
-                    etMain.setText("");
-                }
+                //test
+                Message message = new Message("帅的一般", etMain.getText().toString(), Util.getDate(), "", Message.Category.NORMAL_ME, false);
+                EventBus.getDefault().post(new SendMessageEvent(message));
+                etMain.setText("");
             } else {
                 if (etMain.isEnabled()) {
                     etMain.setEnabled(false);
@@ -357,9 +354,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
                 reset();
             }
         } else if (id == R.id.bjmgf_message_keyboard_del) {
-            if (null != listener) {
-                listener.delMessage();
-            }
+            EventBus.getDefault().post(new DeleteMessageEvent());
         }
     }
 
@@ -484,7 +479,7 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
                     pageEntity.setRootView(pageView);
                     try {
                         EmoticonsAdapter adapter = new EmoticonsAdapter(container.getContext(),
-                                pageEntity.getEmoticonList(), listener, emojiListener);
+                                pageEntity.getEmoticonList(), emojiListener);
                         pageView.getEmoticonsGridView().setAdapter(adapter);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -512,10 +507,6 @@ public class ChatKeyBoard extends SoftKeyboardSizeWatchLayout
             }
             llDot.getChildAt(arg0).setSelected(true);
         }
-    }
-
-    public void setListener(KeyBoardListener listener) {
-        this.listener = listener;
     }
 
     public void setMessageIndex(int index) {
