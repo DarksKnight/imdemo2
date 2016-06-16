@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GF.platform.gfplatform.R;
-import com.GF.platform.uikit.widget.swipeback.SwipeBackActivityHelper;
+import com.GF.platform.uikit.widget.swipeback.GFSwipeBackActivityHelper;
 
 /**
  * 基类fragmentactivity
@@ -27,7 +27,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     private TextView tvBack = null;
     private TextView tvTitle = null;
     //滑动返回并且关闭当前页面
-    private SwipeBackActivityHelper helper = SwipeBackActivityHelper.getInstance();
+    protected GFSwipeBackActivityHelper helper = GFSwipeBackActivityHelper.getInstance();
     private boolean closeSwipeBack = false;
 
     @Override

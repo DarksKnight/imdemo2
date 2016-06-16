@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/bjmgf_message_chat_audio_record_replay_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/bjmgf_message_chat_audio_record_detail_del"
+        android:layout_width="@dimen/gf_40dp"
+        android:layout_height="@dimen/gf_40dp"
+        android:background="@drawable/bjmgf_message_chat_audio_record_detail_del"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/gf_30dp"
+        android:layout_marginBottom="@dimen/gf_10dp"/>
+
+    <Button
+        android:id="@+id/bjmgf_message_chat_audio_record_detail_send"
+        android:layout_width="@dimen/gf_40dp"
+        android:layout_height="@dimen/gf_40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/gf_30dp"
+        android:background="@drawable/bjmgf_message_chat_audio_record_detail_send"/>
+
+    <com.GF.platform.uikit.widget.progressbar.GFCircleProgressBar
+        android:id="@+id/bjmgf_message_chat_audio_record_detail_play"
+        android:layout_width="@dimen/gf_70dp"
+        android:layout_height="@dimen/gf_70dp"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/bjmgf_message_chat_audio_record_play"
+        android:layout_below="@id/bjmgf_message_chat_audio_record_detail_del"
+        android:layout_marginBottom="@dimen/gf_20dp"
+        app:progress_stroke_width="2dp"
+        app:progress_background_color="@android:color/white"
+        app:progress_color="@color/gf_message_chat_audio_record_play"/>
+
+</RelativeLayout>

@@ -14,7 +14,7 @@
         <attr name="pstsTextAllCaps" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="SwipeLayout">
+    <declare-styleable name="GFSwipeLayout">
         <attr name="drag_edge">
             <flag name="left" value="1" />
             <flag name="right" value="2" />
@@ -34,11 +34,11 @@
 
     <attr name="rightPadding" format="dimension" />
 
-    <declare-styleable name="SlidingMenu">
+    <declare-styleable name="GFSlidingMenu">
         <attr name="rightPadding" />
     </declare-styleable>
 
-    <declare-styleable name="CustomTextView">
+    <declare-styleable name="GFCustomTextView">
         <attr name="left_height" format="dimension" />
         <attr name="left_width" format="dimension" />
         <attr name="right_height" format="dimension" />

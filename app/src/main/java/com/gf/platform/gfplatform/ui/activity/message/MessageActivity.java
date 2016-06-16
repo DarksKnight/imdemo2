@@ -1,10 +1,13 @@
 package com.GF.platform.gfplatform.ui.activity.message;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
+
 import com.GF.platform.gfplatform.R;
 import com.GF.platform.gfplatform.base.BaseFragmentActivity;
-import com.GF.platform.uiview.message.MessageView;
-
-import android.widget.LinearLayout;
+import com.GF.platform.uikit.widget.swipeback.GFSwipeBackActivityHelper;
+import com.GF.platform.uiview.message.GFChatRoomGFView;
 
 
 /**
@@ -13,7 +16,7 @@ import android.widget.LinearLayout;
  */
 public class MessageActivity extends BaseFragmentActivity {
     private LinearLayout llMain = null;
-    private MessageView v = null;
+    private GFChatRoomGFView view = null;
 
     @Override
     protected int getContentView() {
@@ -23,16 +26,22 @@ public class MessageActivity extends BaseFragmentActivity {
     @Override
     protected void initView() {
         llMain = getView(R.id.bjmgf_message_chat_content_ll);
-        MessageView.index = getIntent().getIntExtra("index", -1);
-        v = new MessageView(this);
-        llMain.addView(v);
-        setTitleText(v.getTitle());
+        GFChatRoomGFView.index = getIntent().getIntExtra("index", -1);
+        view = new GFChatRoomGFView(this);
+        llMain.addView(view);
+        setTitleText(view.getTitle());
+        helper.setPanelSlideListener(new GFSwipeBackActivityHelper.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View v, float position) {
+                view.reload();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        v.onResume();
+        view.onResume();
     }
 
     @Override
@@ -41,8 +50,8 @@ public class MessageActivity extends BaseFragmentActivity {
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        v.finish();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        view.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -29,4 +29,5 @@
     <color name="gf_message_tool_tip_bg">#242424</color>
     <color name="gf_message_nurture_title">#FF49DE</color>
     <color name="gf_message_nurture_content">#FF4DE6</color>
+    <color name="gf_message_chat_audio_record_play">#29B4F8</color>
 </resources>

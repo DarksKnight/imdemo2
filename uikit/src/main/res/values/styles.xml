@@ -1,6 +1,6 @@
 <resources>
 
-    <declare-styleable name="CircleImageView">
+    <declare-styleable name="GFCircleImageView">
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>

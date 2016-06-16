@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.GF.platform.uikit.widget.swipelayout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.GF.platform.uikit.widget.swipelayout.GFSwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bjmgf_message_item_sl"
     android:layout_width="match_parent"
@@ -115,4 +115,4 @@
 
     </RelativeLayout>
 
-</com.GF.platform.uikit.widget.swipelayout.SwipeLayout>
+</com.GF.platform.uikit.widget.swipelayout.GFSwipeLayout>

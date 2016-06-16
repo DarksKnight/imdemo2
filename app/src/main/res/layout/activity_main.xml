@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.GF.platform.uikit.widget.slidemenu.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+<com.GF.platform.uikit.widget.slidemenu.GFSlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bjmgf_main_menu"
     android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
 
         <include layout="@layout/bjmgf_main_menu" />
 
-        <com.GF.platform.uikit.widget.slidecontent.SlideContent
+        <com.GF.platform.uikit.widget.slidecontent.GFSlideContent
             android:id="@+id/bjmgf_main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@color/gf_main_title_bg">
 
-                <com.GF.platform.uikit.widget.circleimageview.CircleImageView
+                <com.GF.platform.uikit.widget.circleimageview.GFCircleImageView
                     android:id="@+id/bjmgf_main_face_iv"
                     android:layout_width="@dimen/gf_30dp"
                     android:layout_height="@dimen/gf_30dp"
@@ -55,7 +55,7 @@
 
             </RelativeLayout>
 
-            <com.GF.platform.uikit.widget.customviewpager.CustomViewPager
+            <com.GF.platform.uikit.widget.customviewpager.GFCustomViewPager
                 android:id="@+id/bjmgf_main_vp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -84,8 +84,8 @@
 
             </LinearLayout>
 
-        </com.GF.platform.uikit.widget.slidecontent.SlideContent>
+        </com.GF.platform.uikit.widget.slidecontent.GFSlideContent>
 
     </LinearLayout>
 
-</com.GF.platform.uikit.widget.slidemenu.SlidingMenu>
+</com.GF.platform.uikit.widget.slidemenu.GFSlidingMenu>

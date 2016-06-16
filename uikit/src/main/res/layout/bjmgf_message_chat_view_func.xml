@@ -7,14 +7,14 @@
 
     <include layout="@layout/bjmgf_message_spitview_horizontal" />
 
-    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsViewPager
+    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.GFEmoticonsViewPager
         android:id="@+id/bjmgf_message_chat_view_epv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/gf_150dp"
         android:orientation="vertical"
         android:overScrollMode="never"/>
 
-    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsIndicatorView
+    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.GFEmoticonsIndicatorView
         android:id="@+id/bjmgf_message_view_eiv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/gf_1dp" />
 
-    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.EmoticonsToolBarView
+    <com.GF.platform.uikit.widget.chatkeyboard.base.widget.GFEmoticonsToolBarView
         android:id="@+id/bjmgf_message_chat_view_etv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/gf_50dp"

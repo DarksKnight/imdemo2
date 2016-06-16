@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bjmgf_message_chat_time_tv">
 
-        <com.GF.platform.uikit.widget.circleimageview.CircleImageView
+        <com.GF.platform.uikit.widget.circleimageview.GFCircleImageView
             android:id="@+id/bjmgf_message_chat_msg_item_face_iv"
             android:layout_width="@dimen/gf_35dp"
             android:layout_height="@dimen/gf_35dp"
@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:visibility="gone"/>
 
-        <com.GF.platform.uikit.widget.emojitextview.EmojiTextView
+        <com.GF.platform.uikit.widget.emojitextview.GFEmojiTextView
             android:id="@+id/bjmgf_message_chat_msg_item_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

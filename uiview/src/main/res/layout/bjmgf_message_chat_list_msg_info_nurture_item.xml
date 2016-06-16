@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/bjmgf_message_chat_time_tv">
 
-        <com.GF.platform.uikit.widget.circleimageview.CircleImageView
+        <com.GF.platform.uikit.widget.circleimageview.GFCircleImageView
                 android:id="@+id/bjmgf_message_chat_msg_item_face_iv"
                 android:layout_width="@dimen/gf_35dp"
                 android:layout_height="@dimen/gf_35dp"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_face_iv"
                 android:visibility="gone"/>
-        <com.GF.platform.uikit.widget.customimage.CustomRlImage
+        <com.GF.platform.uikit.widget.customimage.GFCustomRlImage
                 android:id="@+id/bjmgf_message_chat_nurture_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:layout_marginTop="@dimen/gf_8dp"
                     android:layout_marginLeft="@dimen/gf_10dp"/>
 
-            <com.GF.platform.uikit.widget.circleimageview.CircleImageView
+            <com.GF.platform.uikit.widget.circleimageview.GFCircleImageView
                     android:id="@+id/bjmgf_message_chat_nurture_bottom_face"
                     android:layout_width="@dimen/gf_50dp"
                     android:layout_height="@dimen/gf_50dp"
@@ -86,7 +86,7 @@
                       android:layout_marginLeft="@dimen/gf_10dp"
                       android:layout_marginTop="@dimen/gf_25dp"/>
 
-        </com.GF.platform.uikit.widget.customimage.CustomRlImage>
+        </com.GF.platform.uikit.widget.customimage.GFCustomRlImage>
 
     </RelativeLayout>
 

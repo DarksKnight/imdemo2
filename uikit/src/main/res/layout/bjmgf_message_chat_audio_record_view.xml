@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.5"
+    android:background="@color/gf_black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/bjmgf_message_chat_audio_record_bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/gf_30dp">
+
+        <LinearLayout android:id="@+id/bjmgf_message_chat_audio_record_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/bjmgf_message_chat_audio_record_del_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/bjmgf_message_chat_audio_record_del" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/bjmgf_message_chat_audio_record_play_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/bjmgf_message_chat_audio_record_play" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ViewStub
+            android:id="@+id/bjmgf_message_chat_audio_record_replay_vs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/bjmgf_message_chat_audio_record_replay"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bjmgf_message_chat_audio_record_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bjmgf_message_chat_audio_record_bottom_ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/gf_30dp"
+        android:textColor="@color/gf_white"
+        android:textSize="@dimen/gf_16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <com.GF.platform.uikit.widget.audioview.GFAudioRecordView
+            android:id="@+id/bjmgf_message_chat_audio_view_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_audio_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="10:00"
+            android:textColor="@color/gf_white" />
+
+        <com.GF.platform.uikit.widget.audioview.GFAudioRecordView
+            android:id="@+id/bjmgf_message_chat_audio_view_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:rotation="180" />
+
+    </LinearLayout>
+
+</RelativeLayout>

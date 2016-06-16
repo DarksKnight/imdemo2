@@ -10,4 +10,13 @@
     <string name="bjmgf_message_list_top">消息置顶</string>
     <string name="bjmgf_message_list_no_top">取消置顶</string>
     <string name="bjmgf_message_chat_copy_success">已复制</string>
+    <string name="bjmgf_message_chat_hold_speek">按住说话</string>
+    <string name="bjmgf_message_chat_up_speek">松开发送</string>
+    <string name="bjmgf_message_chat_up_audio_record_cancel">松开取消发送</string>
+    <string name="bjmgf_message_chat_up_audio_record_play">松开试听</string>
+    <string name="bjmgf_message_chat_tool_tip_listen">听筒播放</string>
+    <string name="bjmgf_message_chat_tool_tip_copy">复制</string>
+    <string name="bjmgf_message_chat_tool_tip_del">删除</string>
+    <string name="bjmgf_message_chat_tool_tip_relay">转发</string>
+    <string name="bjmgf_message_chat_tool_tip_more">更多...</string>
 </resources>

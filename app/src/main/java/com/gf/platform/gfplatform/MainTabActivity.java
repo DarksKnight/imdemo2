@@ -14,28 +14,28 @@ import com.GF.platform.gfplatform.ui.fragment.ContactFragment;
 import com.GF.platform.gfplatform.ui.fragment.ExploreFragment;
 import com.GF.platform.gfplatform.ui.fragment.GameFragment;
 import com.GF.platform.gfplatform.ui.fragment.message.MessageFragment;
-import com.GF.platform.uikit.EmojiGlobal;
-import com.GF.platform.uikit.util.Util;
-import com.GF.platform.uikit.widget.badgerview.BadgeView;
-import com.GF.platform.uikit.widget.circleimageview.CircleImageView;
-import com.GF.platform.uikit.widget.customviewpager.CustomViewPager;
-import com.GF.platform.uikit.widget.slidecontent.SlideContent;
-import com.GF.platform.uikit.widget.slidemenu.SlidingMenu;
+import com.GF.platform.uikit.GFEmojiGlobal;
+import com.GF.platform.uikit.util.GFUtil;
+import com.GF.platform.uikit.widget.badgerview.GFBadgeView;
+import com.GF.platform.uikit.widget.circleimageview.GFCircleImageView;
+import com.GF.platform.uikit.widget.customviewpager.GFCustomViewPager;
+import com.GF.platform.uikit.widget.slidecontent.GFSlideContent;
+import com.GF.platform.uikit.widget.slidemenu.GFSlidingMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainTabActivity extends BaseFragmentActivity {
 
-    private CircleImageView faceIv = null;
+    private GFCircleImageView faceIv = null;
     private TabLayout tbMain = null;
-    private CustomViewPager vpMain = null;
+    private GFCustomViewPager vpMain = null;
     private TabFragmentAdapter adapter = null;
-    private SlidingMenu sm = null;
+    private GFSlidingMenu sm = null;
     private float oldLocationX = 0;
     private float oldLocationY = 0;
-    private BadgeView bv = null;
-    private SlideContent slideContent = null;
+    private GFBadgeView bv = null;
+    private GFSlideContent GFSlideContent = null;
 
     @Override
     protected int getContentView() {
@@ -48,15 +48,15 @@ public class MainTabActivity extends BaseFragmentActivity {
         tbMain = getView(R.id.bjmgf_main_tab);
         vpMain = getView(R.id.bjmgf_main_vp);
         sm = getView(R.id.bjmgf_main_menu);
-        slideContent = getView(R.id.bjmgf_main_content);
-        sm.setSlideContent(slideContent);
+        GFSlideContent = getView(R.id.bjmgf_main_content);
+        sm.setGFSlideContent(GFSlideContent);
         disableSwipeBack();
     }
 
     @Override
     protected void initData() {
         sm.setBackgroundDrawable(new BitmapDrawable(
-                Util.doBlur(BitmapFactory.decodeResource(getResources(), R.mipmap.demo_face), 15, false)));
+                GFUtil.doBlur(BitmapFactory.decodeResource(getResources(), R.mipmap.demo_face), 15, false)));
         tbMain.setTabMode(TabLayout.MODE_FIXED);
         Fragment fMessage = new MessageFragment();
         Fragment fGame = new GameFragment();
@@ -71,7 +71,7 @@ public class MainTabActivity extends BaseFragmentActivity {
         vpMain.setAdapter(adapter);
         tbMain.setupWithViewPager(vpMain);
         resetTab();
-        EmojiGlobal.getInstance().init(this);
+        GFEmojiGlobal.getInstance().init(this);
 
         faceIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +110,8 @@ public class MainTabActivity extends BaseFragmentActivity {
             case 1:
                 ImageView iv = (ImageView) t.getCustomView().findViewById(R.id.bjmgf_main_tab_iv);
                 iv.setImageResource(R.mipmap.bjmgf_main_tab_message_selected);
-                bv = new BadgeView(this, iv);
-                bv.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+                bv = new GFBadgeView(this, iv);
+                bv.setBadgePosition(GFBadgeView.POSITION_TOP_RIGHT);
                 bv.setTextSize(10);
                 bv.setBadgeMargin((int)getResources().getDimension(R.dimen.gf_12dp) ,(int)getResources().getDimension(R.dimen.gf_3dp));
                 bv.setText("1");

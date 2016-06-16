@@ -24,7 +24,7 @@
             android:layout_height="@dimen/gf_30dp"
             android:background="@drawable/bjmgf_message_chat_tool_tip_bg_left"
             android:gravity="center"
-            android:text="复制"
+            android:text="@string/bjmgf_message_chat_tool_tip_copy"
             android:textColor="@color/gf_white"
             android:textSize="@dimen/gf_16sp" />
 
@@ -34,12 +34,23 @@
             android:background="@color/gf_white"/>
 
         <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_voice_listen"
+            android:layout_width="@dimen/gf_80dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:background="@drawable/bjmgf_message_chat_tool_tip_bg_left"
+            android:gravity="center"
+            android:text="@string/bjmgf_message_chat_tool_tip_listen"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/bjmgf_message_chat_tool_tip_relay"
             android:layout_width="@dimen/gf_50dp"
             android:layout_height="@dimen/gf_30dp"
             android:gravity="center"
             android:background="@color/gf_message_tool_tip_bg"
-            android:text="转发"
+            android:text="@string/bjmgf_message_chat_tool_tip_relay"
             android:textColor="@color/gf_white"
             android:textSize="@dimen/gf_16sp" />
 
@@ -54,7 +65,7 @@
             android:layout_height="@dimen/gf_30dp"
             android:gravity="center"
             android:background="@color/gf_message_tool_tip_bg"
-            android:text="删除"
+            android:text="@string/bjmgf_message_chat_tool_tip_del"
             android:textColor="@color/gf_white"
             android:textSize="@dimen/gf_16sp" />
 
@@ -69,7 +80,7 @@
             android:layout_height="@dimen/gf_30dp"
             android:gravity="center"
             android:background="@drawable/bjmgf_message_chat_tool_tip_bg_right"
-            android:text="更多..."
+            android:text="@string/bjmgf_message_chat_tool_tip_more"
             android:textColor="@color/gf_white"
             android:textSize="@dimen/gf_16sp" />
 
