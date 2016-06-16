@@ -1,7 +1,18 @@
 package com.GF.platform.uikit.widget.multiselector.adapter;
 
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.widget.multiselector.bean.Image;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ImageDecodeOptions;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
+
 import android.content.Context;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +20,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.GF.platform.uikit.R;
-import com.GF.platform.uikit.widget.multiselector.bean.Image;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -207,9 +212,21 @@ public class ImageGridAdapter extends BaseAdapter {
         holder.mask.setLayoutParams(lp);
         if (imageFile.exists()) {
             // 显示图片
+            ImageDecodeOptions options = ImageDecodeOptions.newBuilder()
+                    .setUseLastFrameForPreview(true)
+                    .setDecodeAllFrames(true)
+                    .setDecodePreviewFrame(true)
+                    .build();
+            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse("file://" + imageFile.getPath()))
+                    .setImageDecodeOptions(options)
+                    .setLocalThumbnailPreviewsEnabled(true)
+                    .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+                    .setProgressiveRenderingEnabled(true)
+                    .setResizeOptions(new ResizeOptions(mGridWidth, mGridWidth))
+                    .build();
             DraweeController controller = Fresco.newDraweeControllerBuilder()
-                    .setUri("file://" + imageFile.getPath())
-                    .setAutoPlayAnimations(false)
+                    .setImageRequest(request)
+                    .setOldController(holder.image.getController())
                     .build();
             holder.image.setController(controller);
         }else{
