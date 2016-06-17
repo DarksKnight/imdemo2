@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.base.GFCommonAdapter;
+import com.GF.platform.uikit.base.GFViewHolder;
 import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.event.GFEventDispatch;
 import com.GF.platform.uikit.util.GFUtil;
@@ -34,7 +36,7 @@ public class GFEmoticonsAdapter extends GFCommonAdapter<GFEmoticonEntity> {
     }
 
     @Override
-    public void convert(GFViewHolder GFViewHolder, final GFEmoticonEntity entity) {
+    public void convert(GFViewHolder GFViewHolder, final GFEmoticonEntity entity, int position) {
         final RelativeLayout lyRoot = GFViewHolder.getView(R.id.ly_root);
         final SimpleDraweeView ivEmoticon = GFViewHolder.getView(R.id.iv_emoticon);
         TextView tvContent = GFViewHolder.getView(R.id.tv_content);

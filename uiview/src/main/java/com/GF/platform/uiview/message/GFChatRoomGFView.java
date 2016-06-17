@@ -29,7 +29,7 @@ import com.GF.platform.uikit.widget.chatkeyboard.util.GFEmojiUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFKeyBoardUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFParseDataUtil;
 import com.GF.platform.uikit.widget.dropdownlistview.GFDropDownListView;
-import com.GF.platform.uikit.widget.multiselector.MultiImageSelectorActivity;
+import com.GF.platform.uikit.widget.multiselector.GFMultiImageSelectorActivity;
 import com.GF.platform.uikit.widget.tooltip.GFToolTipView;
 import com.GF.platform.uikit.widget.tooltip.GFToolView;
 import com.GF.platform.uiview.R;
@@ -115,7 +115,7 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0){
             if(resultCode == Activity.RESULT_OK){
-                ArrayList<String> selectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                ArrayList<String> selectPath = data.getStringArrayListExtra(GFMultiImageSelectorActivity.EXTRA_RESULT);
                 StringBuilder sb = new StringBuilder();
                 for(String p: selectPath){
                     sb.append(p);
@@ -406,13 +406,13 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
     public void onFunctionSelectedEvent(GFFunctionSelectedEvent event) {
         // 1.选择照片发送 7.求包养按钮
         if (event.position == 0) {
-            Intent intent = new Intent(getContext(), MultiImageSelectorActivity.class);
+            Intent intent = new Intent(getContext(), GFMultiImageSelectorActivity.class);
             // 是否显示拍摄图片
-            intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
+            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
             // 最大可选择图片数量
-            intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
+            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
             // 选择模式
-            intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
+            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SELECT_MODE, GFMultiImageSelectorActivity.MODE_MULTI);
             ((Activity)getContext()).startActivityForResult(intent, 0);
         } else if (event.position == 7) {
             //test

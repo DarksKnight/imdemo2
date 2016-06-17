@@ -8,11 +8,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ImageDecodeOptions;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -510,5 +519,24 @@ public class GFUtil {
         Rect frame = new Rect();
         ((Activity)context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         return frame.top;
+    }
+
+    public static DraweeController getCommonController(SimpleDraweeView image, String filePath, int width, int height) {
+        ImageDecodeOptions options = ImageDecodeOptions.newBuilder()
+                .setUseLastFrameForPreview(true)
+                .setDecodeAllFrames(true)
+                .setDecodePreviewFrame(true)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(filePath))
+                .setImageDecodeOptions(options)
+                .setLocalThumbnailPreviewsEnabled(true)
+                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+                .setProgressiveRenderingEnabled(true)
+                .setResizeOptions(new ResizeOptions(width, height))
+                .build();
+        return Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(image.getController())
+                .build();
     }
 }
