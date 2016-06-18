@@ -246,8 +246,8 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         GFFunctionAdapter = new GFFunctionAdapter(getContext(), subList,
                 new GFFunctionAdapter.Listener() {
                     @Override
-                    public void functionSelected(int position) {
-                        GFEventDispatch.post(GFConstant.EVENT_FUNCTION_SELECTED, position);
+                    public void functionSelected(String str) {
+                        GFEventDispatch.post(GFConstant.EVENT_FUNCTION_SELECTED, str);
                     }
                 });
         gv.setAdapter(GFFunctionAdapter);

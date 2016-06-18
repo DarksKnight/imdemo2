@@ -6,6 +6,8 @@ import com.GF.platform.uikit.util.GFLogProxy;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * 事件分发
  * Created by sunhaoyang on 2016/6/13.
@@ -14,30 +16,33 @@ import org.greenrobot.eventbus.EventBus;
 public class GFEventDispatch {
 
     private static EventBus event = EventBus.getDefault();
-    private static GFBaseEvent GFBaseEvent = null;
+    private static GFBaseEvent gfBaseEvent = null;
 
     public static void post(int eventId, Object... objs) {
         switch (eventId) {
             case GFConstant.EVENT_SEND_MESSAGE:
-                GFBaseEvent = new GFSendMessageEvent((GFMessage)objs[0]);
+                gfBaseEvent = new GFSendMessageEvent((GFMessage)objs[0]);
                 break;
             case GFConstant.EVENT_DELETE_MESSAGE:
-                GFBaseEvent = new GFDeleteMessageEvent();
+                gfBaseEvent = new GFDeleteMessageEvent();
                 break;
             case GFConstant.EVENT_UI:
-                GFBaseEvent = new GFBaseEvent();
+                gfBaseEvent = new GFBaseEvent();
                 break;
             case GFConstant.EVENT_FUNCTION_SELECTED:
-                GFBaseEvent = new GFFunctionSelectedEvent((int)objs[0]);
+                gfBaseEvent = new GFFunctionSelectedEvent(objs[0].toString());
+                break;
+            case GFConstant.EVENT_IMAGE_SELECT:
+                gfBaseEvent = new GFImageSelectEvent((List<String>) objs[0]);
                 break;
             default:
                 break;
         }
 
-        if (null == GFBaseEvent) {
+        if (null == gfBaseEvent) {
             GFLogProxy.i("baseEvent is null");
         } else {
-            event.post(GFBaseEvent);
+            event.post(gfBaseEvent);
         }
     }
 

@@ -6,13 +6,12 @@ import java.util.List;
 
 /**
  * 文件夹
- * Created by Nereo on 2015/4/7.
  */
 public class GFFolder {
     public String name;
     public String path;
     public GFImage cover;
-    public List<GFImage> GFImages;
+    public List<GFImage> images;
 
     @Override
     public boolean equals(Object o) {

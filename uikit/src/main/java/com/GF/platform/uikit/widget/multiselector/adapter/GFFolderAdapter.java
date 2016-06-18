@@ -16,8 +16,6 @@ import java.util.List;
 
 /**
  * 文件夹Adapter
- * Created by Nereo on 2015/4/7.
- * Updated by nereo on 2016/1/19.
  */
 public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
     int lastSelected = 0;
@@ -55,8 +53,8 @@ public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
         } else {
             name.setText(gfFolder.name);
             path.setText(gfFolder.path);
-            if (gfFolder.GFImages != null) {
-                size.setText(String.format("%d%s", gfFolder.GFImages.size(), "Shot"));
+            if (gfFolder.images != null) {
+                size.setText(String.format("%d%s", gfFolder.images.size(), "Shot"));
             } else {
                 size.setText("*" + "Shot");
             }
@@ -78,7 +76,7 @@ public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
         int result = 0;
         if (data != null && data.size() > 0) {
             for (GFFolder f : data) {
-                result += f.GFImages.size();
+                result += f.images.size();
             }
         }
         return result;

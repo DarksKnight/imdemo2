@@ -39,35 +39,21 @@ import java.util.List;
 
 /**
  * 图片选择Fragment
- * Created by Nereo on 2015/4/7.
  */
 public class GFMultiImageSelectorFragment extends Fragment {
-
     private static final String KEY_TEMP_FILE = "key_temp_file";
 
-    /**
-     * 最大图片选择次数，int类型
-     */
+    /** 最大图片选择次数，int类型 */
     public static final String EXTRA_SELECT_COUNT = "max_select_count";
-    /**
-     * 图片选择模式，int类型
-     */
+    /** 图片选择模式，int类型 */
     public static final String EXTRA_SELECT_MODE = "select_count_mode";
-    /**
-     * 是否显示相机，boolean类型
-     */
+    /** 是否显示相机，boolean类型 */
     public static final String EXTRA_SHOW_CAMERA = "show_camera";
-    /**
-     * 默认选择的数据集
-     */
+    /** 默认选择的数据集 */
     public static final String EXTRA_DEFAULT_SELECTED_LIST = "default_result";
-    /**
-     * 单选
-     */
+    /** 单选 */
     public static final int MODE_SINGLE = 0;
-    /**
-     * 多选
-     */
+    /** 多选 */
     public static final int MODE_MULTI = 1;
     // 不同loader定义
     private static final int LOADER_ALL = 0;
@@ -79,14 +65,14 @@ public class GFMultiImageSelectorFragment extends Fragment {
     // 结果数据
     private ArrayList<String> resultList = new ArrayList<>();
     // 文件夹数据
-    private ArrayList<GFFolder> mResultGFFolder = new ArrayList<>();
+    private ArrayList<GFFolder> mResultFolder = new ArrayList<>();
 
     // 图片Grid
     private GridView mGridView;
     private Callback mCallback;
 
     private GFImageGridAdapter mImageAdapter;
-    private GFFolderAdapter mGFFolderAdapter;
+    private GFFolderAdapter mFolderAdapter;
 
     private ListPopupWindow mFolderPopupWindow;
 
@@ -108,7 +94,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
         super.onAttach(activity);
         try {
             mCallback = (Callback) activity;
-        } catch (ClassCastException e) {
+        }catch (ClassCastException e){
             throw new ClassCastException("The Activity must implement MultiImageSelectorFragment.Callback interface...");
         }
     }
@@ -129,12 +115,14 @@ public class GFMultiImageSelectorFragment extends Fragment {
         final int mode = getArguments().getInt(EXTRA_SELECT_MODE);
 
         // 默认选择
-        if (mode == MODE_MULTI) {
+        if(mode == MODE_MULTI) {
             ArrayList<String> tmp = getArguments().getStringArrayList(EXTRA_DEFAULT_SELECTED_LIST);
-            if (tmp != null && tmp.size() > 0) {
+            if(tmp != null && tmp.size()>0) {
                 resultList = tmp;
             }
         }
+
+        mImageAdapter = new GFImageGridAdapter(getActivity(), 3);
 
         mPopupAnchorView = view.findViewById(R.id.footer);
 
@@ -145,7 +133,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (mFolderPopupWindow == null) {
+                if(mFolderPopupWindow == null){
                     createPopupFolderList();
                 }
 
@@ -153,7 +141,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
                     mFolderPopupWindow.dismiss();
                 } else {
                     mFolderPopupWindow.show();
-                    int index = mGFFolderAdapter.getSelectIndex();
+                    int index = mFolderAdapter.getSelectIndex();
                     index = index == 0 ? index : index - 1;
                     mFolderPopupWindow.getListView().setSelection(index);
                 }
@@ -162,28 +150,30 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
         mPreviewBtn = (Button) view.findViewById(R.id.preview);
         // 初始化，按钮状态初始化
-        if (resultList == null || resultList.size() <= 0) {
+        if(resultList == null || resultList.size()<=0){
             mPreviewBtn.setText("Preview");
             mPreviewBtn.setEnabled(false);
         }
         mPreviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO 预览
             }
         });
 
         mGridView = (GridView) view.findViewById(R.id.grid);
+        mGridView.setAdapter(mImageAdapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GFImage GFImage = (GFImage) adapterView.getAdapter().getItem(i);
-                selectImageFromGrid(GFImage, mode);
+                // 正常操作
+                GFImage image = (GFImage) adapterView.getAdapter().getItem(i);
+                selectImageFromGrid(image, mode);
             }
         });
         mGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
@@ -192,18 +182,18 @@ public class GFMultiImageSelectorFragment extends Fragment {
             }
         });
 
-        mGFFolderAdapter = new GFFolderAdapter(getActivity());
+        mFolderAdapter = new GFFolderAdapter(getActivity());
     }
 
     /**
      * 创建弹出的ListView
      */
     private void createPopupFolderList() {
-        int width = GFUtil.getScreenWidth(getContext());
-        int height = (int) (GFUtil.getScreenHeight(getContext()) * (4.5f / 8.0f));
+        int width = GFUtil.getScreenWidth(getActivity());
+        int height = (int) (GFUtil.getScreenHeight(getActivity()) * (4.5f/8.0f));
         mFolderPopupWindow = new ListPopupWindow(getActivity());
         mFolderPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        mFolderPopupWindow.setAdapter(mGFFolderAdapter);
+        mFolderPopupWindow.setAdapter(mFolderAdapter);
         mFolderPopupWindow.setContentWidth(width);
         mFolderPopupWindow.setWidth(width);
         mFolderPopupWindow.setHeight(height);
@@ -213,7 +203,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                mGFFolderAdapter.setSelectIndex(i);
+                mFolderAdapter.setSelectIndex(i);
 
                 final int index = i;
                 final AdapterView v = adapterView;
@@ -227,10 +217,10 @@ public class GFMultiImageSelectorFragment extends Fragment {
                             getActivity().getSupportLoaderManager().restartLoader(LOADER_ALL, null, mLoaderCallback);
                             mCategoryText.setText("All Images");
                         } else {
-                            GFFolder GFFolder = (GFFolder) v.getAdapter().getItem(index);
-                            if (null != GFFolder) {
-                                mImageAdapter.setData(GFFolder.GFImages);
-                                mCategoryText.setText(GFFolder.name);
+                            GFFolder folder = (GFFolder) v.getAdapter().getItem(index);
+                            if (null != folder) {
+                                mImageAdapter.setData(folder.images);
+                                mCategoryText.setText(folder.name);
                                 // 设定默认选择
                                 if (resultList != null && resultList.size() > 0) {
                                     mImageAdapter.setDefaultSelected(resultList);
@@ -273,17 +263,17 @@ public class GFMultiImageSelectorFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 相机拍照完成后，返回图片路径
-        if (requestCode == REQUEST_CAMERA) {
-            if (resultCode == Activity.RESULT_OK) {
+        if(requestCode == REQUEST_CAMERA){
+            if(resultCode == Activity.RESULT_OK) {
                 if (mTmpFile != null) {
                     if (mCallback != null) {
                         mCallback.onCameraShot(mTmpFile);
                     }
                 }
-            } else {
-                while (mTmpFile != null && mTmpFile.exists()) {
+            }else{
+                while (mTmpFile != null && mTmpFile.exists()){
                     boolean success = mTmpFile.delete();
-                    if (success) {
+                    if(success){
                         mTmpFile = null;
                     }
                 }
@@ -293,8 +283,8 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (mFolderPopupWindow != null) {
-            if (mFolderPopupWindow.isShowing()) {
+        if(mFolderPopupWindow != null){
+            if(mFolderPopupWindow.isShowing()){
                 mFolderPopupWindow.dismiss();
             }
         }
@@ -303,44 +293,43 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
     /**
      * 选择图片操作
-     *
-     * @param GFImage
+     * @param image
      */
-    private void selectImageFromGrid(GFImage GFImage, int mode) {
-        if (GFImage != null) {
+    private void selectImageFromGrid(GFImage image, int mode) {
+        if(image != null) {
             // 多选模式
-            if (mode == MODE_MULTI) {
-                if (resultList.contains(GFImage.path)) {
-                    resultList.remove(GFImage.path);
-                    if (resultList.size() != 0) {
+            if(mode == MODE_MULTI) {
+                if (resultList.contains(image.path)) {
+                    resultList.remove(image.path);
+                    if(resultList.size() != 0) {
                         mPreviewBtn.setEnabled(true);
                         mPreviewBtn.setText("Preview" + "(" + resultList.size() + ")");
-                    } else {
+                    }else{
                         mPreviewBtn.setEnabled(false);
                         mPreviewBtn.setText("Preview");
                     }
                     if (mCallback != null) {
-                        mCallback.onImageUnselected(GFImage.path);
+                        mCallback.onImageUnselected(image.path);
                     }
                 } else {
                     // 判断选择数量问题
-                    if (mDesireImageCount == resultList.size()) {
+                    if(mDesireImageCount == resultList.size()){
                         Toast.makeText(getActivity(), "Select images amount is limit", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    resultList.add(GFImage.path);
+                    resultList.add(image.path);
                     mPreviewBtn.setEnabled(true);
                     mPreviewBtn.setText("Preview" + "(" + resultList.size() + ")");
                     if (mCallback != null) {
-                        mCallback.onImageSelected(GFImage.path);
+                        mCallback.onImageSelected(image.path);
                     }
                 }
-                mImageAdapter.select(GFImage);
-            } else if (mode == MODE_SINGLE) {
+                mImageAdapter.select(image);
+            }else if(mode == MODE_SINGLE){
                 // 单选模式
-                if (mCallback != null) {
-                    mCallback.onSingleImageSelected(GFImage.path);
+                if(mCallback != null){
+                    mCallback.onSingleImageSelected(image.path);
                 }
             }
         }
@@ -354,20 +343,20 @@ public class GFMultiImageSelectorFragment extends Fragment {
                 MediaStore.Images.Media.DATE_ADDED,
                 MediaStore.Images.Media.MIME_TYPE,
                 MediaStore.Images.Media.SIZE,
-                MediaStore.Images.Media._ID};
+                MediaStore.Images.Media._ID };
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            if (id == LOADER_ALL) {
+            if(id == LOADER_ALL) {
                 CursorLoader cursorLoader = new CursorLoader(getActivity(),
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
-                        IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[3] + "=? OR " + IMAGE_PROJECTION[3] + "=? ",
+                        IMAGE_PROJECTION[4]+">0 AND "+IMAGE_PROJECTION[3]+"=? OR "+IMAGE_PROJECTION[3]+"=? ",
                         new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");
                 return cursorLoader;
-            } else if (id == LOADER_CATEGORY) {
+            }else if(id == LOADER_CATEGORY){
                 CursorLoader cursorLoader = new CursorLoader(getActivity(),
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
-                        IMAGE_PROJECTION[4] + ">0 AND " + IMAGE_PROJECTION[0] + " like '%" + args.getString("path") + "%'",
+                        IMAGE_PROJECTION[4]+">0 AND "+IMAGE_PROJECTION[0]+" like '%"+args.getString("path")+"%'",
                         null, IMAGE_PROJECTION[2] + " DESC");
                 return cursorLoader;
             }
@@ -375,8 +364,8 @@ public class GFMultiImageSelectorFragment extends Fragment {
             return null;
         }
 
-        private boolean fileExist(String path) {
-            if (!TextUtils.isEmpty(path)) {
+        private boolean fileExist(String path){
+            if(!TextUtils.isEmpty(path)){
                 return new File(path).exists();
             }
             return false;
@@ -386,48 +375,48 @@ public class GFMultiImageSelectorFragment extends Fragment {
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
             if (data != null) {
                 if (data.getCount() > 0) {
-                    List<GFImage> gFImages = new ArrayList<>();
+                    List<GFImage> images = new ArrayList<>();
                     data.moveToFirst();
-                    do {
+                    do{
                         String path = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
                         String name = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));
                         long dateTime = data.getLong(data.getColumnIndexOrThrow(IMAGE_PROJECTION[2]));
                         GFImage image = null;
                         if (fileExist(path)) {
                             image = new GFImage(path, name, dateTime);
-                            gFImages.add(image);
+                            images.add(image);
                         }
-                        if (!hasFolderGened) {
+                        if( !hasFolderGened ) {
                             // 获取文件夹名称
                             File folderFile = new File(path).getParentFile();
-                            if (folderFile != null && folderFile.exists()) {
+                            if(folderFile != null && folderFile.exists()){
                                 String fp = folderFile.getAbsolutePath();
                                 GFFolder f = getFolderByPath(fp);
-                                if (f == null) {
-                                    GFFolder GFFolder = new GFFolder();
-                                    GFFolder.name = folderFile.getName();
-                                    GFFolder.path = fp;
-                                    GFFolder.cover = image;
-                                    List<GFImage> GFImageList = new ArrayList<>();
-                                    GFImageList.add(image);
-                                    GFFolder.GFImages = GFImageList;
-                                    mResultGFFolder.add(GFFolder);
-                                } else {
-                                    f.GFImages.add(image);
+                                if(f == null){
+                                    GFFolder folder = new GFFolder();
+                                    folder.name = folderFile.getName();
+                                    folder.path = fp;
+                                    folder.cover = image;
+                                    List<GFImage> imageList = new ArrayList<>();
+                                    imageList.add(image);
+                                    folder.images = imageList;
+                                    mResultFolder.add(folder);
+                                }else {
+                                    f.images.add(image);
                                 }
                             }
                         }
 
-                    } while (data.moveToNext());
-                    mImageAdapter = new GFImageGridAdapter(getActivity(), gFImages, 3);
-                    mGridView.setAdapter(mImageAdapter);
+                    }while(data.moveToNext());
+
+                    mImageAdapter.setData(images);
                     // 设定默认选择
-                    if (resultList != null && resultList.size() > 0) {
+                    if(resultList != null && resultList.size()>0){
                         mImageAdapter.setDefaultSelected(resultList);
                     }
 
-                    if (!hasFolderGened) {
-                        mGFFolderAdapter.setData(mResultGFFolder);
+                    if(!hasFolderGened) {
+                        mFolderAdapter.setData(mResultFolder);
                         hasFolderGened = true;
                     }
 
@@ -441,12 +430,12 @@ public class GFMultiImageSelectorFragment extends Fragment {
         }
     };
 
-    private GFFolder getFolderByPath(String path) {
-        if (mResultGFFolder != null) {
-            for (GFFolder GFFolder : mResultGFFolder) {
-                if (TextUtils.equals(GFFolder.path, path)) {
-                    return GFFolder;
-                }
+    private GFFolder getFolderByPath(String path){
+        if(mResultFolder != null){
+        }
+        for (GFFolder folder : mResultFolder) {
+            if(TextUtils.equals(folder.path, path)){
+                return folder;
             }
         }
         return null;
@@ -455,13 +444,10 @@ public class GFMultiImageSelectorFragment extends Fragment {
     /**
      * 回调接口
      */
-    public interface Callback {
+    public interface Callback{
         void onSingleImageSelected(String path);
-
         void onImageSelected(String path);
-
         void onImageUnselected(String path);
-
         void onCameraShot(File imageFile);
     }
 }

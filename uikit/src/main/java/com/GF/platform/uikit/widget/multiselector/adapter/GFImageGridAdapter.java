@@ -1,7 +1,6 @@
 package com.GF.platform.uikit.widget.multiselector.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,35 +18,34 @@ import java.util.List;
 
 /**
  * 图片Adapter
- * Created by Nereo on 2015/4/7.
- * Updated by nereo on 2016/1/19.
  */
 public class GFImageGridAdapter extends GFCommonAdapter<GFImage> {
 
     private List<GFImage> mSelectedGFImages = new ArrayList<>();
     private int mGridWidth = 0;
 
-    public GFImageGridAdapter(Context context, List<GFImage> GFImages, int column) {
-        super(context, GFImages, R.layout.list_item_image);
+    public GFImageGridAdapter(Context context, int column) {
+        super(context, new ArrayList<GFImage>(), R.layout.list_item_image);
+        mGridWidth = GFUtil.getScreenWidth(context);
         mGridWidth = mGridWidth / column;
     }
 
-    public void setData(List<GFImage> GFImages) {
+    public void setData(List<GFImage> images) {
         mSelectedGFImages.clear();
 
-        if(GFImages != null && GFImages.size()>0){
-            data = GFImages;
+        if(images != null && images.size()>0){
+            data = images;
         }else{
             data.clear();
         }
         notifyDataSetChanged();
     }
 
-    public void select(GFImage GFImage) {
-        if(mSelectedGFImages.contains(GFImage)){
-            mSelectedGFImages.remove(GFImage);
+    public void select(GFImage image) {
+        if(mSelectedGFImages.contains(image)){
+            mSelectedGFImages.remove(image);
         }else{
-            mSelectedGFImages.add(GFImage);
+            mSelectedGFImages.add(image);
         }
         notifyDataSetChanged();
     }
@@ -83,7 +81,7 @@ public class GFImageGridAdapter extends GFCommonAdapter<GFImage> {
         View mask = GFViewHolder.getView(R.id.mask);
 
         indicator.setVisibility(View.VISIBLE);
-        if(mSelectedGFImages.contains(data)){
+        if(mSelectedGFImages.contains(gfImage)){
             // 设置选中状态
             indicator.setImageResource(R.mipmap.btn_selected);
             mask.setVisibility(View.VISIBLE);
@@ -100,7 +98,6 @@ public class GFImageGridAdapter extends GFCommonAdapter<GFImage> {
         mask.setLayoutParams(lp);
         if (imageFile.exists()) {
             // 显示图片
-            Log.i("BJMEngine", "path = " + imageFile.getPath());
             image.setController(GFUtil.getCommonController(image, "file://" + imageFile.getPath(), mGridWidth, mGridWidth));
         }else{
             image.setImageResource(R.mipmap.default_error);

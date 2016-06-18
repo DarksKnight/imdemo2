@@ -20,7 +20,9 @@ import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.event.GFDeleteMessageEvent;
 import com.GF.platform.uikit.event.GFEventDispatch;
 import com.GF.platform.uikit.event.GFFunctionSelectedEvent;
+import com.GF.platform.uikit.event.GFImageSelectEvent;
 import com.GF.platform.uikit.event.GFSendMessageEvent;
+import com.GF.platform.uikit.util.GFLogProxy;
 import com.GF.platform.uikit.util.GFUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.GFChatKeyBoard;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.GFEmoticonPageSetEntity;
@@ -404,8 +406,7 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFunctionSelectedEvent(GFFunctionSelectedEvent event) {
-        // 1.选择照片发送 7.求包养按钮
-        if (event.position == 0) {
+        if (event.str.equals("照片")) {
             Intent intent = new Intent(getContext(), GFMultiImageSelectorActivity.class);
             // 是否显示拍摄图片
             intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
@@ -414,11 +415,18 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
             // 选择模式
             intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SELECT_MODE, GFMultiImageSelectorActivity.MODE_MULTI);
             ((Activity)getContext()).startActivityForResult(intent, 0);
-        } else if (event.position == 7) {
+        } else if (event.str.equals("求包养")) {
             //test
             GFMessage msg = new GFMessage("帅的一般", "", "22:22", "", GFMessage.Category.NURTURE, false);
             mGFMessageControl.addMessage(msg);
             uiRefresh();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onImageSelectEvent(GFImageSelectEvent event) {
+        for(String str : event.resultList) {
+            GFLogProxy.i("path = " + str);
         }
     }
 

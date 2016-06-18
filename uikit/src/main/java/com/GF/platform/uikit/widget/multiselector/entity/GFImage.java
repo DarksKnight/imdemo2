@@ -2,7 +2,6 @@ package com.GF.platform.uikit.widget.multiselector.entity;
 
 /**
  * 图片实体
- * Created by Nereo on 2015/4/7.
  */
 public class GFImage {
     public String path;

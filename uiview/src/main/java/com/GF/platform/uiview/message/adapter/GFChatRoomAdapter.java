@@ -1,8 +1,10 @@
 package com.GF.platform.uiview.message.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +64,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (mList.get(position).getCategory() == GFMessage.Category.NURTURE){
+        if (mList.get(position).getCategory() == GFMessage.Category.NURTURE) {
             return 2;
         } else if (mList.get(position).getCategory() == GFMessage.Category.NORMAL_ME) {
             return 1;
@@ -96,6 +98,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
                 holder.ivChat = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_expression);
                 holder.rl = (RelativeLayout) convertView.findViewById(R.id.bjmgf_message_chat_root);
                 holder.ivSelect = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_list_select);
+                holder.ivLoading = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_loading);
             } else if (msg.getCategory() == GFMessage.Category.NURTURE) {
                 convertView = View.inflate(mContext, R.layout.bjmgf_message_chat_list_msg_info_nurture_item, null);
                 holder.rlImage = (GFCustomRlImage) convertView.findViewById(R.id.bjmgf_message_chat_nurture_bg);
@@ -106,7 +109,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
         }
 
         if (msg.getCategory() == GFMessage.Category.NORMAL_ME || msg.getCategory() == GFMessage.Category.NORMAL_YOU) {
-            normalChat(position, msg, convertView, holder);
+            normalChat(msg, convertView, holder);
         } else if (msg.getCategory() == GFMessage.Category.NURTURE) {
             nurtureChat(holder);
         }
@@ -121,7 +124,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
      */
     private void nurtureChat(ViewHolder holder) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        int size = (int)mContext.getResources().getDimension(R.dimen.gf_20dp);
+        int size = (int) mContext.getResources().getDimension(R.dimen.gf_20dp);
         options.outWidth = size;
         options.outHeight = size;
         Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.bjmgf_message_chat_nurture_title_pic, options);
@@ -135,7 +138,9 @@ public class GFChatRoomAdapter extends BaseAdapter {
      * @param convertView
      * @param holder
      */
-    private void normalChat(final int position, final GFMessage msg, final View convertView, final ViewHolder holder) {
+    private void normalChat(final GFMessage msg, final View convertView, final ViewHolder holder) {
+        AnimationDrawable loadingAnim = (AnimationDrawable) holder.ivLoading.getDrawable();
+        loadingAnim.start();
         if (msg.isShowSelected()) {
             holder.ivSelect.setVisibility(View.VISIBLE);
         } else {
@@ -162,9 +167,9 @@ public class GFChatRoomAdapter extends BaseAdapter {
                 holder.tvChat.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
             }
             float second = msg.getAudioTime() / 1000;
-            holder.tvChat.setText((int)second + "\"");
+            holder.tvChat.setText((int) second + "\"");
             ViewGroup.LayoutParams lp = holder.tvChat.getLayoutParams();
-            int width = (int)(mContext.getResources().getDimension(R.dimen.gf_100dp) + mContext.getResources().getDimension(R.dimen.gf_10dp) * second);
+            int width = (int) (mContext.getResources().getDimension(R.dimen.gf_100dp) + mContext.getResources().getDimension(R.dimen.gf_10dp) * second);
             if (width > GFUtil.getScreenWidth(mContext) / 2) {
                 width = GFUtil.getScreenWidth(mContext) / 2;
             }
@@ -178,6 +183,19 @@ public class GFChatRoomAdapter extends BaseAdapter {
             holder.tvChat.setVisibility(View.VISIBLE);
             resetView(holder);
         }
+
+        ((Activity) mContext).getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                int width = holder.tvChat.getMeasuredWidth();
+                if (width > GFUtil.getScreenWidth(mContext) / 2) {
+                    ViewGroup.LayoutParams lp = holder.tvChat.getLayoutParams();
+                    lp.width = GFUtil.getScreenWidth(mContext) / 2;
+                    holder.tvChat.setLayoutParams(lp);
+                }
+            }
+        });
+
         holder.tvTime.setText(msg.getDate());
 
         holder.tvChat.setOnLongClickListener(new View.OnLongClickListener() {
@@ -245,6 +263,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
         GFCircleImageView ivFace;
         RelativeLayout rl;
         ImageView ivSelect;
+        ImageView ivLoading;
 
         //求包养
         GFCustomRlImage rlImage;

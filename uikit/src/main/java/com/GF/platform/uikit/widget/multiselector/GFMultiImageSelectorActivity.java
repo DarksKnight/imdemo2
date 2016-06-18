@@ -8,15 +8,15 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.event.GFEventDispatch;
 
 import java.io.File;
 import java.util.ArrayList;
 
 /**
  * 多图选择
- * Created by Nereo on 2015/4/7.
- * Updated by nereo on 2016/1/19.
  */
 public class GFMultiImageSelectorActivity extends FragmentActivity implements GFMultiImageSelectorFragment.Callback{
 
@@ -83,9 +83,7 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
             public void onClick(View view) {
                 if(resultList != null && resultList.size() >0){
                     // 返回已选择的图片数据
-                    Intent data = new Intent();
-                    data.putStringArrayListExtra(EXTRA_RESULT, resultList);
-                    setResult(RESULT_OK, data);
+                    GFEventDispatch.post(GFConstant.EVENT_IMAGE_SELECT, resultList);
                     finish();
                 }
             }

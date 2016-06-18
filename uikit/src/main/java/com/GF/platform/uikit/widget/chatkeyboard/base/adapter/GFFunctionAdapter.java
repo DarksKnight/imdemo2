@@ -66,7 +66,7 @@ public class GFFunctionAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.functionSelected(position);
+                    mListener.functionSelected(mList.get(position).getName());
                 }
             });
         }
@@ -81,6 +81,6 @@ public class GFFunctionAdapter extends BaseAdapter {
     }
 
     public interface Listener {
-        void functionSelected(int position);
+        void functionSelected(String str);
     }
 }

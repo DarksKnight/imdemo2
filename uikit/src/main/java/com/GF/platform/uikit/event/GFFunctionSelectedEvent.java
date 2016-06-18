@@ -6,9 +6,9 @@ package com.GF.platform.uikit.event;
  */
 
 public class GFFunctionSelectedEvent extends GFBaseEvent {
-    public int position;
+    public String str;
 
-    public GFFunctionSelectedEvent(int position) {
-        this.position = position;
+    public GFFunctionSelectedEvent(String str) {
+        this.str = str;
     }
 }
