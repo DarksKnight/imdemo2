@@ -11,7 +11,7 @@ import com.GF.platform.uikit.GFConstant;
  * Created by sunhaoyang on 2016/2/22.
  */
 public class GFMessage implements Parcelable {
-
+    private String msgId = "";
     private String nickName = "";
     private String info = "";
     private String date = "";
@@ -19,6 +19,7 @@ public class GFMessage implements Parcelable {
     private Bitmap face = null;
     private Category category = null;
     private Bitmap expression = null;
+    private String picture = "";
     private boolean isTop = false;
     private int oldPosition = 0;
     private String draft = "";
@@ -26,6 +27,31 @@ public class GFMessage implements Parcelable {
     private boolean showSelected = false;
     private float audioTime = 0;
     private String audioPath = "";
+    private boolean isSending = false;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public boolean isSending() {
+        return isSending;
+    }
+
+    public void setSending(boolean sending) {
+        isSending = sending;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
 
     public String getAudioPath() {
         return audioPath;

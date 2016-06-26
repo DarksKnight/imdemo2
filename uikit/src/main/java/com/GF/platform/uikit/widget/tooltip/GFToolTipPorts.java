@@ -1,6 +1,5 @@
 package com.GF.platform.uikit.widget.tooltip;
 
-import android.content.Context;
 import android.view.View;
 
 import com.GF.platform.uikit.entity.GFMessage;
@@ -13,7 +12,7 @@ public interface GFToolTipPorts {
 
     void remove();
 
-    void show(View anchor, GFMessage GFMessage, GFToolView.ControlListener listener);
+    void show(View anchor, GFMessage GFMessage, GFToolView.ControlListener listener, GFToolTipView.ViewInstall install);
 
-    void make(Context context, GFToolTipView.Builder builder);
+    void make(GFToolTipView.Builder builder);
 }

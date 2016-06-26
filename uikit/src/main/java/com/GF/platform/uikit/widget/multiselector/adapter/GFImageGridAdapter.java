@@ -25,7 +25,7 @@ public class GFImageGridAdapter extends GFCommonAdapter<GFImage> {
     private int mGridWidth = 0;
 
     public GFImageGridAdapter(Context context, int column) {
-        super(context, new ArrayList<GFImage>(), R.layout.list_item_image);
+        super(context, new ArrayList<GFImage>(), R.layout.bjmgf_pic_list_item_image);
         mGridWidth = GFUtil.getScreenWidth(context);
         mGridWidth = mGridWidth / column;
     }

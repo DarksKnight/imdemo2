@@ -17,8 +17,7 @@ public class GFViewHolder {
     private GFViewHolder(Context context, ViewGroup parent, int resId,
                          int position) {
         this.views = new SparseArray<View>();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        convertView = inflater.inflate(resId, null);
+        convertView = LayoutInflater.from(context).inflate(resId, null);
         convertView.setTag(this);
     }
 

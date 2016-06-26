@@ -37,12 +37,12 @@ public class GFEmoticonsIndicatorView extends LinearLayout {
         mLeftLayoutParams.leftMargin = GFKeyBoardUtil.dip2px(context, MARGIN_LEFT);
     }
 
-    public void playTo(int position, GFPageSetEntity GFPageSetEntity) {
-        if (!checkPageSetEntity(GFPageSetEntity)) {
+    public void playTo(int position, GFPageSetEntity gfPageSetEntity) {
+        if (!checkPageSetEntity(gfPageSetEntity)) {
             return;
         }
 
-        updateIndicatorCount(GFPageSetEntity.getPageCount());
+        updateIndicatorCount(gfPageSetEntity.getPageCount());
 
         for (ImageView iv : mImageViews) {
             iv.setImageBitmap(mBmpNomal);
@@ -50,12 +50,12 @@ public class GFEmoticonsIndicatorView extends LinearLayout {
         mImageViews.get(position).setImageBitmap(mBmpSelect);
     }
 
-    public void playBy(int startPosition, int nextPosition, GFPageSetEntity GFPageSetEntity) {
-        if (!checkPageSetEntity(GFPageSetEntity)) {
+    public void playBy(int startPosition, int nextPosition, GFPageSetEntity gfPageSetEntity) {
+        if (!checkPageSetEntity(gfPageSetEntity)) {
             return;
         }
 
-        updateIndicatorCount(GFPageSetEntity.getPageCount());
+        updateIndicatorCount(gfPageSetEntity.getPageCount());
 
         if (startPosition < 0 || nextPosition < 0 || nextPosition == startPosition) {
             startPosition = nextPosition = 0;
@@ -72,8 +72,8 @@ public class GFEmoticonsIndicatorView extends LinearLayout {
         imageViewNext.setImageBitmap(mBmpSelect);
     }
 
-    protected boolean checkPageSetEntity(GFPageSetEntity GFPageSetEntity) {
-        if (GFPageSetEntity != null && GFPageSetEntity.isShowIndicator()) {
+    protected boolean checkPageSetEntity(GFPageSetEntity gfPageSetEntity) {
+        if (null != gfPageSetEntity && gfPageSetEntity.isShowIndicator()) {
             setVisibility(VISIBLE);
             return true;
         } else {

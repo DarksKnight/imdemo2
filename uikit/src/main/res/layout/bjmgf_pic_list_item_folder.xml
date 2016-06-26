@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gf_white"
+    android:paddingBottom="@dimen/gf_10dp"
+    android:paddingTop="@dimen/gf_10dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/cover"
+        android:layout_width="@dimen/gf_72dp"
+        android:layout_height="@dimen/gf_72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/gf_10dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/default_error"
+        tools:src="@mipmap/btn_back" />
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/gf_10dp"
+        android:layout_marginRight="@dimen/gf_20dp"
+        android:src="@mipmap/default_check" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/gf_10dp"
+        android:layout_marginRight="@dimen/gf_10dp"
+        android:layout_toLeftOf="@id/indicator"
+        android:layout_toRightOf="@id/cover"
+        android:textColor="@color/gf_black"
+        android:textSize="@dimen/gf_16sp"
+        android:text="img"/>
+
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/gf_10dp"
+        android:layout_marginRight="@dimen/gf_10dp"
+        android:layout_toLeftOf="@id/indicator"
+        android:layout_toRightOf="@id/cover"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="#AFAFAF"
+        android:textSize="@dimen/gf_12sp"
+        tools:text="/sdcard/a/" />
+
+    <TextView
+        android:id="@+id/size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/gf_10dp"
+        android:layout_marginRight="@dimen/gf_10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/indicator"
+        android:layout_toRightOf="@id/cover"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#AFAFAF"
+        android:textSize="12sp"
+        tools:text="1张" />
+
+</RelativeLayout>

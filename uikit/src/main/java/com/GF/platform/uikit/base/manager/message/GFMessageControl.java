@@ -3,7 +3,9 @@ package com.GF.platform.uikit.base.manager.message;
 import com.GF.platform.uikit.entity.GFMessage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 聊天消息管理类
@@ -12,45 +14,51 @@ import java.util.List;
 
 public class GFMessageControl {
 
-    private List<GFMessage> GFMessages = new ArrayList<>();
+    private List<GFMessage> gfMessages = new ArrayList<>();
+    private Map<String, GFMessage> messages = new HashMap<>();
 
     public void setGFMessages(List<GFMessage> msgs) {
-        GFMessages = msgs;
+        gfMessages = msgs;
     }
 
-    public void addMessage(GFMessage GFMessage) {
-        GFMessages.add(GFMessage);
+    public void addMessage(GFMessage gfMessage) {
+        gfMessages.add(gfMessage);
+        messages.put(gfMessage.getMsgId(), gfMessage);
     }
 
     public List<GFMessage> getGFMessages() {
-        return GFMessages;
+        return gfMessages;
     }
 
     public void clear() {
-        GFMessages.clear();
+        gfMessages.clear();
     }
 
     public void remove(int position) {
-        GFMessages.remove(position);
+        gfMessages.remove(position);
     }
 
-    public void remove(GFMessage GFMessage) {
-        GFMessages.remove(GFMessage);
+    public void remove(GFMessage gfMessage) {
+        gfMessages.remove(gfMessage);
     }
 
     public void remove(List<GFMessage> msgs) {
-        GFMessages.removeAll(msgs);
+        gfMessages.removeAll(msgs);
     }
 
     public GFMessage getMessage(int position) {
-        return GFMessages.get(position);
+        return gfMessages.get(position);
+    }
+
+    public GFMessage getMessage(String msgId) {
+        return messages.get(msgId);
     }
 
     public int getMessageSize() {
-        return GFMessages.size();
+        return gfMessages.size();
     }
 
     public void addAll(int position, List<GFMessage> msgs) {
-        GFMessages.addAll(position, msgs);
+        gfMessages.addAll(position, msgs);
     }
 }

@@ -35,7 +35,6 @@ public class GFDropDownListView extends ListView implements OnScrollListener {
 
     //	private View line;
     private ImageView progressBar;
-    private AnimationDrawable progressAnim;
 
     // 用于保证startY的值在一个完整的touch事件中只被记录一次
     private boolean isRecored;
@@ -56,6 +55,8 @@ public class GFDropDownListView extends ListView implements OnScrollListener {
 
     private boolean isMove = false;
 
+    private AnimationDrawable progressAnim = null;
+
     public GFDropDownListView(Context context) {
         super(context);
         init(context);
@@ -74,6 +75,7 @@ public class GFDropDownListView extends ListView implements OnScrollListener {
 
         progressBar = (ImageView) fl.findViewById(R.id.loading);
         measureView(headView);
+
         progressAnim = (AnimationDrawable) progressBar.getDrawable();
         progressAnim.start();
 
@@ -87,7 +89,6 @@ public class GFDropDownListView extends ListView implements OnScrollListener {
                 + headContentHeight);
 
         addHeaderView(fl, null, false);
-//		addHeaderView(headView, null, false);
         setOnScrollListener(this);
 
 

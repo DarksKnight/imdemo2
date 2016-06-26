@@ -57,16 +57,22 @@
             android:paddingTop="@dimen/gf_8dp"
             android:text=""
             android:textColor="@color/gf_black"
-            android:textSize="@dimen/gf_16sp" />
+            android:textSize="@dimen/gf_16sp"
+            android:layout_marginRight="@dimen/gf_70dp"/>
 
         <ImageView
-            android:id="@+id/bjmgf_message_chat_msg_item_loading"
-            android:layout_width="@dimen/gf_20dp"
-            android:layout_height="@dimen/gf_20dp"
+            android:id="@+id/bjmgf_message_chat_msg_item_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="@dimen/gf_70dp"
+            android:background="@mipmap/bjmgf_message_chat_list_msg_you_info"
+            android:paddingLeft="@dimen/gf_10dp"
+            android:paddingTop="@dimen/gf_5dp"
+            android:paddingRight="@dimen/gf_5dp"
+            android:paddingBottom="@dimen/gf_5dp"
             android:layout_toRightOf="@id/bjmgf_message_chat_msg_item_tv"
-            android:src="@anim/bjmgf_message_chat_dropdown_loading"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/gf_10dp"/>
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/bjmgf_message_chat_msg_item_expression"

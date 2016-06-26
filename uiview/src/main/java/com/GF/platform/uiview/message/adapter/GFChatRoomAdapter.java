@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.base.manager.message.GFMessageControl;
 import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.util.GFUtil;
@@ -23,7 +25,7 @@ import com.GF.platform.uikit.widget.emojitextview.GFEmojiTextView;
 import com.GF.platform.uikit.widget.tooltip.GFToolTipView;
 import com.GF.platform.uikit.widget.tooltip.GFToolView;
 import com.GF.platform.uiview.R;
-import com.GF.platform.uiview.message.GFChatRoomGFView;
+import com.GF.platform.uiview.message.GFChatRoomView;
 
 import java.util.List;
 
@@ -36,10 +38,76 @@ public class GFChatRoomAdapter extends BaseAdapter {
     private Context mContext = null;
     private List<GFMessage> mList = null;
     private GFToolView.ControlListener mListener = null;
-    private GFChatRoomGFView mView = null;
+    private GFChatRoomView mView = null;
     private GFKeyBoardPorts mPorts = null;
 
-    public GFChatRoomAdapter(Context context, GFMessageControl GFMessageControl, GFToolView.ControlListener listener, GFChatRoomGFView view, GFKeyBoardPorts ports) {
+    //自定义将视图放置对应位置
+    private GFToolTipView.ViewInstall<GFToolView> toolTipViewInstall = new GFToolTipView.ViewInstall<GFToolView>() {
+        @Override
+        public void doShow(GFToolView view, ListView listView, View anchor, Object... objs) {
+            ViewGroup rootView = (ViewGroup) ((Activity) mContext).getWindow().getDecorView();
+            int toolViewWidth = (int) mContext.getResources().getDimension(R.dimen.gf_205dp);
+            int toolViewHeight = (int) mContext.getResources().getDimension(R.dimen.gf_40dp);
+            rootView.removeView(view);
+            rootView.addView(view);
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+
+            int[] listViewLocation = new int[2];
+            listView.getLocationOnScreen(listViewLocation);
+            int listViewY = listViewLocation[1];
+            int[] location = new int[2];
+            anchor.getLocationOnScreen(location);
+            int x = location[0];
+            int y = location[1];
+
+            int width = anchor.getMeasuredWidth() - toolViewWidth;
+            int leftMargin = x + width / 2;
+            int topMargin = 0;
+
+            if ((y - listViewY) < toolViewHeight) {
+                view.setDirection(GFToolView.Direction.UP);
+                topMargin = y + anchor.getMeasuredHeight();
+            } else {
+                view.setDirection(GFToolView.Direction.DOWN);
+                topMargin = y - toolViewHeight;
+            }
+
+            int screenWidth = GFUtil.getScreenWidth(mContext);
+            int distance = toolViewWidth - screenWidth / 2;
+
+            if (leftMargin > 0 && leftMargin + distance > screenWidth / 2) {
+                if (screenWidth / 2 < toolViewWidth) {
+                    leftMargin -= distance;
+                    view.setArrowLocation(distance, 0);
+                }
+            } else if (leftMargin < 0) {
+                leftMargin += distance;
+                view.setArrowLocation(0, distance);
+            }
+
+            params.setMargins(leftMargin, topMargin, 0, 0);
+            view.setLayoutParams(params);
+
+            GFMessage message = (GFMessage) objs[0];
+            view.setGfMessage(message);
+            if (message.getType() == GFConstant.MSG_TYPE_EXPRESSION) {
+                view.setType(GFToolView.Type.EMOTICON);
+            } else if (message.getType() == GFConstant.MSG_TYPE_TEXT) {
+                view.setType(GFToolView.Type.TEXT);
+            } else if (message.getType() == GFConstant.MSG_TYPE_AUDIO) {
+                view.setType(GFToolView.Type.VOICE);
+            }
+            view.setListener((GFToolView.ControlListener) objs[1]);
+        }
+
+        @Override
+        public void doRemove(View view) {
+            ViewGroup rootView = (ViewGroup) ((Activity) mContext).getWindow().getDecorView();
+            rootView.removeView(view);
+        }
+    };
+
+    public GFChatRoomAdapter(Context context, GFMessageControl GFMessageControl, GFToolView.ControlListener listener, GFChatRoomView view, GFKeyBoardPorts ports) {
         mContext = context;
         mList = GFMessageControl.getGFMessages();
         mListener = listener;
@@ -98,7 +166,12 @@ public class GFChatRoomAdapter extends BaseAdapter {
                 holder.ivChat = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_expression);
                 holder.rl = (RelativeLayout) convertView.findViewById(R.id.bjmgf_message_chat_root);
                 holder.ivSelect = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_list_select);
-                holder.ivLoading = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_loading);
+                holder.sdvPic = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_picture);
+                if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
+                    holder.ivLoading = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_loading);
+                    AnimationDrawable progressAnim = (AnimationDrawable) holder.ivLoading.getDrawable();
+                    progressAnim.start();
+                }
             } else if (msg.getCategory() == GFMessage.Category.NURTURE) {
                 convertView = View.inflate(mContext, R.layout.bjmgf_message_chat_list_msg_info_nurture_item, null);
                 holder.rlImage = (GFCustomRlImage) convertView.findViewById(R.id.bjmgf_message_chat_nurture_bg);
@@ -139,8 +212,6 @@ public class GFChatRoomAdapter extends BaseAdapter {
      * @param holder
      */
     private void normalChat(final GFMessage msg, final View convertView, final ViewHolder holder) {
-        AnimationDrawable loadingAnim = (AnimationDrawable) holder.ivLoading.getDrawable();
-        loadingAnim.start();
         if (msg.isShowSelected()) {
             holder.ivSelect.setVisibility(View.VISIBLE);
         } else {
@@ -157,7 +228,12 @@ public class GFChatRoomAdapter extends BaseAdapter {
             holder.ivChat.setImageBitmap(msg.getExpression());
             holder.tvChat.setVisibility(View.GONE);
             holder.ivChat.setVisibility(View.VISIBLE);
+            holder.sdvPic.setVisibility(View.GONE);
             resetView(holder);
+        } else if (msg.getPicture().trim().length() > 0) {
+            holder.sdvPic.setVisibility(View.VISIBLE);
+            holder.tvChat.setVisibility(View.GONE);
+
         } else if (msg.getAudioTime() > 0) {
             if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
                 holder.tvChat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.bjmgf_message_chat_me_voice_max, 0);
@@ -168,41 +244,32 @@ public class GFChatRoomAdapter extends BaseAdapter {
             }
             float second = msg.getAudioTime() / 1000;
             holder.tvChat.setText((int) second + "\"");
-            ViewGroup.LayoutParams lp = holder.tvChat.getLayoutParams();
-            int width = (int) (mContext.getResources().getDimension(R.dimen.gf_100dp) + mContext.getResources().getDimension(R.dimen.gf_10dp) * second);
-            if (width > GFUtil.getScreenWidth(mContext) / 2) {
-                width = GFUtil.getScreenWidth(mContext) / 2;
-            }
-            lp.width = width;
-            holder.tvChat.setLayoutParams(lp);
             holder.ivChat.setVisibility(View.GONE);
             holder.tvChat.setVisibility(View.VISIBLE);
+            holder.sdvPic.setVisibility(View.GONE);
         } else {
             holder.tvChat.setText(msg.getInfo());
             holder.ivChat.setVisibility(View.GONE);
             holder.tvChat.setVisibility(View.VISIBLE);
+            holder.sdvPic.setVisibility(View.GONE);
             resetView(holder);
         }
 
-        ((Activity) mContext).getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                int width = holder.tvChat.getMeasuredWidth();
-                if (width > GFUtil.getScreenWidth(mContext) / 2) {
-                    ViewGroup.LayoutParams lp = holder.tvChat.getLayoutParams();
-                    lp.width = GFUtil.getScreenWidth(mContext) / 2;
-                    holder.tvChat.setLayoutParams(lp);
-                }
-            }
-        });
-
         holder.tvTime.setText(msg.getDate());
+
+        if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
+            if (msg.isSending()) {
+                holder.ivLoading.setVisibility(View.VISIBLE);
+            } else {
+                holder.ivLoading.setVisibility(View.GONE);
+            }
+        }
 
         holder.tvChat.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (mView.currentStatus == GFChatRoomGFView.Status.NORMAL) {
-                    GFToolTipView.getInstance().show(v, msg, mListener);
+                if (mView.currentStatus == GFChatRoomView.Status.NORMAL) {
+                    GFToolTipView.getInstance().show(v, msg, mListener, toolTipViewInstall);
                 }
                 return true;
             }
@@ -211,8 +278,8 @@ public class GFChatRoomAdapter extends BaseAdapter {
         holder.ivChat.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (mView.currentStatus == GFChatRoomGFView.Status.NORMAL) {
-                    GFToolTipView.getInstance().show(v, msg, mListener);
+                if (mView.currentStatus == GFChatRoomView.Status.NORMAL) {
+                    GFToolTipView.getInstance().show(v, msg, mListener, toolTipViewInstall);
                 }
                 return true;
             }
@@ -234,7 +301,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
             public void onClick(View v) {
                 GFToolTipView.getInstance().remove();
                 mPorts.reset();
-                if (mView.currentStatus == GFChatRoomGFView.Status.EDIT) {
+                if (mView.currentStatus == GFChatRoomView.Status.EDIT) {
                     if (msg.isChecked()) {
                         msg.setChecked(false);
                         holder.ivSelect.setBackgroundResource(R.mipmap.bjmgf_message_chat_list_del_normal);
@@ -257,15 +324,16 @@ public class GFChatRoomAdapter extends BaseAdapter {
 
     public static class ViewHolder {
         //对话（包含你和我）
-        TextView tvTime;
-        GFEmojiTextView tvChat;
-        ImageView ivChat;
-        GFCircleImageView ivFace;
-        RelativeLayout rl;
-        ImageView ivSelect;
-        ImageView ivLoading;
+        public TextView tvTime;
+        public GFEmojiTextView tvChat;
+        public ImageView ivChat;
+        public GFCircleImageView ivFace;
+        public RelativeLayout rl;
+        public ImageView ivSelect;
+        public ImageView ivLoading;
+        public ImageView sdvPic;
 
         //求包养
-        GFCustomRlImage rlImage;
+        public GFCustomRlImage rlImage;
     }
 }

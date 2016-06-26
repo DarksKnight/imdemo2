@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.GFEmojiGlobal;
+import com.GF.platform.uikit.base.GFViewBasePorts;
 import com.GF.platform.uikit.base.manager.message.GFMessageControl;
 import com.GF.platform.uikit.base.manager.message.GFMessageListControl;
 import com.GF.platform.uikit.base.manager.message.GFMessageManager;
@@ -25,8 +28,12 @@ import com.GF.platform.uikit.event.GFSendMessageEvent;
 import com.GF.platform.uikit.util.GFLogProxy;
 import com.GF.platform.uikit.util.GFUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.GFChatKeyBoard;
+import com.GF.platform.uikit.widget.chatkeyboard.base.command.GFCommandPerformer;
+import com.GF.platform.uikit.widget.chatkeyboard.base.command.GFNurtureCommand;
+import com.GF.platform.uikit.widget.chatkeyboard.base.command.GFSelectPicCommand;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.GFEmoticonPageSetEntity;
 import com.GF.platform.uikit.widget.chatkeyboard.base.entity.GFPageSetEntity;
+import com.GF.platform.uikit.widget.chatkeyboard.base.ports.GFKeyBoardCommand;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFEmojiUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFKeyBoardUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFParseDataUtil;
@@ -54,7 +61,7 @@ import static android.os.Looper.getMainLooper;
  * Created by sunhaoyang on 2016/6/8.
  */
 
-public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView.OnRefreshListenerHeader, GFToolView.ControlListener, GFViewPorts {
+public class GFChatRoomView extends LinearLayout implements GFDropDownListView.OnRefreshListenerHeader, GFToolView.ControlListener, GFViewPorts, GFViewBasePorts {
 
     protected Runnable measureAndLayout = new Runnable() {
         @Override
@@ -79,7 +86,6 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
     private List<GFMessage> totalOldMsg = new ArrayList<>();
 
     private GFMessageControl mGFMessageControl = new GFMessageControl();
-
 
     //修改BUG：如果不在handler中操作，会导致无法正确置底
     private Handler handler = new Handler(getContext().getMainLooper()) {
@@ -115,11 +121,11 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0){
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == 0) {
+            if (resultCode == Activity.RESULT_OK) {
                 ArrayList<String> selectPath = data.getStringArrayListExtra(GFMultiImageSelectorActivity.EXTRA_RESULT);
                 StringBuilder sb = new StringBuilder();
-                for(String p: selectPath){
+                for (String p : selectPath) {
                     sb.append(p);
                     sb.append("\n");
                 }
@@ -128,12 +134,18 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
         }
     }
 
+    @Override
+    public void uiRefresh() {
+        adapter.notifyDataSetChanged();
+        handler.sendEmptyMessage(0);
+    }
+
     //状态（正常状态，编辑状态）
     public enum Status {
         NORMAL, EDIT
     }
 
-    public GFChatRoomGFView(Context context) {
+    public GFChatRoomView(Context context) {
         super(context);
         GFEventDispatch.register(this);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -149,8 +161,8 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
         mListView = getView(R.id.bjmgf_message_chat_listview);
 
         view = new GFToolView(getContext());
-        GFToolTipView.getInstance().make(getContext(),
-                new GFToolTipView.Builder(getContext()).setToolTipView(view).setListView(mListView).build());
+        //长按出现复制等功能的视图
+        GFToolTipView.getInstance().make(new GFToolTipView.Builder(getContext()).setToolTipView(view).setListView(mListView).build());
 
         initKeyBoard();
     }
@@ -241,6 +253,7 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
             for (int i = 0; i < 10; i++) {
                 GFMessage m = new GFMessage("火星海盗" + i, "撒打" + i, "11:10", "", GFMessage.Category.NORMAL_ME,
                         false);
+                m.setMsgId(System.currentTimeMillis() / 1000 + "");
                 mGFMessageControl.addMessage(m);
             }
             GFMessageManager.getDefault().put(index + "", mGFMessageControl);
@@ -362,17 +375,25 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSendMessageEvent(GFSendMessageEvent event) {
         //test
-        if (event.GFMessage.getAudioTime() == 0) {
-            mGFMessageControl.addMessage(event.GFMessage);
-            GFMessage msg = new GFMessage("一般的帅", event.GFMessage.getInfo(), GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, event.GFMessage.getExpression(), false);
-            mGFMessageControl.addMessage(msg);
+        if (event.gfMessage.getAudioTime() == 0) {
+            mGFMessageControl.addMessage(event.gfMessage);
+//            GFMessage msg = new GFMessage("一般的帅", event.GFMessage.getInfo(), GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, event.GFMessage.getExpression(), false);
+//            msg.setSending(true);
+//            mGFMessageControl.addMessage(msg);
         } else {
-            mGFMessageControl.addMessage(event.GFMessage);
+            mGFMessageControl.addMessage(event.gfMessage);
             GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, null, false);
             gfMessage.setAudioTime(5000);
             mGFMessageControl.addMessage(gfMessage);
         }
         uiRefresh();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mGFMessageControl.getMessage(mGFMessageControl.getMessageSize() - 1).setSending(false);
+                uiRefresh();
+            }
+        }, 2000);
     }
 
     /**
@@ -406,33 +427,24 @@ public class GFChatRoomGFView extends LinearLayout implements GFDropDownListView
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFunctionSelectedEvent(GFFunctionSelectedEvent event) {
+        GFCommandPerformer cp = GFCommandPerformer.getDefault();
+        GFKeyBoardCommand c = null;
         if (event.str.equals("照片")) {
-            Intent intent = new Intent(getContext(), GFMultiImageSelectorActivity.class);
-            // 是否显示拍摄图片
-            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
-            // 最大可选择图片数量
-            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SELECT_COUNT, 9);
-            // 选择模式
-            intent.putExtra(GFMultiImageSelectorActivity.EXTRA_SELECT_MODE, GFMultiImageSelectorActivity.MODE_MULTI);
-            ((Activity)getContext()).startActivityForResult(intent, 0);
+            c = new GFSelectPicCommand(getContext());
         } else if (event.str.equals("求包养")) {
-            //test
-            GFMessage msg = new GFMessage("帅的一般", "", "22:22", "", GFMessage.Category.NURTURE, false);
-            mGFMessageControl.addMessage(msg);
-            uiRefresh();
+            c = new GFNurtureCommand(mGFMessageControl, this);
         }
+        cp.setCommand(c);
+        cp.doCommand();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onImageSelectEvent(GFImageSelectEvent event) {
-        for(String str : event.resultList) {
-            GFLogProxy.i("path = " + str);
+        for (String str : event.resultList) {
+            GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_ME, null, false);
+            gfMessage.setPicture(str);
+            GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gfMessage);
         }
-    }
-
-    private void uiRefresh() {
-        adapter.notifyDataSetChanged();
-        handler.sendEmptyMessage(0);
     }
 
     public void reload() {

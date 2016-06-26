@@ -19,4 +19,10 @@
     <string name="bjmgf_message_chat_tool_tip_del">删除</string>
     <string name="bjmgf_message_chat_tool_tip_relay">转发</string>
     <string name="bjmgf_message_chat_tool_tip_more">更多...</string>
+
+    <string name="bjmgf_multi_selector_done">完成</string>
+    <string name="bjmgf_multi_selector_all_images">所有图片</string>
+    <string name="bjmgf_multi_selector_preview">预览</string>
+    <string name="bjmgf_multi_selector_limit_error">最多选择9张图片</string>
+    <string name="bjmgf_multi_selector_shot">张</string>
 </resources>

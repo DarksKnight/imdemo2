@@ -18,24 +18,24 @@ import com.GF.platform.uikit.util.GFUtil;
 import com.GF.platform.uikit.widget.swipelayout.util.GFAttributes;
 import com.GF.platform.uiview.R;
 import com.GF.platform.uiview.base.GFViewPorts;
-import com.GF.platform.uiview.messagelist.adapter.GFChatListAdapterGF;
+import com.GF.platform.uiview.messagelist.adapter.GFChatListAdapter;
 
 /**
  * 消息列表
  * Created by sunhaoyang on 2016/6/7.
  */
 
-public class GFChatListGFView extends LinearLayout implements GFChatListAdapterGF.MsgAdapterListener, GFViewPorts {
+public class GFChatListView extends LinearLayout implements GFChatListAdapter.MsgAdapterListener, GFViewPorts {
 
     private RecyclerView rvMessage = null;
     private LinearLayoutManager mLayoutManager = null;
-    private GFChatListAdapterGF adapter = null;
+    private GFChatListAdapter adapter = null;
     private GFHeaderAndFooterRecyclerViewAdapter mGFHeaderAndFooterRecyclerViewAdapter = null;
     private View vFooter = null;
     private View vHeader = null;
     private RelativeLayout rlHeader = null;
 
-    public GFChatListGFView(Context context) {
+    public GFChatListView(Context context) {
         super(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.bjmgf_message_list_view, this, false);
@@ -56,7 +56,7 @@ public class GFChatListGFView extends LinearLayout implements GFChatListAdapterG
     protected void initData() {
         mLayoutManager = new LinearLayoutManager(getContext());
         rvMessage.setLayoutManager(mLayoutManager);
-        adapter = new GFChatListAdapterGF(getContext(), this);
+        adapter = new GFChatListAdapter(getContext(), this);
         adapter.setMode(GFAttributes.Mode.Single);
         mGFHeaderAndFooterRecyclerViewAdapter = new GFHeaderAndFooterRecyclerViewAdapter(adapter);
         rvMessage.setAdapter(mGFHeaderAndFooterRecyclerViewAdapter);

@@ -2,7 +2,6 @@ package com.GF.platform.uikit.widget.chatkeyboard.base.adapter;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +27,11 @@ import java.util.List;
 public class GFEmoticonsAdapter extends GFCommonAdapter<GFEmoticonEntity> {
     private float oldLocationX = -1;
     private float oldLocationY = -1;
-    private GFEmojiListener GFEmojiListener = null;
+    private GFEmojiListener mGFEmojiListener = null;
 
-    public GFEmoticonsAdapter(Context context, List<GFEmoticonEntity> data, GFEmojiListener GFEmojiListener) {
+    public GFEmoticonsAdapter(Context context, List<GFEmoticonEntity> data, GFEmojiListener gfEmojiListener) {
         super(context, data, R.layout.bjmgf_message_item_emoticon_big);
-        this.GFEmojiListener = GFEmojiListener;
+        this.mGFEmojiListener = gfEmojiListener;
     }
 
     @Override
@@ -72,7 +71,6 @@ public class GFEmoticonsAdapter extends GFCommonAdapter<GFEmoticonEntity> {
         lyRoot.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.i("BJMEngine", "event.getAction() = " + event.getAction());
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         oldLocationX = event.getX();
@@ -103,13 +101,15 @@ public class GFEmoticonsAdapter extends GFCommonAdapter<GFEmoticonEntity> {
                         if (oldLocationX == event.getX() && oldLocationY == event.getY()) {
                             if (entity.isEmoji()) {
                                 if (entity.getId().equals("-1")) {
-                                    GFEmojiListener.selectedBackSpace();
+                                    mGFEmojiListener.selectedBackSpace();
                                 } else {
-                                    GFEmojiListener.selectedEmoji(entity);
+                                    mGFEmojiListener.selectedEmoji(entity);
                                 }
                             } else {
                                 GFMessage gfMessage = new GFMessage("帅的一般", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_ME,
                                         GFUtil.getImageThumbnail(entity.getIconUri(), 200, 200), false);
+                                gfMessage.setSending(true);
+                                gfMessage.setMsgId(System.currentTimeMillis() / 1000 + "");
                                 GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gfMessage);
                             }
                         }

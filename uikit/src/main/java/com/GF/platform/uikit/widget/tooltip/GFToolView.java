@@ -29,7 +29,7 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
     private ImageView ivArrowUp = null;
     private Direction currentDirection = Direction.DOWN;
     private Type currentType = Type.TEXT;
-    private GFMessage GFMessage = null;
+    private GFMessage gfMessage = null;
     private ControlListener listener = null;
     //对话框显示的方向
     public enum Direction {
@@ -37,7 +37,7 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
     }
     //输入的内容（文字，表情）
     public enum Type {
-        TEXT, EMOTICON, VOICE;
+        TEXT, EMOTICON, VOICE
     }
 
     public GFToolView(Context context) {
@@ -69,11 +69,11 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
 
         } else if (id == R.id.bjmgf_message_chat_tool_tip_del) {
             if (null != listener) {
-                listener.del(GFMessage);
+                listener.del(gfMessage);
             }
         } else if (id == R.id.bjmgf_message_chat_tool_tip_more) {
             if (null != listener) {
-                listener.more(GFMessage);
+                listener.more(gfMessage);
             }
         }
         GFToolTipView.getInstance().remove();
@@ -85,7 +85,7 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
     private void copy() {
         //调用系统剪切板服务
         ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(getContext().CLIPBOARD_SERVICE);
-        ClipData clipData = ClipData.newPlainText("text", GFMessage.getInfo());
+        ClipData clipData = ClipData.newPlainText("text", gfMessage.getInfo());
         clipboardManager.setPrimaryClip(clipData);
         GFUtil.showToast(getContext(), getResources().getString(R.string.bjmgf_message_chat_copy_success));
     }
@@ -141,8 +141,8 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
         tvRelay.setVisibility(View.VISIBLE);
     }
 
-    public void setGFMessage(GFMessage GFMessage) {
-        this.GFMessage = GFMessage;
+    public void setGfMessage(GFMessage gfMessage) {
+        this.gfMessage = gfMessage;
     }
 
     public void setListener(ControlListener listener) {

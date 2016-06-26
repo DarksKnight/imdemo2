@@ -18,10 +18,10 @@ public class GFEventDispatch {
     private static EventBus event = EventBus.getDefault();
     private static GFBaseEvent gfBaseEvent = null;
 
-    public static void post(int eventId, Object... objs) {
-        switch (eventId) {
+    public static void post(String eventStr, Object... objs) {
+        switch (eventStr) {
             case GFConstant.EVENT_SEND_MESSAGE:
-                gfBaseEvent = new GFSendMessageEvent((GFMessage)objs[0]);
+                gfBaseEvent = new GFSendMessageEvent((GFMessage) objs[0]);
                 break;
             case GFConstant.EVENT_DELETE_MESSAGE:
                 gfBaseEvent = new GFDeleteMessageEvent();
@@ -34,6 +34,9 @@ public class GFEventDispatch {
                 break;
             case GFConstant.EVENT_IMAGE_SELECT:
                 gfBaseEvent = new GFImageSelectEvent((List<String>) objs[0]);
+                break;
+            case GFConstant.EVENT_MESSAGE_STATUS:
+                gfBaseEvent = new GFMessageStatusEvent((boolean) objs[0]);
                 break;
             default:
                 break;

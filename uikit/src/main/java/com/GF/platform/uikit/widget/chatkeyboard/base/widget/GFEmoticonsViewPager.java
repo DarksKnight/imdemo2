@@ -49,11 +49,11 @@ public class GFEmoticonsViewPager extends ViewPager {
         mOnEmoticonsPageViewListener.emoticonSetChanged(GFPageSetEntity);
     }
 
-    public void setCurrentPageSet(GFPageSetEntity GFPageSetEntity) {
-        if (mGFPageSetAdapter == null || mGFPageSetAdapter.getCount() <= 0) {
+    public void setCurrentPageSet(GFPageSetEntity gfPageSetEntity) {
+        if (null == mGFPageSetAdapter || mGFPageSetAdapter.getCount() <= 0) {
             return;
         }
-        setCurrentItem(mGFPageSetAdapter.getPageSetStartPosition(GFPageSetEntity));
+        setCurrentItem(mGFPageSetAdapter.getPageSetStartPosition(gfPageSetEntity));
     }
 
     public void checkPageChange(int position) {
@@ -61,9 +61,9 @@ public class GFEmoticonsViewPager extends ViewPager {
             return;
         }
         int end = 0;
-        for (GFPageSetEntity GFPageSetEntity : mGFPageSetAdapter.getPageSetEntityList()) {
+        for (GFPageSetEntity gfPageSetEntity : mGFPageSetAdapter.getPageSetEntityList()) {
 
-            int size = GFPageSetEntity.getPageCount();
+            int size = gfPageSetEntity.getPageCount();
 
             if (end + size > position) {
 
@@ -71,25 +71,25 @@ public class GFEmoticonsViewPager extends ViewPager {
                 // 上一表情集
                 if (mCurrentPagePosition - end >= size) {
                     if (mOnEmoticonsPageViewListener != null) {
-                        mOnEmoticonsPageViewListener.playTo(position - end, GFPageSetEntity);
+                        mOnEmoticonsPageViewListener.playTo(position - end, gfPageSetEntity);
                     }
                 }
                 // 下一表情集
                 else if (mCurrentPagePosition - end < 0) {
                     if (mOnEmoticonsPageViewListener != null) {
-                        mOnEmoticonsPageViewListener.playTo(0, GFPageSetEntity);
+                        mOnEmoticonsPageViewListener.playTo(0, gfPageSetEntity);
                     }
                 }
                 // 当前表情集
                 else {
                     if (mOnEmoticonsPageViewListener != null) {
-                        mOnEmoticonsPageViewListener.playBy(mCurrentPagePosition - end, position - end, GFPageSetEntity);
+                        mOnEmoticonsPageViewListener.playBy(mCurrentPagePosition - end, position - end, gfPageSetEntity);
                     }
                     isEmoticonSetChanged = false;
                 }
 
                 if (isEmoticonSetChanged && mOnEmoticonsPageViewListener != null) {
-                    mOnEmoticonsPageViewListener.emoticonSetChanged(GFPageSetEntity);
+                    mOnEmoticonsPageViewListener.emoticonSetChanged(gfPageSetEntity);
                 }
                 return;
             }
@@ -105,17 +105,17 @@ public class GFEmoticonsViewPager extends ViewPager {
 
     public interface OnEmoticonsPageViewListener {
 
-        void emoticonSetChanged(GFPageSetEntity GFPageSetEntity);
+        void emoticonSetChanged(GFPageSetEntity gfPageSetEntity);
 
         /**
          * @param position 相对于当前表情集的位置
          */
-        void playTo(int position, GFPageSetEntity GFPageSetEntity);
+        void playTo(int position, GFPageSetEntity gfPageSetEntity);
 
         /**
          * @param oldPosition 相对于当前表情集的始点位置
          * @param newPosition 相对于当前表情集的终点位置
          */
-        void playBy(int oldPosition, int newPosition, GFPageSetEntity GFPageSetEntity);
+        void playBy(int oldPosition, int newPosition, GFPageSetEntity gfPageSetEntity);
     }
 }

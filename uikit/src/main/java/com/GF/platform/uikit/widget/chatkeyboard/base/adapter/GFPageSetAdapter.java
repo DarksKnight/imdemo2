@@ -21,17 +21,17 @@ public class GFPageSetAdapter extends PagerAdapter {
         return mGFPageSetEntityList;
     }
 
-    public int getPageSetStartPosition(GFPageSetEntity GFPageSetEntity) {
-        if (GFPageSetEntity == null || TextUtils.isEmpty(GFPageSetEntity.getUuid())) {
+    public int getPageSetStartPosition(GFPageSetEntity gfPageSetEntity) {
+        if (null == gfPageSetEntity || TextUtils.isEmpty(gfPageSetEntity.getUuid())) {
             return 0;
         }
 
         int startPosition = 0;
         for (int i = 0; i < mGFPageSetEntityList.size(); i++) {
-            if (i == mGFPageSetEntityList.size() - 1 && !GFPageSetEntity.getUuid().equals(mGFPageSetEntityList.get(i).getUuid())) {
+            if (i == mGFPageSetEntityList.size() - 1 && !gfPageSetEntity.getUuid().equals(mGFPageSetEntityList.get(i).getUuid())) {
                 return 0;
             }
-            if (GFPageSetEntity.getUuid().equals(mGFPageSetEntityList.get(i).getUuid())) {
+            if (gfPageSetEntity.getUuid().equals(mGFPageSetEntityList.get(i).getUuid())) {
                 return startPosition;
             }
             startPosition += mGFPageSetEntityList.get(i).getPageCount();
@@ -44,15 +44,15 @@ public class GFPageSetAdapter extends PagerAdapter {
     }
 
     public void add(int index, View view) {
-        GFPageSetEntity GFPageSetEntity = new GFPageSetEntity.Builder()
+        GFPageSetEntity gfPageSetEntity = new GFPageSetEntity.Builder()
                 .addPageEntity(new GFPageEntity(view))
                 .setShowIndicator(false)
                 .build();
-        mGFPageSetEntityList.add(index, GFPageSetEntity);
+        mGFPageSetEntityList.add(index, gfPageSetEntity);
     }
 
-    public void add(GFPageSetEntity GFPageSetEntity) {
-        add(mGFPageSetEntityList.size(), GFPageSetEntity);
+    public void add(GFPageSetEntity gfPageSetEntity) {
+        add(mGFPageSetEntityList.size(), gfPageSetEntity);
     }
 
     public void add(int index, GFPageSetEntity GFPageSetEntity) {
@@ -67,11 +67,11 @@ public class GFPageSetAdapter extends PagerAdapter {
     }
 
     public GFPageEntity getPageEntity(int position) {
-        for (GFPageSetEntity GFPageSetEntity : mGFPageSetEntityList) {
-            if (GFPageSetEntity.getPageCount() > position) {
-                return (GFPageEntity) GFPageSetEntity.getPageEntityList().get(position);
+        for (GFPageSetEntity gfPageSetEntity : mGFPageSetEntityList) {
+            if (gfPageSetEntity.getPageCount() > position) {
+                return (GFPageEntity) gfPageSetEntity.getPageEntityList().get(position);
             } else {
-                position -= GFPageSetEntity.getPageCount();
+                position -= gfPageSetEntity.getPageCount();
             }
         }
         return null;
@@ -80,8 +80,8 @@ public class GFPageSetAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         int count = 0;
-        for (GFPageSetEntity GFPageSetEntity : mGFPageSetEntityList) {
-            count += GFPageSetEntity.getPageCount();
+        for (GFPageSetEntity gfPageSetEntity : mGFPageSetEntityList) {
+            count += gfPageSetEntity.getPageCount();
         }
         return count;
     }

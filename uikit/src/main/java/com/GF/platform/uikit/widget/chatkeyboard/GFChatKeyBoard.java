@@ -74,17 +74,17 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
 
     protected LinearLayout llKeyBoardDel = null;
 
-    protected GFFuncLayout GFFuncLayout = null;
+    protected GFFuncLayout mGFFuncLayout = null;
 
     protected EditText etMain = null;
 
     protected ImageView mBtnSend = null;
 
-    protected GFEmoticonsViewPager GFEmoticonsViewPager = null;
+    protected GFEmoticonsViewPager mGFEmoticonsViewPager = null;
 
-    protected GFEmoticonsToolBarView GFEmoticonsToolBarView = null;
+    protected GFEmoticonsToolBarView mGFEmoticonsToolBarView = null;
 
-    protected GFEmoticonsIndicatorView GFEmoticonsIndicatorView = null;
+    protected GFEmoticonsIndicatorView mGFEmoticonsIndicatorView = null;
 
     protected ViewPager vpFunction = null;
 
@@ -99,7 +99,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
 
     protected int keyBoardHeight = (int) getResources().getDimension(R.dimen.gf_220dp);
 
-    protected GFPageSetAdapter GFPageSetAdapter = new GFPageSetAdapter();
+    protected GFPageSetAdapter mGFPageSetAdapter = new GFPageSetAdapter();
 
     private static final int ID_CHILD = R.id.id_autolayout;
 
@@ -115,7 +115,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
 
     private View moreView = null;
 
-    private GFFunctionAdapter GFFunctionAdapter = null;
+    private GFFunctionAdapter mGFFunctionAdapter = null;
 
     private GFAudioRecordPopupWindow popupWindow = null;
 
@@ -123,7 +123,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         NOMRAL, DEL;
     }
 
-    private GFEmojiListener GFEmojiListener = new GFEmojiListener() {
+    private GFEmojiListener mGFEmojiListener = new GFEmojiListener() {
         @Override
         public void selectedEmoji(GFEmoticonEntity entity) {
             GFEmojiUtil.insert(etMain, GFEmojiUtil
@@ -173,7 +173,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         llKeyBoardDel = getView(R.id.bjmgf_message_keyboard_del);
         ivFace = getView(R.id.bjmgf_message_chat_btn_face);
         ivMore = getView(R.id.bjmgf_message_chat_btn_more);
-        GFFuncLayout = getView(R.id.bjmgf_message_chat_fl);
+        mGFFuncLayout = getView(R.id.bjmgf_message_chat_fl);
         etMain = getView(R.id.bjmgf_message_chat_et);
         mBtnSend = getView(R.id.bjmgf_message_chat_sound_iv);
         mHoldSpeek = getView(R.id.bjmgf_message_chat_hold_tv);
@@ -186,17 +186,17 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
 
     protected void initFuncView() {
         View keyboardView = inflateFunc();
-        GFFuncLayout.addFuncView(FUNC_TYPE_EMOTION, keyboardView);
-        GFEmoticonsViewPager = getView(R.id.bjmgf_message_chat_view_epv);
-        GFEmoticonsIndicatorView = getView(R.id.bjmgf_message_view_eiv);
-        GFEmoticonsToolBarView = getView(R.id.bjmgf_message_chat_view_etv);
-        GFEmoticonsToolBarView.setOnToolBarItemClickListener(this);
-        GFFuncLayout.setOnFuncChangeListener(this);
-        GFEmoticonsViewPager.setOnIndicatorListener(this);
+        mGFFuncLayout.addFuncView(FUNC_TYPE_EMOTION, keyboardView);
+        mGFEmoticonsViewPager = getView(R.id.bjmgf_message_chat_view_epv);
+        mGFEmoticonsIndicatorView = getView(R.id.bjmgf_message_view_eiv);
+        mGFEmoticonsToolBarView = getView(R.id.bjmgf_message_chat_view_etv);
+        mGFEmoticonsToolBarView.setOnToolBarItemClickListener(this);
+        mGFFuncLayout.setOnFuncChangeListener(this);
+        mGFEmoticonsViewPager.setOnIndicatorListener(this);
         mHoldSpeek.setOnTouchListener(this);
 
         moreView = inflateMore();
-        GFFuncLayout.addFuncView(FUNC_TYPE_MORE, moreView);
+        mGFFuncLayout.addFuncView(FUNC_TYPE_MORE, moreView);
         vpFunction = getView(R.id.bjmgf_message_chat_function_vp);
         llDot = getView(R.id.bjmgf_message_chat_function_dots);
         initMoreView();
@@ -243,14 +243,14 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
                                 .size() ? list.size() : (columns
                                 * rows)
                                 * (position + 1)));
-        GFFunctionAdapter = new GFFunctionAdapter(getContext(), subList,
+        mGFFunctionAdapter = new GFFunctionAdapter(getContext(), subList,
                 new GFFunctionAdapter.Listener() {
                     @Override
                     public void functionSelected(String str) {
                         GFEventDispatch.post(GFConstant.EVENT_FUNCTION_SELECTED, str);
                     }
                 });
-        gv.setAdapter(GFFunctionAdapter);
+        gv.setAdapter(mGFFunctionAdapter);
         gv.setNumColumns(columns);
         return gv;
     }
@@ -289,7 +289,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //每次文本变化，都放入草稿中
                 GFMessageListControl.getDefault().getGFMessages().get(index).setDraft(s.toString());
-                if (count > 0) {
+                if (s.length() > 0) {
                     isSend = true;
                     mBtnSend.setImageResource(R.mipmap.bjmgf_message_chat_send_btn);
                     int length = s.toString().length();
@@ -318,22 +318,22 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     protected void setAdapter(GFPageSetAdapter GFPageSetAdapter) {
         if (null != GFPageSetAdapter) {
             ArrayList<GFPageSetEntity> pageSetEntities = GFPageSetAdapter.getPageSetEntityList();
-            GFEmoticonsToolBarView.reset();
+            mGFEmoticonsToolBarView.reset();
             if (null != pageSetEntities) {
                 for (GFPageSetEntity GFPageSetEntity : pageSetEntities) {
-                    GFEmoticonsToolBarView.addToolItemView(GFPageSetEntity);
+                    mGFEmoticonsToolBarView.addToolItemView(GFPageSetEntity);
                 }
             }
         }
-        GFEmoticonsViewPager.setAdapter(GFPageSetAdapter);
+        mGFEmoticonsViewPager.setAdapter(GFPageSetAdapter);
     }
 
-    public void addEmoticons(List<GFPageSetEntity> GFPageSetEntityList) {
-        GFPageSetAdapter.getPageSetEntityList().clear();
-        for (GFPageSetEntity p : GFPageSetEntityList) {
-            GFPageSetAdapter.add(p);
+    public void addEmoticons(List<GFPageSetEntity> gfPageSetEntityList) {
+        mGFPageSetAdapter.getPageSetEntityList().clear();
+        for (GFPageSetEntity p : gfPageSetEntityList) {
+            mGFPageSetAdapter.add(p);
         }
-        setAdapter(GFPageSetAdapter);
+        setAdapter(mGFPageSetAdapter);
     }
 
     @Override
@@ -342,18 +342,20 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         int id = v.getId();
         if (id == R.id.bjmgf_message_chat_btn_face) {
             isClickFunction = true;
-            GFFuncLayout.updateHeight(keyBoardHeight);
+            mGFFuncLayout.updateHeight(keyBoardHeight);
             toggleFuncView(FUNC_TYPE_EMOTION);
             hideSpeek();
         } else if (id == R.id.bjmgf_message_chat_btn_more) {
             isClickFunction = true;
-            GFFuncLayout.updateHeight(keyBoardHeight);
+            mGFFuncLayout.updateHeight(keyBoardHeight);
             toggleFuncView(FUNC_TYPE_MORE);
             hideSpeek();
         } else if (id == R.id.bjmgf_message_chat_sound_iv) {
             if (isSend) {
                 //test
                 GFMessage gfMessage = new GFMessage("帅的一般", etMain.getText().toString(), GFUtil.getDate(), "", GFMessage.Category.NORMAL_ME, false);
+                gfMessage.setSending(true);
+                gfMessage.setMsgId(System.currentTimeMillis() / 1000 + "");
                 GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gfMessage);
                 etMain.setText("");
             } else {
@@ -385,8 +387,8 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
                 moveAudioRecord(event.getRawX(), event.getRawY());
             } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                 if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_DEFAULT) {
-                    GFMessage GFMessage = upAudioRecord();
-                    GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, GFMessage);
+                    GFMessage gFMessage = upAudioRecord();
+                    GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gFMessage);
                 } else if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_PLAY) {
                     mHoldSpeek.setText(getResources().getText(R.string.bjmgf_message_chat_hold_speek));
                     popupWindow.showReplay();
@@ -411,7 +413,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     }
 
     protected void toggleFuncView(int key) {
-        GFFuncLayout.toggleFuncView(key, isSoftKeyboardPop(), etMain);
+        mGFFuncLayout.toggleFuncView(key, isSoftKeyboardPop(), etMain);
     }
 
     @Override
@@ -420,23 +422,23 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     }
 
     @Override
-    public void onToolBarItemClick(GFPageSetEntity GFPageSetEntity) {
-        GFEmoticonsViewPager.setCurrentPageSet(GFPageSetEntity);
+    public void onToolBarItemClick(GFPageSetEntity gfPageSetEntity) {
+        mGFEmoticonsViewPager.setCurrentPageSet(gfPageSetEntity);
     }
 
     @Override
-    public void emoticonSetChanged(GFPageSetEntity GFPageSetEntity) {
-        GFEmoticonsToolBarView.setToolBtnSelect(GFPageSetEntity.getUuid());
+    public void emoticonSetChanged(GFPageSetEntity gfPageSetEntity) {
+        mGFEmoticonsToolBarView.setToolBtnSelect(gfPageSetEntity.getUuid());
     }
 
     @Override
-    public void playTo(int position, GFPageSetEntity GFPageSetEntity) {
-        GFEmoticonsIndicatorView.playTo(position, GFPageSetEntity);
+    public void playTo(int position, GFPageSetEntity gfPageSetEntity) {
+        mGFEmoticonsIndicatorView.playTo(position, gfPageSetEntity);
     }
 
     @Override
-    public void playBy(int oldPosition, int newPosition, GFPageSetEntity GFPageSetEntity) {
-        GFEmoticonsIndicatorView.playBy(oldPosition, newPosition, GFPageSetEntity);
+    public void playBy(int oldPosition, int newPosition, GFPageSetEntity gfPageSetEntity) {
+        mGFEmoticonsIndicatorView.playBy(oldPosition, newPosition, gfPageSetEntity);
     }
 
     @Override
@@ -445,8 +447,8 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
             mSoftKeyboardHeight = height;
             GFKeyBoardUtil.setDefKeyboardHeight(getContext(), mSoftKeyboardHeight);
         }
-        GFFuncLayout.updateHeight(height);
-        GFFuncLayout.setVisibility(true);
+        mGFFuncLayout.updateHeight(height);
+        mGFFuncLayout.setVisibility(true);
     }
 
     @Override
@@ -461,7 +463,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     @Override
     public void reset() {
         GFKeyBoardUtil.closeSoftKeyboard(this);
-        GFFuncLayout.hideAllFuncView();
+        mGFFuncLayout.hideAllFuncView();
         hideFunctionLayout();
     }
 
@@ -524,20 +526,20 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     public GFPageViewInstantiateListener<GFPageEntity> getEmoticonPageViewInstantiateItem() {
         return new GFPageViewInstantiateListener<GFPageEntity>() {
             @Override
-            public View instantiateItem(ViewGroup container, int position, GFPageEntity GFPageEntity) {
-                if (GFPageEntity.getRootView() == null) {
+            public View instantiateItem(ViewGroup container, int position, GFPageEntity gfPageEntity) {
+                if (gfPageEntity.getRootView() == null) {
                     GFEmoticonPageView pageView = new GFEmoticonPageView(container.getContext());
-                    pageView.setNumColumns(GFPageEntity.getRow());
-                    GFPageEntity.setRootView(pageView);
+                    pageView.setNumColumns(gfPageEntity.getRow());
+                    gfPageEntity.setRootView(pageView);
                     try {
                         GFEmoticonsAdapter adapter = new GFEmoticonsAdapter(container.getContext(),
-                                GFPageEntity.getEmoticonList(), GFEmojiListener);
+                                gfPageEntity.getEmoticonList(), mGFEmojiListener);
                         pageView.getEmoticonsGridView().setAdapter(adapter);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                return GFPageEntity.getRootView();
+                return gfPageEntity.getRootView();
             }
         };
     }
@@ -570,7 +572,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     }
 
     public GFEmoticonsToolBarView getGFEmoticonsToolBarView() {
-        return GFEmoticonsToolBarView;
+        return mGFEmoticonsToolBarView;
     }
 
     public void holdAudioRecord() {

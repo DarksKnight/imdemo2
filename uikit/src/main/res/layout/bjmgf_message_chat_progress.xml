@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView android:id="@+id/bjmgf_message_chat_msg_item_loading"
+    android:layout_width="@dimen/gf_20dp"
+    android:layout_height="@dimen/gf_20dp"
+    android:src="@anim/bjmgf_message_chat_dropdown_loading"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

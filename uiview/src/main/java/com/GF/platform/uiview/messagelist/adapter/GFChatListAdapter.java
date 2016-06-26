@@ -22,13 +22,13 @@ import com.GF.platform.uiview.R;
 /**
  * Created by sunhaoyang on 2016/2/22.
  */
-public class GFChatListAdapterGF extends GFSwipeAdapter<GFChatListAdapterGF.ViewHolder> {
+public class GFChatListAdapter extends GFSwipeAdapter<GFChatListAdapter.ViewHolder> {
 
     private Context mContext = null;
     private MsgAdapterListener mListener = null;
     private String targetPackageName = "com.GF.platform.gfplatform.ui.activity.message.MessageActivity";
 
-    public GFChatListAdapterGF(Context context, MsgAdapterListener listener) {
+    public GFChatListAdapter(Context context, MsgAdapterListener listener) {
         mContext = context;
         mListener = listener;
     }

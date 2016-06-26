@@ -43,29 +43,48 @@
             android:layout_centerVertical="true"
             android:visibility="gone"/>
 
-        <com.GF.platform.uikit.widget.emojitextview.GFEmojiTextView
-            android:id="@+id/bjmgf_message_chat_msg_item_tv"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_face_iv"
-            android:background="@mipmap/bjmgf_message_chat_list_msg_me_info"
-            android:gravity="center|left"
-            android:paddingBottom="@dimen/gf_8dp"
-            android:paddingLeft="@dimen/gf_8dp"
-            android:paddingRight="@dimen/gf_10dp"
-            android:paddingTop="@dimen/gf_8dp"
-            android:textColor="@color/gf_white"
-            android:textSize="@dimen/gf_16sp" />
+            android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_face_iv">
 
-        <ImageView
-            android:id="@+id/bjmgf_message_chat_msg_item_loading"
-            android:layout_width="@dimen/gf_20dp"
-            android:layout_height="@dimen/gf_20dp"
-            android:layout_toLeftOf="@id/bjmgf_message_chat_msg_item_tv"
-            android:src="@anim/bjmgf_message_chat_dropdown_loading"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/gf_10dp"/>
+            <com.GF.platform.uikit.widget.emojitextview.GFEmojiTextView
+                android:id="@+id/bjmgf_message_chat_msg_item_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:background="@mipmap/bjmgf_message_chat_list_msg_me_info"
+                android:gravity="center|left"
+                android:paddingBottom="@dimen/gf_8dp"
+                android:paddingLeft="@dimen/gf_8dp"
+                android:paddingRight="@dimen/gf_10dp"
+                android:paddingTop="@dimen/gf_8dp"
+                android:textColor="@color/gf_white"
+                android:textSize="@dimen/gf_16sp"
+                android:layout_marginLeft="@dimen/gf_70dp"/>
+
+            <ImageView
+                android:id="@+id/bjmgf_message_chat_msg_item_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="@dimen/gf_70dp"
+                android:background="@mipmap/bjmgf_message_chat_list_msg_me_info"
+                android:paddingRight="@dimen/gf_10dp"
+                android:paddingTop="@dimen/gf_5dp"
+                android:paddingLeft="@dimen/gf_5dp"
+                android:paddingBottom="@dimen/gf_5dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/bjmgf_message_chat_loading"
+                android:layout_width="@dimen/gf_20dp"
+                android:layout_height="@dimen/gf_20dp"
+                android:src="@anim/bjmgf_message_chat_dropdown_loading"
+                android:layout_marginLeft="@dimen/gf_40dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/bjmgf_message_chat_msg_item_expression"

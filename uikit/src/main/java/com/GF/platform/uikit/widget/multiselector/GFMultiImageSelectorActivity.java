@@ -24,8 +24,6 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
     public static final String EXTRA_SELECT_COUNT = "max_select_count";
     /** 图片选择模式，默认多选 */
     public static final String EXTRA_SELECT_MODE = "select_count_mode";
-    /** 是否显示相机，默认显示 */
-    public static final String EXTRA_SHOW_CAMERA = "show_camera";
     /** 选择结果，返回为 ArrayList&lt;String&gt; 图片路径集合  */
     public static final String EXTRA_RESULT = "select_result";
     /** 默认选择集 */
@@ -40,12 +38,11 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_default);
+        setContentView(R.layout.bjmgf_pic_activity);
 
         Intent intent = getIntent();
         mDefaultCount = intent.getIntExtra(EXTRA_SELECT_COUNT, 9);
         int mode = intent.getIntExtra(EXTRA_SELECT_MODE, MODE_MULTI);
-        boolean isShow = intent.getBooleanExtra(EXTRA_SHOW_CAMERA, true);
         if(mode == MODE_MULTI && intent.hasExtra(EXTRA_DEFAULT_SELECTED_LIST)) {
             resultList = intent.getStringArrayListExtra(EXTRA_DEFAULT_SELECTED_LIST);
         }
@@ -53,7 +50,6 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
         Bundle bundle = new Bundle();
         bundle.putInt(GFMultiImageSelectorFragment.EXTRA_SELECT_COUNT, mDefaultCount);
         bundle.putInt(GFMultiImageSelectorFragment.EXTRA_SELECT_MODE, mode);
-        bundle.putBoolean(GFMultiImageSelectorFragment.EXTRA_SHOW_CAMERA, isShow);
         bundle.putStringArrayList(GFMultiImageSelectorFragment.EXTRA_DEFAULT_SELECTED_LIST, resultList);
 
         getSupportFragmentManager().beginTransaction()
@@ -72,7 +68,7 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
         // 完成按钮
         mSubmitButton = (Button) findViewById(R.id.commit);
         if(resultList == null || resultList.size()<=0){
-            mSubmitButton.setText("Done");
+            mSubmitButton.setText(getString(R.string.bjmgf_multi_selector_done));
             mSubmitButton.setEnabled(false);
         }else{
             updateDoneText();
@@ -91,7 +87,7 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
     }
 
     private void updateDoneText(){
-        mSubmitButton.setText(String.format("%s(%d/%d)", "Done", resultList.size(), mDefaultCount));
+        mSubmitButton.setText(String.format("%s(%d/%d)", getString(R.string.bjmgf_multi_selector_done), resultList.size(), mDefaultCount));
     }
 
     @Override
@@ -125,7 +121,7 @@ public class GFMultiImageSelectorActivity extends FragmentActivity implements GF
         updateDoneText();
         // 当为选择图片时候的状态
         if(resultList.size() == 0){
-            mSubmitButton.setText("Done");
+            mSubmitButton.setText(getResources().getString(R.string.bjmgf_multi_selector_done));
             mSubmitButton.setEnabled(false);
         }
     }

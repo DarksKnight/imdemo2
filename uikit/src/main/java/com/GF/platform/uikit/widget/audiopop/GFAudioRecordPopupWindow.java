@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import com.GF.platform.uikit.widget.audioview.GFAudioRecordView;
 import com.GF.platform.uikit.widget.progressbar.GFCircleProgressBar;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 录音悬浮层
@@ -37,6 +41,7 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
     private ImageView ivDel = null;
     private ImageView ivPlay = null;
     private TextView tvInfo = null;
+    private TextView tvTime = null;
     private LinearLayout llNormal = null;
     private ViewStub vsReplay = null;
     private int delX, delY, delWidth, delHeight;
@@ -67,6 +72,22 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
             }
         }
     };
+    private Handler timeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String minute = time / 60 + "";
+            String second = time % 60 < 10 ? "0" + time % 60 : time % 60 + "";
+            tvTime.setText(minute + ":" + second);
+        }
+    };
+    private int time = 0;
+    private TimerTask task = new TimerTask() {
+        public void run() {
+            time++;
+            timeHandler.sendEmptyMessage(0);
+        }
+    };
 
     public GFAudioRecordPopupWindow(Context context, int keyBoardHeight) {
         this.context = context;
@@ -90,6 +111,13 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
         GFAudioRecordViewRight = (GFAudioRecordView) view.findViewById(R.id.bjmgf_message_chat_audio_view_right);
         llNormal = (LinearLayout) view.findViewById(R.id.bjmgf_message_chat_audio_record_ll);
         vsReplay = (ViewStub) view.findViewById(R.id.bjmgf_message_chat_audio_record_replay_vs);
+        tvTime = (TextView) view.findViewById(R.id.bjmgf_message_chat_audio_time_tv);
+        startTimer();
+    }
+
+    private void startTimer() {
+        Timer timer = new Timer(true);
+        timer.schedule(task, 1000, 1000);
     }
 
     public void initViewLocation() {
@@ -147,7 +175,9 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
 
     public GFMessage getMessage() {
         GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_ME, null, false);
+        gfMessage.setSending(true);
         gfMessage.setAudioTime(3000);
+        gfMessage.setMsgId(System.currentTimeMillis() / 1000 + "");
         return gfMessage;
     }
 
@@ -195,7 +225,7 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
         isPlaying = true;
         btnDetailPlay.setBackgroundResource(R.mipmap.bjmgf_message_chat_audio_record_detail_stop);
         animator.addUpdateListener(listener);
-        animator.setDuration((int)getMessage().getAudioTime());
+        animator.setDuration((int) getMessage().getAudioTime());
         animator.start();
     }
 }

@@ -21,7 +21,7 @@ public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
     int lastSelected = 0;
 
     public GFFolderAdapter(Context context) {
-        super(context, null, R.layout.list_item_folder);
+        super(context, null, R.layout.bjmgf_pic_list_item_folder);
     }
 
     public void setData(List<GFFolder> GFFolders) {
@@ -42,10 +42,10 @@ public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
         ImageView indicator = GFViewHolder.getView(R.id.indicator);
 
         if (position == 0) {
-            name.setText("All Images");
+            name.setText(context.getString(R.string.bjmgf_multi_selector_all_images));
             path.setText("/sdcard");
             size.setText(String.format("%d%s",
-                    getTotalImageSize(), "Shot"));
+                    getTotalImageSize(), context.getString(R.string.bjmgf_multi_selector_shot)));
             if (data.size() > 0) {
                 GFFolder f = data.get(0);
                 cover.setController(GFUtil.getCommonController(cover, "file://" + f.cover.path, (int)context.getResources().getDimension(R.dimen.gf_72dp), (int)context.getResources().getDimension(R.dimen.gf_72dp)));
@@ -54,9 +54,9 @@ public class GFFolderAdapter extends GFCommonAdapter<GFFolder> {
             name.setText(gfFolder.name);
             path.setText(gfFolder.path);
             if (gfFolder.images != null) {
-                size.setText(String.format("%d%s", gfFolder.images.size(), "Shot"));
+                size.setText(String.format("%d%s", gfFolder.images.size(), context.getString(R.string.bjmgf_multi_selector_shot)));
             } else {
-                size.setText("*" + "Shot");
+                size.setText("*" + context.getString(R.string.bjmgf_multi_selector_shot));
             }
             // 显示图片
             if (gfFolder.cover != null) {

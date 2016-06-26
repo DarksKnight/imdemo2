@@ -9,10 +9,10 @@ import com.GF.platform.uikit.entity.GFMessage;
 
 public class GFSendMessageEvent extends GFBaseEvent {
 
-    public GFMessage GFMessage;
+    public GFMessage gfMessage;
 
-    public GFSendMessageEvent(GFMessage GFMessage) {
-        this.GFMessage = GFMessage;
+    public GFSendMessageEvent(GFMessage gfMessage) {
+        this.gfMessage = gfMessage;
     }
 
 }

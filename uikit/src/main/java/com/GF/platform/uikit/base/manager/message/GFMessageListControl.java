@@ -14,7 +14,10 @@ public class GFMessageListControl {
 
     private static GFMessageListControl singleton = null;
 
-    public List<GFMessage> GFMessages = new ArrayList<>();
+    public List<GFMessage> gfMessages = new ArrayList<>();
+
+    private GFMessageListControl() {
+    }
 
     public static GFMessageListControl getDefault() {
         if (singleton == null) {
@@ -27,35 +30,35 @@ public class GFMessageListControl {
         return singleton;
     }
 
-    public void addMessage(GFMessage GFMessage) {
-        GFMessages.add(GFMessage);
+    public void addMessage(GFMessage gfMessage) {
+        gfMessages.add(gfMessage);
     }
 
-    public void addMessage(int position, GFMessage GFMessage) {
-        GFMessages.add(position, GFMessage);
+    public void addMessage(int position, GFMessage gfMessage) {
+        gfMessages.add(position, gfMessage);
     }
 
     public List<GFMessage> getGFMessages() {
-        return GFMessages;
+        return gfMessages;
     }
 
     public void clear() {
-        GFMessages.clear();
+        gfMessages.clear();
     }
 
     public void remove(int position) {
-        GFMessages.remove(position);
+        gfMessages.remove(position);
     }
 
-    public void remove(GFMessage GFMessage) {
-        GFMessages.remove(GFMessage);
+    public void remove(GFMessage gfMessage) {
+        gfMessages.remove(gfMessage);
     }
 
     public GFMessage getMessage(int position) {
-        return GFMessages.get(position);
+        return gfMessages.get(position);
     }
 
     public int getMessageSize() {
-        return GFMessages.size();
+        return gfMessages.size();
     }
 }

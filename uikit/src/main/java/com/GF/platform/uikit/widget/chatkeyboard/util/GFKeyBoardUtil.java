@@ -51,7 +51,7 @@ public class GFKeyBoardUtil {
      * @param view
      */
     public static void closeSoftKeyboard(View view) {
-        if (view == null || view.getWindowToken() == null) {
+        if (null == view || null == view.getWindowToken()) {
             return;
         }
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -63,7 +63,7 @@ public class GFKeyBoardUtil {
      * @param context
      */
     public static void closeSoftKeyboard(Context context) {
-        if (context == null || !(context instanceof Activity) || ((Activity) context).getCurrentFocus() == null) {
+        if (null == context || !(context instanceof Activity) || null == ((Activity) context).getCurrentFocus()) {
             return;
         }
         try{
@@ -81,7 +81,7 @@ public class GFKeyBoardUtil {
      * @param et
      */
     public static void openSoftKeyboard(EditText et) {
-        if (et != null) {
+        if (null != et) {
             et.setFocusable(true);
             et.setFocusableInTouchMode(true);
             et.requestFocus();

@@ -51,19 +51,19 @@ public class GFEmoticonsToolBarView extends RelativeLayout {
         return mInflater == null ? null : mInflater.inflate(R.layout.bjmgf_message_chat_item_toolbtn, null);
     }
 
-    protected void initItemToolBtn(View toolBtnView, int rec, final GFPageSetEntity GFPageSetEntity, OnClickListener onClickListener){
+    protected void initItemToolBtn(View toolBtnView, int rec, final GFPageSetEntity gfPageSetEntity, OnClickListener onClickListener) {
         SimpleDraweeView iv_icon = (SimpleDraweeView) toolBtnView.findViewById(R.id.iv_icon);
         if (rec > 0) {
             iv_icon.setImageResource(rec);
         }
-        if (GFPageSetEntity != null) {
-            iv_icon.setTag(R.id.id_tag_pageset, GFPageSetEntity);
+        if (gfPageSetEntity != null) {
+            iv_icon.setTag(R.id.id_tag_pageset, gfPageSetEntity);
             try {
-                if (null != GFPageSetEntity.getIconUri() && GFPageSetEntity.getIconUri().trim().length() > 0) {
-                    Bitmap bm = BitmapFactory.decodeFile(GFPageSetEntity.getIconUri());
+                if (null != gfPageSetEntity.getIconUri() && gfPageSetEntity.getIconUri().trim().length() > 0) {
+                    Bitmap bm = BitmapFactory.decodeFile(gfPageSetEntity.getIconUri());
                     iv_icon.setImageBitmap(bm);
                 } else {
-                    iv_icon.setImageDrawable(getResources().getDrawable(GFPageSetEntity.getIconId()));
+                    iv_icon.setImageDrawable(getResources().getDrawable(gfPageSetEntity.getIconId()));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -72,15 +72,15 @@ public class GFEmoticonsToolBarView extends RelativeLayout {
         toolBtnView.setOnClickListener(onClickListener != null ? onClickListener : new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mItemClickListeners != null && GFPageSetEntity != null) {
-                    mItemClickListeners.onToolBarItemClick(GFPageSetEntity);
+                if (null != mItemClickListeners && null != gfPageSetEntity) {
+                    mItemClickListeners.onToolBarItemClick(gfPageSetEntity);
                 }
             }
         });
     }
 
     protected View getToolBgBtn(View parentView) {
-        return  parentView.findViewById(R.id.iv_icon);
+        return parentView.findViewById(R.id.iv_icon);
     }
 
     public void addFixedToolItemView(boolean isRight, int rec, final GFPageSetEntity GFPageSetEntity, OnClickListener onClickListener) {
@@ -106,9 +106,9 @@ public class GFEmoticonsToolBarView extends RelativeLayout {
         addToolItemView(0, GFPageSetEntity, null);
     }
 
-    public void addToolItemView(int rec, final GFPageSetEntity GFPageSetEntity, OnClickListener onClickListener) {
+    public void addToolItemView(int rec, final GFPageSetEntity gfPageSetEntity, OnClickListener onClickListener) {
         View toolBtnView = getCommonItemToolBtn();
-        initItemToolBtn(toolBtnView, rec, GFPageSetEntity, onClickListener);
+        initItemToolBtn(toolBtnView, rec, gfPageSetEntity, onClickListener);
         ly_tool.addView(toolBtnView);
         mToolBtnList.add(getToolBgBtn(toolBtnView));
     }
@@ -137,15 +137,11 @@ public class GFEmoticonsToolBarView extends RelativeLayout {
                 @Override
                 public void run() {
                     int mScrollX = hsv_toolbar.getScrollX();
-
-//                    int childX = (int) ViewHelper.getX(ly_tool.getChildAt(position));
-                    int childX = (int)ly_tool.getChildAt(position).getX();
-
+                    int childX = (int) ly_tool.getChildAt(position).getX();
                     if (childX < mScrollX) {
                         hsv_toolbar.scrollTo(childX, 0);
                         return;
                     }
-
                     int childWidth = ly_tool.getChildAt(position).getWidth();
                     int hsvWidth = hsv_toolbar.getWidth();
                     int childRight = childX + childWidth;

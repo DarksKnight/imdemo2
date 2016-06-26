@@ -7,7 +7,9 @@ import android.widget.LinearLayout;
 import com.GF.platform.gfplatform.R;
 import com.GF.platform.gfplatform.base.BaseFragmentActivity;
 import com.GF.platform.uikit.widget.swipeback.GFSwipeBackActivityHelper;
-import com.GF.platform.uiview.message.GFChatRoomGFView;
+import com.GF.platform.uiview.factory.view.GFChatRoomViewFactory;
+import com.GF.platform.uiview.base.GFViewCreator;
+import com.GF.platform.uiview.message.GFChatRoomView;
 
 
 /**
@@ -16,7 +18,7 @@ import com.GF.platform.uiview.message.GFChatRoomGFView;
  */
 public class MessageActivity extends BaseFragmentActivity {
     private LinearLayout llMain = null;
-    private GFChatRoomGFView view = null;
+    private GFChatRoomView view = null;
 
     @Override
     protected int getContentView() {
@@ -26,8 +28,9 @@ public class MessageActivity extends BaseFragmentActivity {
     @Override
     protected void initView() {
         llMain = getView(R.id.bjmgf_message_chat_content_ll);
-        GFChatRoomGFView.index = getIntent().getIntExtra("index", -1);
-        view = new GFChatRoomGFView(this);
+        GFChatRoomView.index = getIntent().getIntExtra("index", -1);
+        GFViewCreator c = GFViewCreator.getDefault();
+        view = c.makeView(this, new GFChatRoomViewFactory());
         llMain.addView(view);
         setTitleText(view.getTitle());
         helper.setPanelSlideListener(new GFSwipeBackActivityHelper.PanelSlideListener() {

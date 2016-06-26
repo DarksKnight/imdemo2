@@ -4,7 +4,9 @@ import android.widget.LinearLayout;
 
 import com.GF.platform.gfplatform.R;
 import com.GF.platform.gfplatform.base.BaseFragment;
-import com.GF.platform.uiview.messagelist.GFChatListGFView;
+import com.GF.platform.uiview.factory.view.GFChatListViewFactory;
+import com.GF.platform.uiview.base.GFViewCreator;
+import com.GF.platform.uiview.messagelist.GFChatListView;
 
 /**
  * 消息列表
@@ -12,7 +14,7 @@ import com.GF.platform.uiview.messagelist.GFChatListGFView;
  */
 public class MessageFragment extends BaseFragment {
     private LinearLayout llMain = null;
-    private GFChatListGFView v = null;
+    private GFChatListView v = null;
 
     @Override
     protected int getContentView() {
@@ -22,7 +24,8 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initView() {
         llMain = getView(R.id.bjmgf_message_content_ll);
-        v = new GFChatListGFView(getActivity());
+        GFViewCreator c = GFViewCreator.getDefault();
+        v = c.makeView(getActivity(), new GFChatListViewFactory());
         llMain.addView(v);
     }
 

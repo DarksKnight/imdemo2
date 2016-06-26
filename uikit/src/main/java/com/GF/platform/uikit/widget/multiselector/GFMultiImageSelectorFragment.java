@@ -47,8 +47,6 @@ public class GFMultiImageSelectorFragment extends Fragment {
     public static final String EXTRA_SELECT_COUNT = "max_select_count";
     /** 图片选择模式，int类型 */
     public static final String EXTRA_SELECT_MODE = "select_count_mode";
-    /** 是否显示相机，boolean类型 */
-    public static final String EXTRA_SHOW_CAMERA = "show_camera";
     /** 默认选择的数据集 */
     public static final String EXTRA_DEFAULT_SELECTED_LIST = "default_result";
     /** 单选 */
@@ -101,7 +99,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_multi_image, container, false);
+        return inflater.inflate(R.layout.bjmgf_fragment_multi_image, container, false);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
         mCategoryText = (TextView) view.findViewById(R.id.category_btn);
         // 初始化，加载所有图片
-        mCategoryText.setText("All Images");
+        mCategoryText.setText(getResources().getString(R.string.bjmgf_multi_selector_all_images));
         mCategoryText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,14 +148,13 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
         mPreviewBtn = (Button) view.findViewById(R.id.preview);
         // 初始化，按钮状态初始化
-        if(resultList == null || resultList.size()<=0){
-            mPreviewBtn.setText("Preview");
+        if(null == resultList || resultList.size()<=0){
+            mPreviewBtn.setText(getResources().getString(R.string.bjmgf_multi_selector_preview));
             mPreviewBtn.setEnabled(false);
         }
         mPreviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO 预览
             }
         });
 
@@ -215,7 +212,7 @@ public class GFMultiImageSelectorFragment extends Fragment {
 
                         if (index == 0) {
                             getActivity().getSupportLoaderManager().restartLoader(LOADER_ALL, null, mLoaderCallback);
-                            mCategoryText.setText("All Images");
+                            mCategoryText.setText(getString(R.string.bjmgf_multi_selector_all_images));
                         } else {
                             GFFolder folder = (GFFolder) v.getAdapter().getItem(index);
                             if (null != folder) {
@@ -303,10 +300,10 @@ public class GFMultiImageSelectorFragment extends Fragment {
                     resultList.remove(image.path);
                     if(resultList.size() != 0) {
                         mPreviewBtn.setEnabled(true);
-                        mPreviewBtn.setText("Preview" + "(" + resultList.size() + ")");
+                        mPreviewBtn.setText(getString(R.string.bjmgf_multi_selector_preview) + "(" + resultList.size() + ")");
                     }else{
                         mPreviewBtn.setEnabled(false);
-                        mPreviewBtn.setText("Preview");
+                        mPreviewBtn.setText(getString(R.string.bjmgf_multi_selector_preview));
                     }
                     if (mCallback != null) {
                         mCallback.onImageUnselected(image.path);
@@ -314,13 +311,13 @@ public class GFMultiImageSelectorFragment extends Fragment {
                 } else {
                     // 判断选择数量问题
                     if(mDesireImageCount == resultList.size()){
-                        Toast.makeText(getActivity(), "Select images amount is limit", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getString(R.string.bjmgf_multi_selector_limit_error), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     resultList.add(image.path);
                     mPreviewBtn.setEnabled(true);
-                    mPreviewBtn.setText("Preview" + "(" + resultList.size() + ")");
+                    mPreviewBtn.setText(getString(R.string.bjmgf_multi_selector_preview) + "(" + resultList.size() + ")");
                     if (mCallback != null) {
                         mCallback.onImageSelected(image.path);
                     }
