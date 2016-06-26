@@ -1,14 +1,14 @@
 package com.GF.platform.uiview.factory.view;
 
+import com.GF.platform.uiview.message.GFChatRoomView;
+
 import android.content.Context;
 import android.view.View;
-
-import com.GF.platform.uiview.message.GFChatRoomView;
 
 /**
  * Created by sunhaoyang on 2016/6/26.
  */
-public class GFChatRoomViewFactory implements GFViewFactory {
+public class GFChatRoomViewFactory extends GFViewFactory {
     @Override
     public View createView(Context context) {
         return new GFChatRoomView(context);

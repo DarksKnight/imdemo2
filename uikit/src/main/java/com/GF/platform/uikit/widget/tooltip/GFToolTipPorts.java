@@ -1,8 +1,10 @@
 package com.GF.platform.uikit.widget.tooltip;
 
-import android.view.View;
-
 import com.GF.platform.uikit.entity.GFMessage;
+import com.GF.platform.uikit.widget.tooltip.GFToolTipView;
+import com.GF.platform.uikit.widget.tooltip.GFToolView;
+
+import android.view.View;
 
 /**
  * 接口

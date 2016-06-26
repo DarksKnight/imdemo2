@@ -1,19 +1,5 @@
 package com.GF.platform.uiview.message.adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.base.manager.message.GFMessageControl;
 import com.GF.platform.uikit.entity.GFMessage;
@@ -26,6 +12,22 @@ import com.GF.platform.uikit.widget.tooltip.GFToolTipView;
 import com.GF.platform.uikit.widget.tooltip.GFToolView;
 import com.GF.platform.uiview.R;
 import com.GF.platform.uiview.message.GFChatRoomView;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -166,7 +168,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
                 holder.ivChat = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_expression);
                 holder.rl = (RelativeLayout) convertView.findViewById(R.id.bjmgf_message_chat_root);
                 holder.ivSelect = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_list_select);
-                holder.sdvPic = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_picture);
+                holder.sdvPic = (SimpleDraweeView) convertView.findViewById(R.id.bjmgf_message_chat_msg_item_picture);
                 if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
                     holder.ivLoading = (ImageView) convertView.findViewById(R.id.bjmgf_message_chat_loading);
                     AnimationDrawable progressAnim = (AnimationDrawable) holder.ivLoading.getDrawable();
@@ -233,17 +235,18 @@ public class GFChatRoomAdapter extends BaseAdapter {
         } else if (msg.getPicture().trim().length() > 0) {
             holder.sdvPic.setVisibility(View.VISIBLE);
             holder.tvChat.setVisibility(View.GONE);
-
+            holder.sdvPic.setImageURI(Uri.parse("file://" + msg.getPicture()));
         } else if (msg.getAudioTime() > 0) {
+            float second = msg.getAudioTime() / 1000;
             if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
                 holder.tvChat.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.bjmgf_message_chat_me_voice_max, 0);
                 holder.tvChat.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                holder.tvChat.setText((int) second + "\"     ");
             } else {
                 holder.tvChat.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.bjmgf_message_chat_you_voice_max, 0, 0, 0);
                 holder.tvChat.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                holder.tvChat.setText("     " + (int) second + "\"");
             }
-            float second = msg.getAudioTime() / 1000;
-            holder.tvChat.setText((int) second + "\"");
             holder.ivChat.setVisibility(View.GONE);
             holder.tvChat.setVisibility(View.VISIBLE);
             holder.sdvPic.setVisibility(View.GONE);
@@ -331,7 +334,7 @@ public class GFChatRoomAdapter extends BaseAdapter {
         public RelativeLayout rl;
         public ImageView ivSelect;
         public ImageView ivLoading;
-        public ImageView sdvPic;
+        public SimpleDraweeView sdvPic;
 
         //求包养
         public GFCustomRlImage rlImage;

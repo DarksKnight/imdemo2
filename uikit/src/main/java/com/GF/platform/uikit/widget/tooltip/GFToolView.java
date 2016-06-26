@@ -1,5 +1,9 @@
 package com.GF.platform.uikit.widget.tooltip;
 
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.entity.GFMessage;
+import com.GF.platform.uikit.util.GFUtil;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -8,10 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.GF.platform.uikit.R;
-import com.GF.platform.uikit.entity.GFMessage;
-import com.GF.platform.uikit.util.GFUtil;
 
 
 /**

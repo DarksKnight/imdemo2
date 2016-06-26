@@ -1,10 +1,10 @@
 package com.GF.platform.uikit.widget.tooltip;
 
+import com.GF.platform.uikit.entity.GFMessage;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ListView;
-
-import com.GF.platform.uikit.entity.GFMessage;
 
 
 /**

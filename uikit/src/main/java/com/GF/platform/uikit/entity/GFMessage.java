@@ -1,10 +1,10 @@
 package com.GF.platform.uikit.entity;
 
+import com.GF.platform.uikit.GFConstant;
+
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.GF.platform.uikit.GFConstant;
 
 /**
  * 消息

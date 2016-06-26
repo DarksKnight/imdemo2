@@ -6,7 +6,7 @@ import android.view.View;
 /**
  * Created by sunhaoyang on 2016/6/26.
  */
-public interface GFViewFactory {
+public abstract class GFViewFactory {
 
-    View createView(Context context);
+    public abstract View createView(Context context);
 }
