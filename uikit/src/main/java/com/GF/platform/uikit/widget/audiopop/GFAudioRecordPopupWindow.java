@@ -23,9 +23,14 @@ import com.GF.platform.uikit.R;
 import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.event.GFEventDispatch;
 import com.GF.platform.uikit.util.GFUtil;
+import com.GF.platform.uikit.util.audio.GFAudioDecoder;
+import com.GF.platform.uikit.util.audio.GFAudioEncoder;
+import com.GF.platform.uikit.util.audio.GFAudioListener;
 import com.GF.platform.uikit.widget.audioview.GFAudioRecordView;
 import com.GF.platform.uikit.widget.progressbar.GFCircleProgressBar;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,12 +60,11 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
     private boolean isPlaying = false;
     private final Random r = new Random();
     private final ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+    private Timer timer = null;
+    private String audioPath = "";
     private ValueAnimator.AnimatorUpdateListener listener = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            int sign = r.nextInt(6);
-            GFAudioRecordViewLeft.setVolumn(sign);
-            GFAudioRecordViewRight.setVolumn(sign);
             int progress = (int) animation.getAnimatedValue();
             btnDetailPlay.setProgress(progress);
             if (progress == 100) {
@@ -69,7 +73,17 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
                 GFAudioRecordViewLeft.reload();
                 GFAudioRecordViewRight.reload();
                 isPlaying = false;
+                timer.cancel();
             }
+        }
+    };
+    private Handler viewHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            double sign = GFUtil.volumnConvert(msg.what);
+            GFAudioRecordViewLeft.setVolumn((int) sign);
+            GFAudioRecordViewRight.setVolumn((int) sign);
         }
     };
     private Handler timeHandler = new Handler() {
@@ -82,14 +96,10 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
         }
     };
     private int time = 0;
-    private TimerTask task = new TimerTask() {
-        public void run() {
-            time++;
-            timeHandler.sendEmptyMessage(0);
-        }
-    };
+    private TimerTask task = null;
 
-    public GFAudioRecordPopupWindow(Context context, int keyBoardHeight) {
+    public GFAudioRecordPopupWindow(Context context, int keyBoardHeight, String path) {
+        this.audioPath = path;
         this.context = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.bjmgf_message_chat_audio_record_view, null);
@@ -97,7 +107,7 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         int height = 0;
         //安卓4.4以上系统，需要获取状态栏高度去除
-        if (Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT > 21) {
             height = GFUtil.getStatusHeight(context);
         }
         setHeight(GFUtil.getScreenHeight(context) - keyBoardHeight - height);
@@ -113,10 +123,23 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
         vsReplay = (ViewStub) view.findViewById(R.id.bjmgf_message_chat_audio_record_replay_vs);
         tvTime = (TextView) view.findViewById(R.id.bjmgf_message_chat_audio_time_tv);
         startTimer();
+        GFAudioEncoder.getDefault().setListener(new GFAudioListener() {
+            @Override
+            public void record(int volumn) {
+                viewHandler.sendEmptyMessage(volumn);
+            }
+        });
+        GFAudioEncoder.getDefault().start(audioPath);
     }
 
-    private void startTimer() {
-        Timer timer = new Timer(true);
+    public void startTimer() {
+        timer = new Timer(true);
+        task = new TimerTask() {
+            public void run() {
+                time++;
+                timeHandler.sendEmptyMessage(0);
+            }
+        };
         timer.schedule(task, 1000, 1000);
     }
 
@@ -176,7 +199,8 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
     public GFMessage getMessage() {
         GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_ME, null, false);
         gfMessage.setSending(true);
-        gfMessage.setAudioTime(3000);
+        gfMessage.setAudioTime(audioTime());
+        gfMessage.setAudioPath(audioPath);
         gfMessage.setMsgId(System.currentTimeMillis() / 1000 + "");
         return gfMessage;
     }
@@ -215,17 +239,62 @@ public class GFAudioRecordPopupWindow extends PopupWindow implements View.OnClic
             if (isPlaying) {
                 animator.end();
                 btnDetailPlay.setProgress(0);
-                animator.start();
             }
+            time = 0;
+            reload();
             play();
         }
     }
 
     private void play() {
+        timer = new Timer(true);
+        task = new TimerTask() {
+            public void run() {
+                time++;
+                timeHandler.sendEmptyMessage(0);
+            }
+        };
+        timer.schedule(task, 1000, 1000);
         isPlaying = true;
         btnDetailPlay.setBackgroundResource(R.mipmap.bjmgf_message_chat_audio_record_detail_stop);
+        GFAudioDecoder.getDefault().setListener(new GFAudioListener() {
+            @Override
+            public void record(int volumn) {
+                viewHandler.sendEmptyMessage(volumn);
+            }
+        });
+        GFAudioDecoder.getDefault().start(audioPath);
         animator.addUpdateListener(listener);
-        animator.setDuration((int) getMessage().getAudioTime());
+        animator.setDuration(getMessage().getAudioTime());
         animator.start();
+    }
+
+    public long audioTime() {
+        long size = 0l;
+        try {
+            File file = new File(audioPath);
+            FileInputStream fis = new FileInputStream(file);
+            size = fis.available();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return size / 61 * 20;
+    }
+
+    public void stopTimer() {
+        time = 0;
+        reload();
+    }
+
+    private void reload() {
+        if (GFAudioEncoder.getDefault().isRunning() || GFAudioDecoder.getDefault().isRunning()) {
+            GFAudioEncoder.getDefault().stop();
+            GFAudioDecoder.getDefault().stop();
+        }
+        timer.cancel();
+        task.cancel();
+        timer = null;
+        task = null;
+        tvTime.setText("0:00");
     }
 }

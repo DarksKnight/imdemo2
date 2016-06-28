@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/gf_5dp"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:gravity="bottom|center_horizontal"
             android:orientation="horizontal">
 
@@ -90,7 +90,7 @@
                 android:id="@+id/bjmgf_message_chat_sound_iv"
                 android:layout_width="@dimen/gf_50dp"
                 android:layout_height="@dimen/gf_30dp"
-                android:background="@mipmap/bjmgf_message_chat_sound_btn" />
+                android:src="@mipmap/bjmgf_message_chat_sound_btn" />
 
         </LinearLayout>
 

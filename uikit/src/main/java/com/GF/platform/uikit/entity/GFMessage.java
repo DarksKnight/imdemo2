@@ -1,10 +1,10 @@
 package com.GF.platform.uikit.entity;
 
-import com.GF.platform.uikit.GFConstant;
-
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.GF.platform.uikit.GFConstant;
 
 /**
  * 消息
@@ -25,12 +25,28 @@ public class GFMessage implements Parcelable {
     private String draft = "";
     private boolean checked = false;
     private boolean showSelected = false;
-    private float audioTime = 0;
+    private long audioTime = 0;
     private String audioPath = "";
     private boolean isSending = false;
 
     public String getPicture() {
+        if (picture.trim().contains("http")) {
+            return picture;
+        } else {
+            return "file://" +picture;
+        }
+    }
+
+    public String getPath() {
         return picture;
+    }
+
+    public boolean isPic() {
+        if (picture.trim().length() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setPicture(String picture) {
@@ -209,17 +225,19 @@ public class GFMessage implements Parcelable {
         isTop = top;
     }
 
-    public float getAudioTime() {
+    public long getAudioTime() {
         return audioTime;
     }
 
-    public void setAudioTime(float audioTime) {
+    public void setAudioTime(long audioTime) {
         this.audioTime = audioTime;
     }
 
     public int getType() {
         if (null == expression) {
-            if (audioTime > 0) {
+            if (picture.trim().length() > 0) {
+                type = GFConstant.MSG_TYPE_PIC;
+            } else if (audioTime > 0) {
                 type = GFConstant.MSG_TYPE_AUDIO;
             } else {
                 type = GFConstant.MSG_TYPE_TEXT;

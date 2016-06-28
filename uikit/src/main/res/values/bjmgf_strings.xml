@@ -15,6 +15,7 @@
     <string name="bjmgf_message_chat_up_audio_record_cancel">松开取消发送</string>
     <string name="bjmgf_message_chat_up_audio_record_play">松开试听</string>
     <string name="bjmgf_message_chat_tool_tip_listen">听筒播放</string>
+    <string name="bjmgf_message_chat_tool_tip_save_disk">存本地</string>
     <string name="bjmgf_message_chat_tool_tip_copy">复制</string>
     <string name="bjmgf_message_chat_tool_tip_del">删除</string>
     <string name="bjmgf_message_chat_tool_tip_relay">转发</string>
@@ -25,4 +26,9 @@
     <string name="bjmgf_multi_selector_preview">预览</string>
     <string name="bjmgf_multi_selector_limit_error">最多选择9张图片</string>
     <string name="bjmgf_multi_selector_shot">张</string>
+
+    <string name="bjmgf_permission_warning_title">帮助</string>
+    <string name="bjmgf_permission_warning_content">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。\n\n最后点击两次后退按钮，即可返回。</string>
+    <string name="bjmgf_permission_warning_quit">退出</string>
+    <string name="bjmgf_permission_warning_setting">设置</string>
 </resources>

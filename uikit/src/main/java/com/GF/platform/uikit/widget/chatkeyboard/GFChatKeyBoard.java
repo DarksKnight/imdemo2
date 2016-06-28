@@ -24,6 +24,7 @@ import com.GF.platform.uikit.R;
 import com.GF.platform.uikit.base.manager.message.GFMessageListControl;
 import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.event.GFEventDispatch;
+import com.GF.platform.uikit.event.GFPermissionEvent;
 import com.GF.platform.uikit.util.GFUtil;
 import com.GF.platform.uikit.widget.audiopop.GFAudioRecordPopupWindow;
 import com.GF.platform.uikit.widget.chatkeyboard.base.adapter.GFChatFunctionAdapter;
@@ -46,6 +47,9 @@ import com.GF.platform.uikit.widget.chatkeyboard.base.widget.GFSoftKeyboardSizeW
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFEmojiUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.util.GFKeyBoardUtil;
 import com.GF.platform.uikit.widget.tooltip.GFToolTipView;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -119,6 +123,9 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
 
     private GFAudioRecordPopupWindow popupWindow = null;
 
+    private boolean permission = true;
+    private boolean isShowPermission = false;
+
     public enum Type {
         NOMRAL, DEL;
     }
@@ -154,6 +161,7 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         initFuncView();
         initEditText();
         addOnResizeListener(this);
+        GFEventDispatch.register(this);
     }
 
     protected void inflateKeyboardBar() {
@@ -182,6 +190,31 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         ivMore.setOnClickListener(this);
         mBtnSend.setOnClickListener(this);
         llKeyBoardDel.setOnClickListener(this);
+
+        ((Activity) getContext()).getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                int size = etMain.getMeasuredHeight();
+                ViewGroup.LayoutParams lp = ivFace.getLayoutParams();
+
+                lp.width = size;
+                lp.height = size;
+                ivFace.setLayoutParams(lp);
+
+                lp = ivMore.getLayoutParams();
+                lp.width = size;
+                lp.height = size;
+                ivMore.setLayoutParams(lp);
+
+                lp = mBtnSend.getLayoutParams();
+                lp.height = size;
+                mBtnSend.setLayoutParams(lp);
+
+                lp = mHoldSpeek.getLayoutParams();
+                lp.height = size;
+                mHoldSpeek.setLayoutParams(lp);
+            }
+        });
     }
 
     protected void initFuncView() {
@@ -375,25 +408,38 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (v.getId() == R.id.bjmgf_message_chat_hold_tv) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                ((Activity) getContext()).getWindow().getDecorView().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        popupWindow = new GFAudioRecordPopupWindow(getContext(), llKeyBoard.getMeasuredHeight());
-                        holdAudioRecord();
+            if (GFUtil.lacksPermissions(getContext(), GFConstant.AUDIO_PERMISSIONS)) {
+                if (!isShowPermission) {
+                    GFUtil.startPermissionDialog((Activity)getContext(), GFConstant.AUDIO_PERMISSIONS);
+                }
+                permission = false;
+                isShowPermission = true;
+            } else {
+                permission = true;
+                isShowPermission = false;
+            }
+            if (permission) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((Activity) getContext()).getWindow().getDecorView().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            popupWindow = new GFAudioRecordPopupWindow(getContext(), llKeyBoard.getMeasuredHeight(), GFConstant.AUDIO_OUT_PATH);
+                            holdAudioRecord();
+                        }
+                    });
+                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    moveAudioRecord(event.getRawX(), event.getRawY());
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    popupWindow.stopTimer();
+                    if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_DEFAULT) {
+                        GFMessage gFMessage = upAudioRecord();
+                        GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gFMessage);
+                    } else if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_PLAY) {
+                        mHoldSpeek.setText(getResources().getText(R.string.bjmgf_message_chat_hold_speek));
+                        popupWindow.showReplay();
+                    } else if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_CANCEL) {
+                        upAudioRecord();
                     }
-                });
-            } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                moveAudioRecord(event.getRawX(), event.getRawY());
-            } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_DEFAULT) {
-                    GFMessage gFMessage = upAudioRecord();
-                    GFEventDispatch.post(GFConstant.EVENT_SEND_MESSAGE, gFMessage);
-                } else if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_PLAY) {
-                    mHoldSpeek.setText(getResources().getText(R.string.bjmgf_message_chat_hold_speek));
-                    popupWindow.showReplay();
-                } else if (popupWindow.getStatus() == GFConstant.AUDIO_STATUS_CANCEL) {
-                    upAudioRecord();
                 }
             }
         }
@@ -595,5 +641,10 @@ public class GFChatKeyBoard extends GFSoftKeyboardSizeWatchLayout
         popupWindow.reset();
         popupWindow.dismiss();
         return popupWindow.getMessage();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPermissionEvent(GFPermissionEvent event) {
+        isShowPermission = false;
     }
 }

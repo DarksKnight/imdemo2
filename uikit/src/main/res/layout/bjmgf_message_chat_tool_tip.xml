@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/gf_205dp"
+    android:layout_width="@dimen/gf_220dp"
     android:layout_height="@dimen/gf_40dp"
     android:orientation="vertical">
 
@@ -29,6 +29,7 @@
             android:textSize="@dimen/gf_16sp" />
 
         <View
+            android:id="@+id/bjmgf_message_chat_tool_tip_copy_line"
             android:layout_width="@dimen/gf_1dp"
             android:layout_height="match_parent"
             android:background="@color/gf_white"/>
@@ -58,6 +59,24 @@
             android:layout_width="@dimen/gf_1dp"
             android:layout_height="match_parent"
             android:background="@color/gf_white"/>
+
+        <TextView
+            android:id="@+id/bjmgf_message_chat_tool_tip_save_disk"
+            android:layout_width="@dimen/gf_60dp"
+            android:layout_height="@dimen/gf_30dp"
+            android:background="@color/gf_message_tool_tip_bg"
+            android:gravity="center"
+            android:text="@string/bjmgf_message_chat_tool_tip_save_disk"
+            android:textColor="@color/gf_white"
+            android:textSize="@dimen/gf_16sp"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/bjmgf_message_chat_tool_tip_save_disk_line"
+            android:layout_width="@dimen/gf_1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gf_white"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/bjmgf_message_chat_tool_tip_del"

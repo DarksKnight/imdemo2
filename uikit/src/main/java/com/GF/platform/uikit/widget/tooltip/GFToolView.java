@@ -1,9 +1,5 @@
 package com.GF.platform.uikit.widget.tooltip;
 
-import com.GF.platform.uikit.R;
-import com.GF.platform.uikit.entity.GFMessage;
-import com.GF.platform.uikit.util.GFUtil;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,6 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.entity.GFMessage;
+import com.GF.platform.uikit.util.GFUtil;
 
 
 /**
@@ -25,8 +25,11 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
     private TextView tvDel = null;
     private TextView tvMore = null;
     private TextView tvListen = null;
+    private TextView tvSaveDisk = null;
     private ImageView ivArrowDown = null;
     private ImageView ivArrowUp = null;
+    private View vSaveDiskLine = null;
+    private View vCopyLine = null;
     private Direction currentDirection = Direction.DOWN;
     private Type currentType = Type.TEXT;
     private GFMessage gfMessage = null;
@@ -37,7 +40,7 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
     }
     //输入的内容（文字，表情）
     public enum Type {
-        TEXT, EMOTICON, VOICE
+        TEXT, EMOTICON, VOICE, PIC
     }
 
     public GFToolView(Context context) {
@@ -51,6 +54,9 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
         tvDel = (TextView) findViewById(R.id.bjmgf_message_chat_tool_tip_del);
         tvMore = (TextView) findViewById(R.id.bjmgf_message_chat_tool_tip_more);
         tvListen = (TextView) findViewById(R.id.bjmgf_message_chat_tool_tip_voice_listen);
+        tvSaveDisk = (TextView) findViewById(R.id.bjmgf_message_chat_tool_tip_save_disk);
+        vSaveDiskLine = findViewById(R.id.bjmgf_message_chat_tool_tip_save_disk_line);
+        vCopyLine = findViewById(R.id.bjmgf_message_chat_tool_tip_copy_line);
         ivArrowDown = (ImageView) findViewById(R.id.bjmgf_message_chat_tool_tip_arrow_down);
         ivArrowUp = (ImageView) findViewById(R.id.bjmgf_message_chat_tool_tip_arrow_up);
 
@@ -58,6 +64,7 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
         tvRelay.setOnClickListener(this);
         tvDel.setOnClickListener(this);
         tvMore.setOnClickListener(this);
+        tvSaveDisk.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +82,8 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
             if (null != listener) {
                 listener.more(gfMessage);
             }
+        } else if (id == R.id.bjmgf_message_chat_tool_tip_save_disk) {
+            saveDisk();
         }
         GFToolTipView.getInstance().remove();
     }
@@ -88,6 +97,10 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
         ClipData clipData = ClipData.newPlainText("text", gfMessage.getInfo());
         clipboardManager.setPrimaryClip(clipData);
         GFUtil.showToast(getContext(), getResources().getString(R.string.bjmgf_message_chat_copy_success));
+    }
+
+    private void saveDisk() {
+        GFUtil.saveImageToGallery(getContext(), gfMessage.getPath());
     }
 
     /**
@@ -128,6 +141,12 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
             tvListen.setVisibility(View.VISIBLE);
             tvCopy.setVisibility(View.GONE);
             tvRelay.setVisibility(View.GONE);
+        } else if (currentType == Type.PIC) {
+            tvCopy.setVisibility(View.GONE);
+            tvRelay.setBackgroundResource(R.drawable.bjmgf_message_chat_tool_tip_bg_left);
+            tvSaveDisk.setVisibility(View.VISIBLE);
+            vSaveDiskLine.setVisibility(View.VISIBLE);
+            vCopyLine.setVisibility(View.GONE);
         } else {
             tvCopy.setVisibility(View.GONE);
             tvRelay.setBackgroundResource(R.drawable.bjmgf_message_chat_tool_tip_bg_left);
@@ -139,6 +158,9 @@ public class GFToolView extends LinearLayout implements View.OnClickListener {
         tvListen.setVisibility(View.GONE);
         tvCopy.setVisibility(View.VISIBLE);
         tvRelay.setVisibility(View.VISIBLE);
+        tvSaveDisk.setVisibility(View.GONE);
+        vSaveDiskLine.setVisibility(View.GONE);
+        vCopyLine.setVisibility(View.VISIBLE);
     }
 
     public void setGfMessage(GFMessage gfMessage) {

@@ -1,6 +1,7 @@
 package com.GF.platform.gfplatform.ui.activity.message;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -56,5 +57,11 @@ public class MessageActivity extends BaseFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         view.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        view.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

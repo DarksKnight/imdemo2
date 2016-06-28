@@ -2,30 +2,47 @@ package com.GF.platform.uikit.util;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.MediaScannerConnection;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.GF.platform.uikit.GFConstant;
+import com.GF.platform.uikit.R;
+import com.GF.platform.uikit.event.GFEventDispatch;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ImageDecodeOptions;
 import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -468,6 +485,7 @@ public class GFUtil {
 
     /**
      * 获取屏幕宽度
+     *
      * @param context
      * @return
      */
@@ -480,6 +498,7 @@ public class GFUtil {
 
     /**
      * 获取屏幕高度
+     *
      * @param context
      * @return
      */
@@ -492,6 +511,7 @@ public class GFUtil {
 
     /**
      * 显示toast
+     *
      * @param context
      * @param text
      */
@@ -501,6 +521,7 @@ public class GFUtil {
 
     /**
      * 获取时间
+     *
      * @return
      */
     public static String getDate() {
@@ -512,15 +533,47 @@ public class GFUtil {
 
     /**
      * 获取状态栏高度
+     *
      * @param context
      * @return
      */
     public static int getStatusHeight(Context context) {
         Rect frame = new Rect();
-        ((Activity)context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        ((Activity) context).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         return frame.top;
     }
 
+    /**
+     * 设置图片
+     *
+     * @param image
+     * @param filePath
+     * @return
+     */
+    public static DraweeController getCommonController(SimpleDraweeView image, String filePath) {
+        ImageDecodeOptions options = ImageDecodeOptions.newBuilder()
+                .setUseLastFrameForPreview(true)
+                .setDecodeAllFrames(true)
+                .setDecodePreviewFrame(true)
+                .build();
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(filePath))
+                .setImageDecodeOptions(options)
+                .setLocalThumbnailPreviewsEnabled(true)
+                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+                .setProgressiveRenderingEnabled(true)
+                .build();
+        return getCommonController(image, request);
+    }
+
+    /**
+     * 设置图片
+     *
+     * @param image
+     * @param filePath
+     * @param width
+     * @param height
+     * @return
+     */
     public static DraweeController getCommonController(SimpleDraweeView image, String filePath, int width, int height) {
         ImageDecodeOptions options = ImageDecodeOptions.newBuilder()
                 .setUseLastFrameForPreview(true)
@@ -534,9 +587,183 @@ public class GFUtil {
                 .setProgressiveRenderingEnabled(true)
                 .setResizeOptions(new ResizeOptions(width, height))
                 .build();
+        return getCommonController(image, request);
+    }
+
+    /**
+     * 设置图片
+     *
+     * @param image
+     * @param request
+     * @return
+     */
+    public static DraweeController getCommonController(SimpleDraweeView image, ImageRequest request) {
         return Fresco.newDraweeControllerBuilder()
                 .setImageRequest(request)
                 .setOldController(image.getController())
                 .build();
+    }
+
+    /**
+     * 判断权限集合
+     *
+     * @param context
+     * @param permissions
+     * @return
+     */
+    public static boolean lacksPermissions(Context context, String... permissions) {
+        for (String permission : permissions) {
+            if (lacksPermission(context, permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断是否缺少权限
+     *
+     * @param context
+     * @param permission
+     * @return
+     */
+    public static boolean lacksPermission(Context context, String permission) {
+        return ContextCompat.checkSelfPermission(context, permission) ==
+                PackageManager.PERMISSION_DENIED;
+    }
+
+    /**
+     * 权限请求弹窗
+     *
+     * @param activity
+     * @param permissions
+     */
+    public static void startPermissionDialog(Activity activity, String... permissions) {
+        ActivityCompat.requestPermissions(activity, permissions, GFConstant.PERMISSION_REQUEST_CODE);
+    }
+
+    /**
+     * 权限是否全部允许
+     *
+     * @param grantResults
+     * @return
+     */
+    public static boolean hasAllPermissionsGranted(@NonNull int[] grantResults) {
+        for (int grantResult : grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 权限提示弹窗
+     *
+     * @param context
+     */
+    public static void showMissingPermissionDialog(final Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(context.getResources().getString(R.string.bjmgf_permission_warning_title));
+        builder.setMessage(context.getResources().getString(R.string.bjmgf_permission_warning_content));
+
+        builder.setNegativeButton(context.getResources().getString(R.string.bjmgf_permission_warning_quit), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GFEventDispatch.post(GFConstant.EVENT_PERMISSION, true);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton(context.getResources().getString(R.string.bjmgf_permission_warning_setting), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GFEventDispatch.post(GFConstant.EVENT_PERMISSION, false);
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + context.getPackageName()));
+                context.startActivity(intent);
+            }
+        });
+
+        builder.setCancelable(false);
+
+        builder.show();
+    }
+
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            return bitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void saveImageToGallery(Context context, String path) {
+        if (android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED)) {
+            Bitmap bmp = BitmapFactory.decodeFile(path);
+            if (bmp != null) {
+                try {
+					/*ContentResolver cr = getContentResolver();
+					String url = MediaStore.Images.Media.insertImage(cr, bmp,
+							String.valueOf(System.currentTimeMillis()), "");*/
+                    File tempFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/"
+                            + String.valueOf(System.currentTimeMillis()) + ".png");
+                    if(tempFile.exists()){
+                        tempFile.delete();
+                    }
+                    try {
+                        tempFile.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    FileOutputStream fOut = null;
+                    try {
+                        fOut = new FileOutputStream(tempFile);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                    try {
+                        fOut.flush();
+                        fOut.close();
+                    } catch (IOException e) {
+                        // TODO: handle exception
+                        e.printStackTrace();
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        String release = android.os.Build.VERSION.RELEASE;
+        String tempID = release.substring(0, 3);
+        if(Double.parseDouble(tempID) >= 4.4){//安卓4.4以上版本的时候使用这个，以下的使用else语句里面的
+            MediaScannerConnection.scanFile(context,new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/" }, null,null);
+        }else {
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"+ Environment.getExternalStorageDirectory())));
+            MediaScannerConnection.scanFile(context,new String[]{Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getPath() + "/" }, null,null);
+        }
+    }
+
+    /**
+     * fresco初始化
+     * @param application
+     */
+    public static void frescoInit(Application application) {
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(application)
+                .setDownsampleEnabled(true)
+                .setDecodeMemoryFileEnabled(true)
+                .setWebpSupportEnabled(true)
+                .build();
+        Fresco.initialize(application, config);
+    }
+
+    public static double volumnConvert(int volumn) {
+        return volumn / 16.5;
     }
 }

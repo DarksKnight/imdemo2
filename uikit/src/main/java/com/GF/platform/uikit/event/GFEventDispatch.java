@@ -38,6 +38,9 @@ public class GFEventDispatch {
             case GFConstant.EVENT_MESSAGE_STATUS:
                 gfBaseEvent = new GFMessageStatusEvent((boolean) objs[0]);
                 break;
+            case GFConstant.EVENT_PERMISSION:
+                gfBaseEvent = new GFPermissionEvent((boolean) objs[0]);
+                break;
             default:
                 break;
         }

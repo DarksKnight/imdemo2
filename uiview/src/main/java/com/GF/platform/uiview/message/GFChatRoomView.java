@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -25,7 +25,6 @@ import com.GF.platform.uikit.event.GFEventDispatch;
 import com.GF.platform.uikit.event.GFFunctionSelectedEvent;
 import com.GF.platform.uikit.event.GFImageSelectEvent;
 import com.GF.platform.uikit.event.GFSendMessageEvent;
-import com.GF.platform.uikit.util.GFLogProxy;
 import com.GF.platform.uikit.util.GFUtil;
 import com.GF.platform.uikit.widget.chatkeyboard.GFChatKeyBoard;
 import com.GF.platform.uikit.widget.chatkeyboard.base.command.GFCommandPerformer;
@@ -377,14 +376,14 @@ public class GFChatRoomView extends LinearLayout implements GFDropDownListView.O
         //test
         if (event.gfMessage.getAudioTime() == 0) {
             mGFMessageControl.addMessage(event.gfMessage);
-//            GFMessage msg = new GFMessage("一般的帅", event.GFMessage.getInfo(), GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, event.GFMessage.getExpression(), false);
+//            GFMessage msg = new GFMessage("一般的帅", event.gfMessage.getInfo(), GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, event.gfMessage.getExpression(), false);
 //            msg.setSending(true);
 //            mGFMessageControl.addMessage(msg);
         } else {
             mGFMessageControl.addMessage(event.gfMessage);
-            GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, null, false);
-            gfMessage.setAudioTime(5000);
-            mGFMessageControl.addMessage(gfMessage);
+//            GFMessage gfMessage = new GFMessage("一般的帅", "", GFUtil.getDate(), "", GFMessage.Category.NORMAL_YOU, null, false);
+//            gfMessage.setAudioTime(5000);
+//            mGFMessageControl.addMessage(gfMessage);
         }
         uiRefresh();
         new Handler().postDelayed(new Runnable() {
@@ -430,6 +429,10 @@ public class GFChatRoomView extends LinearLayout implements GFDropDownListView.O
         GFCommandPerformer cp = GFCommandPerformer.getDefault();
         GFKeyBoardCommand c = null;
         if (event.str.equals("照片")) {
+            if (GFUtil.lacksPermissions(getContext(), GFConstant.PHOTO_SELECT_PERMISSIONS)) {
+                GFUtil.startPermissionDialog((Activity)getContext(), GFConstant.PHOTO_SELECT_PERMISSIONS);
+                return;
+            }
             c = new GFSelectPicCommand(getContext());
         } else if (event.str.equals("求包养")) {
             c = new GFNurtureCommand(mGFMessageControl, this);
@@ -449,5 +452,11 @@ public class GFChatRoomView extends LinearLayout implements GFDropDownListView.O
 
     public void reload() {
         mKeyBoard.reset();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == GFConstant.PERMISSION_REQUEST_CODE && !GFUtil.hasAllPermissionsGranted(grantResults)) {
+            GFUtil.showMissingPermissionDialog(getContext());
+        }
     }
 }

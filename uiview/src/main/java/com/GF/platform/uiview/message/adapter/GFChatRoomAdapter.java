@@ -1,9 +1,24 @@
 package com.GF.platform.uiview.message.adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.GF.platform.uikit.GFConstant;
 import com.GF.platform.uikit.base.manager.message.GFMessageControl;
 import com.GF.platform.uikit.entity.GFMessage;
 import com.GF.platform.uikit.util.GFUtil;
+import com.GF.platform.uikit.util.audio.GFAudioDecoder;
 import com.GF.platform.uikit.widget.chatkeyboard.base.ports.GFKeyBoardPorts;
 import com.GF.platform.uikit.widget.circleimageview.GFCircleImageView;
 import com.GF.platform.uikit.widget.customimage.GFCustomRlImage;
@@ -13,21 +28,6 @@ import com.GF.platform.uikit.widget.tooltip.GFToolView;
 import com.GF.platform.uiview.R;
 import com.GF.platform.uiview.message.GFChatRoomView;
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -98,6 +98,8 @@ public class GFChatRoomAdapter extends BaseAdapter {
                 view.setType(GFToolView.Type.TEXT);
             } else if (message.getType() == GFConstant.MSG_TYPE_AUDIO) {
                 view.setType(GFToolView.Type.VOICE);
+            } else if (message.getType() == GFConstant.MSG_TYPE_PIC) {
+                view.setType(GFToolView.Type.PIC);
             }
             view.setListener((GFToolView.ControlListener) objs[1]);
         }
@@ -232,10 +234,10 @@ public class GFChatRoomAdapter extends BaseAdapter {
             holder.ivChat.setVisibility(View.VISIBLE);
             holder.sdvPic.setVisibility(View.GONE);
             resetView(holder);
-        } else if (msg.getPicture().trim().length() > 0) {
+        } else if (msg.isPic()) {
             holder.sdvPic.setVisibility(View.VISIBLE);
             holder.tvChat.setVisibility(View.GONE);
-            holder.sdvPic.setImageURI(Uri.parse("file://" + msg.getPicture()));
+            holder.sdvPic.setController(GFUtil.getCommonController(holder.sdvPic, msg.getPicture()));
         } else if (msg.getAudioTime() > 0) {
             float second = msg.getAudioTime() / 1000;
             if (msg.getCategory() == GFMessage.Category.NORMAL_ME) {
@@ -288,11 +290,25 @@ public class GFChatRoomAdapter extends BaseAdapter {
             }
         });
 
+        holder.sdvPic.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mView.currentStatus == GFChatRoomView.Status.NORMAL) {
+                    GFToolTipView.getInstance().show(v, msg, mListener, toolTipViewInstall);
+                }
+                return true;
+            }
+        });
+
         holder.tvChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (msg.getAudioTime() > 0) {
-
+                    if (GFAudioDecoder.getDefault().isRunning()) {
+                        GFAudioDecoder.getDefault().stop();
+                    } else {
+                        GFAudioDecoder.getDefault().start(msg.getAudioPath());
+                    }
                 }
                 GFToolTipView.getInstance().remove();
                 mPorts.reset();

@@ -16,4 +16,5 @@ public interface GFViewPorts {
     void finish();
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
+
 }

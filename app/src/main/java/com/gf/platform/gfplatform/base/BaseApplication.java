@@ -2,7 +2,7 @@ package com.GF.platform.gfplatform.base;
 
 import android.app.Application;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.GF.platform.uikit.util.GFUtil;
 
 import im.fir.sdk.FIR;
 
@@ -14,7 +14,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fresco.initialize(this);
+        GFUtil.frescoInit(this);
         FIR.init(this);
     }
 }
